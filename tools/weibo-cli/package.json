@@ -1,0 +1,13 @@
+{
+  "name": "social-agent-weibo-tools",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Pinned official Weibo CLI for local integration checks.",
+  "scripts": {
+    "weibo": "node entry.mjs",
+    "test": "node --test browser-open.test.mjs"
+  },
+  "dependencies": {
+    "@weibo-ai/weibo-cli": "0.9.8"
+  }
+}
