@@ -1,0 +1,3375 @@
+{
+  "schema_version": 1,
+  "catalog_version": "457761d16c50510ec276524e9586d4c6193b82572e460d24da4cf3850aed9d03",
+  "scope": "planned_tool_contract_not_runtime_registration",
+  "parameter_policy": "preserve_official_names_reject_unsupported_fields",
+  "id_policy": "decimal_string_no_javascript_number",
+  "browser_adapter": "@webmcp-bridge/adapter-weibo@0.8.2",
+  "operations": [
+    {
+      "official_command": "article collections/create",
+      "proposed_tool_name": "weibo_article_collections_create",
+      "official_method": "POST",
+      "title": "创建付费专栏",
+      "required_fields": [
+        "title",
+        "money",
+        "content",
+        "video_nums",
+        "images",
+        "category_id"
+      ],
+      "official_flags": [
+        {
+          "name": "type",
+          "type": "int",
+          "required": false,
+          "description": "固定传0"
+        },
+        {
+          "name": "money",
+          "type": "int",
+          "required": true,
+          "description": "专栏定价（分），只能是990/1900/2900/4900/6900/9900/12800之一"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "专栏标题"
+        },
+        {
+          "name": "images",
+          "type": "string",
+          "required": true,
+          "description": "图片JSON字符串，包含albumCover（封面图对象，含pic_id和url字段，只有一张）和albumDesc（介绍图数组，每个元素含pic_id和url字段，没有则传空数组[]）"
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "required": true,
+          "description": "专栏介绍"
+        },
+        {
+          "name": "sale_money",
+          "type": "int",
+          "required": false,
+          "description": "优惠价格（分）"
+        },
+        {
+          "name": "video_nums",
+          "type": "int",
+          "required": true,
+          "description": "预计更新视频数（3-100）"
+        },
+        {
+          "name": "category_id",
+          "type": "int",
+          "required": true,
+          "description": "分类id：97财商知识/98教育课程/99健康科普/100兴趣生活"
+        },
+        {
+          "name": "is_recommend",
+          "type": "int",
+          "required": false,
+          "description": "0聚合页推荐/1不推荐"
+        },
+        {
+          "name": "sale_end_time",
+          "type": "string",
+          "required": false,
+          "description": "优惠价结束时间（如2026-09-12 03:22:59）"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "article collections/delete",
+      "proposed_tool_name": "weibo_article_collections_delete",
+      "official_method": "POST",
+      "title": "删除专栏",
+      "required_fields": [
+        "id"
+      ],
+      "official_flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "要删除的专栏id（或审核流水号）"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "article collections/info",
+      "proposed_tool_name": "weibo_article_collections_info",
+      "official_method": "GET",
+      "title": "查询专栏详情",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": false,
+          "description": "专栏id（或审核流水号）"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "article collections/list",
+      "proposed_tool_name": "weibo_article_collections_list",
+      "official_method": "GET",
+      "title": "查询专栏列表",
+      "required_fields": [
+        "page",
+        "limit",
+        "short_play"
+      ],
+      "official_flags": [
+        {
+          "name": "page",
+          "type": "int",
+          "required": true,
+          "description": "页码"
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "required": true,
+          "description": "每页条数"
+        },
+        {
+          "name": "short_play",
+          "type": "int",
+          "required": true,
+          "description": "是否短剧：1是/0否，默认传0"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "article collections/update",
+      "proposed_tool_name": "weibo_article_collections_update",
+      "official_method": "POST",
+      "title": "更新专栏",
+      "required_fields": [
+        "id",
+        "title",
+        "money",
+        "images",
+        "content",
+        "video_nums",
+        "category_id"
+      ],
+      "official_flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "要更新的专栏id（即列表接口中的collections_id）"
+        },
+        {
+          "name": "money",
+          "type": "int",
+          "required": true,
+          "description": "专栏定价（分），只能是990/1900/2900/4900/6900/9900/12800之一"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "专栏标题"
+        },
+        {
+          "name": "images",
+          "type": "string",
+          "required": true,
+          "description": "图片JSON字符串，包含albumCover（封面图对象，含pic_id和url字段，只有一张）和albumDesc（介绍图数组，每个元素含pic_id和url字段，没有则传空数组[]）"
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "required": true,
+          "description": "专栏介绍"
+        },
+        {
+          "name": "change_img",
+          "type": "int",
+          "required": false,
+          "description": "是否改了封面/简介图（1表示改了，需重新审核）"
+        },
+        {
+          "name": "sale_money",
+          "type": "int",
+          "required": false,
+          "description": "优惠价格（分）"
+        },
+        {
+          "name": "video_nums",
+          "type": "int",
+          "required": true,
+          "description": "预计更新视频数，不能比当前已有章节数小"
+        },
+        {
+          "name": "category_id",
+          "type": "int",
+          "required": true,
+          "description": "分类id：97财商知识/98教育课程/99健康科普/100兴趣生活"
+        },
+        {
+          "name": "is_recommend",
+          "type": "int",
+          "required": false,
+          "description": "0聚合页推荐/1不推荐"
+        },
+        {
+          "name": "sale_end_time",
+          "type": "string",
+          "required": false,
+          "description": "优惠价结束时间"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "article config",
+      "proposed_tool_name": "weibo_article_config",
+      "official_method": "GET",
+      "title": "查询发文配置",
+      "required_fields": [],
+      "official_flags": [],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "article preview",
+      "proposed_tool_name": "weibo_article_preview",
+      "official_method": "GET",
+      "title": "生成文章预览链接",
+      "required_fields": [
+        "title",
+        "content",
+        "free_content",
+        "pay_type"
+      ],
+      "official_flags": [
+        {
+          "name": "cover",
+          "type": "string",
+          "required": false,
+          "description": "封面图URL（须为*.sinaimg.cn域名）"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "文章标题（1-32字）"
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "required": true,
+          "description": "正文内容（Markdown格式）"
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "required": false,
+          "description": "文章摘要"
+        },
+        {
+          "name": "pay_type",
+          "type": "string",
+          "required": true,
+          "description": "付费类型",
+          "enum": [
+            "free",
+            "vclub",
+            "single_pay_new"
+          ]
+        },
+        {
+          "name": "free_content",
+          "type": "string",
+          "required": true,
+          "description": "免费试读内容"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "partial",
+      "browser_tools": [
+        "article.draftMarkdown"
+      ],
+      "verification": "not_tested",
+      "notes": "仅功能近似。后台草稿可能写入服务器，不等同只读官方预览；付费参数和免费预览范围尚未对齐。"
+    },
+    {
+      "official_command": "article publish",
+      "proposed_tool_name": "weibo_article_publish",
+      "official_method": "POST",
+      "title": "发布文章",
+      "required_fields": [
+        "title",
+        "content",
+        "text",
+        "pay_type"
+      ],
+      "official_flags": [
+        {
+          "name": "text",
+          "type": "string",
+          "required": true,
+          "description": "短微博文案（≤1980字）"
+        },
+        {
+          "name": "cover",
+          "type": "string",
+          "required": false,
+          "description": "封面图URL（须为*.sinaimg.cn域名）"
+        },
+        {
+          "name": "money",
+          "type": "string",
+          "required": false,
+          "description": "单篇付费金额（pay_type=single_pay_new时必填，单位元）"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "文章标题（1-64字）"
+        },
+        {
+          "name": "writer",
+          "type": "string",
+          "required": false,
+          "description": "第二作者（1-48字）"
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "required": true,
+          "description": "正文内容（Markdown格式，1-300000字）"
+        },
+        {
+          "name": "is_word",
+          "type": "int",
+          "required": false,
+          "description": "导入word（0/1，默认0）"
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "required": false,
+          "description": "文章简介"
+        },
+        {
+          "name": "pay_type",
+          "type": "string",
+          "required": true,
+          "description": "付费类型",
+          "enum": [
+            "free",
+            "vclub",
+            "single_pay_new",
+            "vclub_single_pay"
+          ]
+        },
+        {
+          "name": "freecontent",
+          "type": "string",
+          "required": false,
+          "description": "免费试读内容（pay_type非free时必填）"
+        },
+        {
+          "name": "collection_id",
+          "type": "string",
+          "required": false,
+          "description": "专栏ID"
+        },
+        {
+          "name": "follow_to_read",
+          "type": "int",
+          "required": false,
+          "description": "加关注看全文（0/1，默认0）"
+        },
+        {
+          "name": "vclub_single_pay_money",
+          "type": "string",
+          "required": false,
+          "description": "V+单篇付费金额（pay_type=vclub_single_pay时必填，单位元）"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "partial",
+      "browser_tools": [
+        "article.publishMarkdown"
+      ],
+      "verification": "not_tested",
+      "notes": "仅工具存在；不能认定标题、短微博同步、pay_type 与付费/专栏语义兼容，不在首版开放。"
+    },
+    {
+      "official_command": "attitudes create",
+      "proposed_tool_name": "weibo_attitudes_create",
+      "official_method": "POST",
+      "title": "发布一条表态",
+      "required_fields": [
+        "id"
+      ],
+      "official_flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "微博ID"
+        },
+        {
+          "name": "attitude",
+          "type": "string",
+          "required": false,
+          "description": "表态内容，默认为heart。heart(赞)；happy(喜)；sad(悲)；surprise(惊)；angry(怒)；hug(抱一抱)"
+        },
+        {
+          "name": "attitude_type",
+          "type": "string",
+          "required": false,
+          "description": "表态类型，默认为1。1(赞)；2(喜)；3(惊)；4(悲)；5(怒)；8(抱一抱)"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "attitudes destroy",
+      "proposed_tool_name": "weibo_attitudes_destroy",
+      "official_method": "POST",
+      "title": "删除一条表态",
+      "required_fields": [
+        "id"
+      ],
+      "official_flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "微博ID"
+        },
+        {
+          "name": "attid",
+          "type": "int",
+          "required": false,
+          "description": "表态ID"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "attitudes show/biz",
+      "proposed_tool_name": "weibo_attitudes_show_biz",
+      "official_method": "GET",
+      "title": "根据微博ID返回某条微博的赞列表",
+      "required_fields": [
+        "id"
+      ],
+      "official_flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "微博ID。"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的赞信息，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则只返回ID比since_id大的赞信息（即比since_id发表时间晚的赞信息），默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "comments by_me/biz",
+      "proposed_tool_name": "weibo_comments_by_me_biz",
+      "official_method": "GET",
+      "title": "获取当前登录用户发出的评论列表",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "filter_by_source",
+          "type": "int",
+          "required": false,
+          "description": "来源筛选类型，0：全部、1：来自微博的评论、2：来自微群的评论，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "comments by_me/other",
+      "proposed_tool_name": "weibo_comments_by_me_other",
+      "official_method": "GET",
+      "title": "获取某个用户发出的评论列表",
+      "required_fields": [
+        "uid"
+      ],
+      "official_flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的用户ID。（必填）"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "filter_by_source",
+          "type": "int",
+          "required": false,
+          "description": "来源筛选类型，0：全部、1：来自微博的评论、2：来自微群的评论，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "comments create",
+      "proposed_tool_name": "weibo_comments_create",
+      "official_method": "POST",
+      "title": "评论一条微博",
+      "required_fields": [
+        "comment",
+        "id"
+      ],
+      "official_flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "需要评论的微博ID。"
+        },
+        {
+          "name": "comment",
+          "type": "string",
+          "required": true,
+          "description": "评论内容，内容不超过140个汉字。"
+        },
+        {
+          "name": "pic_ids",
+          "type": "string",
+          "required": false,
+          "description": "需要评论的图片ID，多个之间用逗号分隔。"
+        },
+        {
+          "name": "is_repost",
+          "type": "int",
+          "required": false,
+          "description": "评论的同时转发到我的微博, 0:不转发。1：转发。默认0."
+        },
+        {
+          "name": "comment_ori",
+          "type": "int",
+          "required": false,
+          "description": "当评论转发微博时，是否评论给原微博，0：否、1：是，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "partial",
+      "browser_tools": [
+        "comment.create"
+      ],
+      "verification": "not_tested",
+      "notes": "id 需转换为目标微博 URL，comment 映射 text；只确认工具存在，未测试预演或提交。"
+    },
+    {
+      "official_command": "comments destroy",
+      "proposed_tool_name": "weibo_comments_destroy",
+      "official_method": "POST",
+      "title": "删除一条评论",
+      "required_fields": [
+        "cid"
+      ],
+      "official_flags": [
+        {
+          "name": "cid",
+          "type": "int",
+          "required": true,
+          "description": "要删除的评论ID，只能删除登录用户自己发布的评论。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "comments mentions/biz",
+      "proposed_tool_name": "weibo_comments_mentions_biz",
+      "official_method": "GET",
+      "title": "获取@当前登录用户的评论",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        },
+        {
+          "name": "filter_by_source",
+          "type": "int",
+          "required": false,
+          "description": "来源筛选类型，0：全部、1：来自微博的评论、2：来自微群的评论，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "comments mentions/other",
+      "proposed_tool_name": "weibo_comments_mentions_other",
+      "official_method": "GET",
+      "title": "获取@某人的评论",
+      "required_fields": [
+        "uid"
+      ],
+      "official_flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的用户ID。（必填）"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        },
+        {
+          "name": "filter_by_source",
+          "type": "int",
+          "required": false,
+          "description": "来源筛选类型，0：全部、1：来自微博的评论、2：来自微群的评论，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "comments reply",
+      "proposed_tool_name": "weibo_comments_reply",
+      "official_method": "POST",
+      "title": "回复一条评论",
+      "required_fields": [
+        "cid",
+        "id",
+        "comment"
+      ],
+      "official_flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "需要评论的微博ID。"
+        },
+        {
+          "name": "cid",
+          "type": "int",
+          "required": true,
+          "description": "需要回复的评论ID。"
+        },
+        {
+          "name": "comment",
+          "type": "string",
+          "required": true,
+          "description": "回复评论内容，内容不超过140个汉字。"
+        },
+        {
+          "name": "pic_ids",
+          "type": "string",
+          "required": false,
+          "description": "需要评论的图片ID，多个之间用逗号分隔。"
+        },
+        {
+          "name": "is_repost",
+          "type": "int",
+          "required": false,
+          "description": "评论的同时转发到我的微博, 0:不转发。1：转发。默认0."
+        },
+        {
+          "name": "comment_ori",
+          "type": "int",
+          "required": false,
+          "description": "当评论转发微博时，是否评论给原微博，0：否、1：是，默认为0。"
+        },
+        {
+          "name": "without_mention",
+          "type": "int",
+          "required": false,
+          "description": "回复中是否自动加入“回复@用户名”，0：是、1：否，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "comment.create 不能证明可以回复指定 cid；需单独实现评论楼层定位与结果核验。"
+    },
+    {
+      "official_command": "comments show_batch/biz",
+      "proposed_tool_name": "weibo_comments_show_batch_biz",
+      "official_method": "GET",
+      "title": "批量获取评论内容",
+      "required_fields": [
+        "cids"
+      ],
+      "official_flags": [
+        {
+          "name": "cids",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的批量评论ID，用半角逗号分隔，最大50。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "comments show/all",
+      "proposed_tool_name": "weibo_comments_show_all",
+      "official_method": "GET",
+      "title": "返回一条微博的全部评论列表",
+      "required_fields": [
+        "id"
+      ],
+      "official_flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的微博ID。"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "partial",
+      "browser_tools": [
+        "post.replies.list"
+      ],
+      "verification": "read_passed",
+      "notes": "指定微博评论读取已实测；字段、排序、过滤、分页与官方接口不保证一致，不能宣称完整等价。"
+    },
+    {
+      "official_command": "comments show/biz",
+      "proposed_tool_name": "weibo_comments_show_biz",
+      "official_method": "GET",
+      "title": "获取当前登录用户发布的微博下的评论列表",
+      "required_fields": [
+        "id"
+      ],
+      "official_flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的微博ID。"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "partial",
+      "browser_tools": [
+        "post.replies.list"
+      ],
+      "verification": "read_passed",
+      "notes": "同一浏览器读取可作为实现参考；官方 biz 权限与返回契约未复现，正式工具尚未实现。"
+    },
+    {
+      "official_command": "comments timeline/biz",
+      "proposed_tool_name": "weibo_comments_timeline_biz",
+      "official_method": "GET",
+      "title": "获取当前登录用户发出及收到的评论列表",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "trim_user",
+          "type": "int",
+          "required": false,
+          "description": "返回值中user字段开关，0：返回完整user字段、1：user字段仅返回uid，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "comments timeline/other",
+      "proposed_tool_name": "weibo_comments_timeline_other",
+      "official_method": "GET",
+      "title": "获取某个用户发出和收到的评论列表",
+      "required_fields": [
+        "uid"
+      ],
+      "official_flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的用户ID。（必填）"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "trim_user",
+          "type": "int",
+          "required": false,
+          "description": "返回值中user字段开关，0：返回完整user字段、1：user字段仅返回uid，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "comments to_me/biz",
+      "proposed_tool_name": "weibo_comments_to_me_biz",
+      "official_method": "GET",
+      "title": "获取当前登录用户收到的评论列表",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        },
+        {
+          "name": "filter_by_source",
+          "type": "int",
+          "required": false,
+          "description": "来源筛选类型，0：全部、1：来自微博的评论、2：来自微群的评论，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "comments to_me/other",
+      "proposed_tool_name": "weibo_comments_to_me_other",
+      "official_method": "GET",
+      "title": "获取某个用户收到的评论列表",
+      "required_fields": [
+        "uid"
+      ],
+      "official_flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的用户ID。（必填）"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        },
+        {
+          "name": "filter_by_source",
+          "type": "int",
+          "required": false,
+          "description": "来源筛选类型，0：全部、1：来自微博的评论、2：来自微群的评论，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "friendships followers/active_list",
+      "proposed_tool_name": "weibo_friendships_followers_active_list",
+      "official_method": "GET",
+      "title": "获取授权用户活跃或互动粉丝TOP20列表",
+      "required_fields": [
+        "flag"
+      ],
+      "official_flags": [
+        {
+          "name": "flag",
+          "type": "int",
+          "required": true,
+          "description": "列表类型：0=活跃粉丝，1=互动粉丝",
+          "enum": [
+            "0",
+            "1"
+          ]
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "friendships followers/age_group_count",
+      "proposed_tool_name": "weibo_friendships_followers_age_group_count",
+      "official_method": "GET",
+      "title": "获取某用户粉丝的年龄段、性别细分数据",
+      "required_fields": [
+        "uid"
+      ],
+      "official_flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "friendships followers/biz",
+      "proposed_tool_name": "weibo_friendships_followers_biz",
+      "official_method": "GET",
+      "title": "获取当前登录用户的粉丝列表",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "age",
+          "type": "string",
+          "required": false,
+          "description": "指定接收用户的年龄范围，取值内容为：6-12、13-18、19-22、23-25、26-29、30-39、40-59、60-80、其他。"
+        },
+        {
+          "name": "city",
+          "type": "int",
+          "required": false,
+          "description": "指定接收用户的城市范围，城市ID。"
+        },
+        {
+          "name": "flag",
+          "type": "int",
+          "required": false,
+          "description": "指定粉丝的属性条件。0：所有粉丝；1：活跃粉丝；2：互动粉丝；支持任意数字叠加值，如，3：活跃粉丝+互动粉丝，默认为0。"
+        },
+        {
+          "name": "type",
+          "type": "int",
+          "required": false,
+          "description": "指定粉丝的认证类型。0：所有用户；1：普通用户；2：黄V；4：蓝v（包括政府，企业，媒体，网站，校园，应用，机构/团体，公益组织）；8：达人；支持任意数字叠加值，如，6：黄V+蓝V，默认为所有用户。"
+        },
+        {
+          "name": "bucket",
+          "type": "int",
+          "required": false,
+          "description": "筛选粉丝的个数范围，默认为50，最大不超过200。"
+        },
+        {
+          "name": "gender",
+          "type": "string",
+          "required": false,
+          "description": "指定接收用户的性别范围，m：男、f：女。"
+        },
+        {
+          "name": "max_time",
+          "type": "string",
+          "required": false,
+          "description": "返回结果的时间戳游标，若指定此参数，则返回关注时间小于或等于max_time的粉丝，默认从当前时间开始算。返回结果中会得到next_cursor字段，表示下一页的max_time。next_cursor为0表示已经到记录末尾。"
+        },
+        {
+          "name": "province",
+          "type": "int",
+          "required": false,
+          "description": "指定接收用户的省份范围，省份ID。"
+        },
+        {
+          "name": "cursor_uid",
+          "type": "int",
+          "required": false,
+          "description": "排重ID，传上次获取时最后一个用户ID。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "friendships followers/demographics_day",
+      "proposed_tool_name": "weibo_friendships_followers_demographics_day",
+      "official_method": "GET",
+      "title": "获取用户粉丝的星座、兴趣标签和粉丝量级的细分数据",
+      "required_fields": [
+        "uid",
+        "property"
+      ],
+      "official_flags": [
+        {
+          "name": "uid",
+          "type": "string",
+          "required": true,
+          "description": "要查询的用户 UID"
+        },
+        {
+          "name": "property",
+          "type": "string",
+          "required": true,
+          "description": "查询条件：tag=兴趣标签，astro=星座，fan=粉丝量级",
+          "enum": [
+            "tag",
+            "astro",
+            "fan"
+          ]
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "friendships followers/influence_top20",
+      "proposed_tool_name": "weibo_friendships_followers_influence_top20",
+      "official_method": "GET",
+      "title": "获取近7天转发或互动最多的粉丝TOP20（仅蓝V）",
+      "required_fields": [
+        "uid",
+        "time_span",
+        "flag"
+      ],
+      "official_flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的用户ID。"
+        },
+        {
+          "name": "flag",
+          "type": "int",
+          "required": true,
+          "description": "查询条件。1：转发最多粉丝；2：互动最多粉丝。",
+          "enum": [
+            "1",
+            "2"
+          ]
+        },
+        {
+          "name": "time_span",
+          "type": "int",
+          "required": true,
+          "description": "查询时间范围。1：近7天；2：近30天；3：近90天。",
+          "enum": [
+            "1",
+            "2",
+            "3"
+          ]
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "friendships followers/location_count",
+      "proposed_tool_name": "weibo_friendships_followers_location_count",
+      "official_method": "GET",
+      "title": "获取用户粉丝的地区细分数据",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "uid",
+          "type": "string",
+          "required": false,
+          "description": "需要查询用户的uid。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "friendships followers/online_time/biz",
+      "proposed_tool_name": "weibo_friendships_followers_online_time_biz",
+      "official_method": "GET",
+      "title": "获取当前登录用户粉丝最近一周在线时段比例分布",
+      "required_fields": [
+        "type"
+      ],
+      "official_flags": [
+        {
+          "name": "type",
+          "type": "string",
+          "required": true,
+          "description": "分布类型：hour-小时分布，day-天分布"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "friendships followers/source",
+      "proposed_tool_name": "weibo_friendships_followers_source",
+      "official_method": "GET",
+      "title": "获取某用户粉丝的关注来源",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": false,
+          "description": "主用户ID。默认为当前登陆用户。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "friendships followers/trend_other/biz",
+      "proposed_tool_name": "weibo_friendships_followers_trend_other_biz",
+      "official_method": "GET",
+      "title": "获取当前登录用户的粉丝每天增加和减少数量",
+      "required_fields": [
+        "starttime",
+        "endtime"
+      ],
+      "official_flags": [
+        {
+          "name": "endtime",
+          "type": "string",
+          "required": true,
+          "description": "结束时间，格式为XXXX-XX-XX。"
+        },
+        {
+          "name": "starttime",
+          "type": "string",
+          "required": true,
+          "description": "开始时间，格式为XXXX-XX-XX。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "friendships followers/unfollower_count",
+      "proposed_tool_name": "weibo_friendships_followers_unfollower_count",
+      "official_method": "GET",
+      "title": "获取最长近90天内每天取消关注该账户的用户数",
+      "required_fields": [
+        "uid",
+        "starttime",
+        "endtime"
+      ],
+      "official_flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的用户ID。"
+        },
+        {
+          "name": "endtime",
+          "type": "int",
+          "required": true,
+          "description": "搜索范围结束时间，格式为xxxx-xx-xx。"
+        },
+        {
+          "name": "starttime",
+          "type": "int",
+          "required": true,
+          "description": "搜索范围起始时间，格式为xxxx-xx-xx。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "friendships friends/biz",
+      "proposed_tool_name": "weibo_friendships_friends_biz",
+      "official_method": "GET",
+      "title": "获取当前登录用户的关注列表",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果页码。默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "trim_status",
+          "type": "int",
+          "required": false,
+          "description": "user中的status信息开关， 1：user中的status字段仅返回status_id， 0：返回完整status信息。默认trim_status为1。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "search hot_word_cate/biz",
+      "proposed_tool_name": "weibo_search_hot_word_cate_biz",
+      "official_method": "GET",
+      "title": "搜索分类榜单",
+      "required_fields": [
+        "category"
+      ],
+      "official_flags": [
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "返回结果条数，可选，默认 50，最大不超过 50。"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "required": true,
+          "description": "榜单类型，必填，单选：1=文娱榜、2=社会榜、3=科技榜、4=acg榜、5=生活榜、6=体育榜。",
+          "enum": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ]
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "search hot_word/biz",
+      "proposed_tool_name": "weibo_search_hot_word_biz",
+      "official_method": "GET",
+      "title": "微博热搜主榜",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "每页返回数量，最大不超过50，默认为50。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "search statuses/limited",
+      "proposed_tool_name": "weibo_search_statuses_limited",
+      "official_method": "GET",
+      "title": "搜索含某关键词的微博",
+      "required_fields": [
+        "q",
+        "type"
+      ],
+      "official_flags": [
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "description": "搜索的关键字( 不能包含{、}、“ 等特殊字符)。"
+        },
+        {
+          "name": "dup",
+          "type": "int",
+          "required": false,
+          "description": "是否排重（不显示相似数据），0：否、1：是，默认为1。"
+        },
+        {
+          "name": "ids",
+          "type": "string",
+          "required": false,
+          "description": "搜索指定批量用户的微博，传用户UID，多个用~分隔，最多不超过50个。"
+        },
+        {
+          "name": "city",
+          "type": "int",
+          "required": false,
+          "description": "搜索的城市ID，参考省份城市编码表。"
+        },
+        {
+          "name": "hasv",
+          "type": "int",
+          "required": false,
+          "description": "是否为v用户发言，0：否、1：是，默认为空（全部）。"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "页码，默认为1。"
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "required": false,
+          "description": "排序方式，time：时间倒序、hot：热门度【设置此参数只会返回精选微博】、fwnum：按转发数倒序、cmtnum：评论数倒序，默认为time。"
+        },
+        {
+          "name": "type",
+          "type": "int",
+          "required": true,
+          "description": "获取类型，1：微博、2：评论、3：私信，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过50，最小为10，默认为10。"
+        },
+        {
+          "name": "hasat",
+          "type": "int",
+          "required": false,
+          "description": "是否包含@，0：不包含@、1：只包含@，默认为空（全部）。"
+        },
+        {
+          "name": "istag",
+          "type": "int",
+          "required": false,
+          "description": "是否严格为搜##内的话题，0：否、1：##内模糊匹配、2：##内精确匹配，默认为0。"
+        },
+        {
+          "name": "hasori",
+          "type": "int",
+          "required": false,
+          "description": "是否包含原创，0：不包含原创、1：只包含原创，默认为空（全部）。"
+        },
+        {
+          "name": "haspic",
+          "type": "int",
+          "required": false,
+          "description": "是否包含图片，0：不包含图片、1：只包含图片，默认为空（全部）。"
+        },
+        {
+          "name": "hasret",
+          "type": "int",
+          "required": false,
+          "description": "是否包含转发，0：不包含转发、1：只包含转发，默认为空（全部）。"
+        },
+        {
+          "name": "endtime",
+          "type": "int",
+          "required": false,
+          "description": "搜索范围结束时间，取值为时间戳，单位为秒。"
+        },
+        {
+          "name": "haslink",
+          "type": "int",
+          "required": false,
+          "description": "是否包含链接，0：不包含链接、1：只包含链接，默认为空（全部）。"
+        },
+        {
+          "name": "hastext",
+          "type": "int",
+          "required": false,
+          "description": "是否包含纯文本，0：不包含纯文本、1：只包含纯文本，默认为空（全部）。"
+        },
+        {
+          "name": "antispam",
+          "type": "int",
+          "required": false,
+          "description": "是否反垃圾（不显示低质量数据），0：否、1：是，默认为1。"
+        },
+        {
+          "name": "base_app",
+          "type": "int",
+          "required": false,
+          "description": "是否只获取当前应用的数据。0为否（所有数据），1为是（仅当前应用），默认为0。"
+        },
+        {
+          "name": "hasmusic",
+          "type": "int",
+          "required": false,
+          "description": "是否包含音乐，0：不包含音乐、1：只包含音乐，默认为空（全部）。"
+        },
+        {
+          "name": "hasvideo",
+          "type": "int",
+          "required": false,
+          "description": "是否包含视频，0：不包含视频、1：只包含视频，默认为空（全部）。"
+        },
+        {
+          "name": "is_batch",
+          "type": "int",
+          "required": false,
+          "description": "是否使用批量模式，0：否、1：是，默认为0。"
+        },
+        {
+          "name": "starttime",
+          "type": "int",
+          "required": false,
+          "description": "搜索范围起始时间，取值为时间戳，单位为秒。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "partial",
+      "browser_tools": [
+        "search.weibo"
+      ],
+      "verification": "not_tested",
+      "notes": "搜索工具存在；q/type、结果范围、排序和分页尚未对齐，不能把普通网页搜索当成完整等价。"
+    },
+    {
+      "official_command": "search suggestions/users/biz",
+      "proposed_tool_name": "weibo_search_suggestions_users_biz",
+      "official_method": "GET",
+      "title": "搜用户搜索建议",
+      "required_fields": [
+        "q"
+      ],
+      "official_flags": [
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "description": "搜索的关键字。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，默认为10。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "short_url expand",
+      "proposed_tool_name": "weibo_short_url_expand",
+      "official_method": "POST",
+      "title": "将一个或多个短链接还原成原始的长链接",
+      "required_fields": [
+        "url_short"
+      ],
+      "official_flags": [
+        {
+          "name": "url_short",
+          "type": "string",
+          "required": true,
+          "description": "需要还原的短链接"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "short_url shorten",
+      "proposed_tool_name": "weibo_short_url_shorten",
+      "official_method": "POST",
+      "title": "将一个或多个长链接转换成短链接",
+      "required_fields": [
+        "url_long"
+      ],
+      "official_flags": [
+        {
+          "name": "url_long",
+          "type": "string",
+          "required": true,
+          "description": "需要转换的长链接"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "statuses count_sp/biz",
+      "proposed_tool_name": "weibo_statuses_count_sp_biz",
+      "official_method": "GET",
+      "title": "批量获取指定授权微博的转发数、评论数、赞数、阅读数",
+      "required_fields": [
+        "ids"
+      ],
+      "official_flags": [
+        {
+          "name": "ids",
+          "type": "string",
+          "required": true,
+          "description": "微博ID，英文半角逗号分隔，最大100。"
+        },
+        {
+          "name": "exclude_comment_like",
+          "type": "string",
+          "required": false,
+          "description": "是否排除评论赞计数，0:表示不排除，1:表示排除，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "statuses count/biz",
+      "proposed_tool_name": "weibo_statuses_count_biz",
+      "official_method": "GET",
+      "title": "批量获取指定微博的转发数评论数喜欢数",
+      "required_fields": [
+        "ids"
+      ],
+      "official_flags": [
+        {
+          "name": "ids",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "exclude_comment_like",
+          "type": "int",
+          "required": false
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "statuses destroy",
+      "proposed_tool_name": "weibo_statuses_destroy",
+      "official_method": "POST",
+      "title": "删除微博信息",
+      "required_fields": [
+        "id"
+      ],
+      "official_flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "需要删除的微博ID。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "statuses mentions/biz",
+      "proposed_tool_name": "weibo_statuses_mentions_biz",
+      "official_method": "GET",
+      "title": "获取@当前登录用户的微博列表",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为20。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的微博，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0。"
+        },
+        {
+          "name": "filter_by_type",
+          "type": "int",
+          "required": false,
+          "description": "原创筛选类型，0：全部微博、1：原创的微博，默认为0。"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        },
+        {
+          "name": "filter_by_source",
+          "type": "int",
+          "required": false,
+          "description": "来源筛选类型，0：全部、1：来自微博、2：来自微群，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "statuses mentions/other",
+      "proposed_tool_name": "weibo_statuses_mentions_other",
+      "official_method": "GET",
+      "title": "获取@某人的微博",
+      "required_fields": [
+        "uid"
+      ],
+      "official_flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的用户ID。（必填）"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为20。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的微博，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0。"
+        },
+        {
+          "name": "filter_by_type",
+          "type": "int",
+          "required": false,
+          "description": "原创筛选类型，0：全部微博、1：原创的微博，默认为0"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        },
+        {
+          "name": "filter_by_source",
+          "type": "int",
+          "required": false,
+          "description": "来源筛选类型，0：全部、1：来自微博、2：来自微群，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "statuses queryid/biz",
+      "proposed_tool_name": "weibo_statuses_queryid_biz",
+      "official_method": "GET",
+      "title": "通过微博（评论、私信）MID获取其ID",
+      "required_fields": [
+        "mid",
+        "type"
+      ],
+      "official_flags": [
+        {
+          "name": "mid",
+          "type": "string",
+          "required": true,
+          "description": "需要查询的微博（评论、私信）MID，批量模式下，用半角逗号分隔，最多不超过20个。"
+        },
+        {
+          "name": "type",
+          "type": "int",
+          "required": true,
+          "description": "获取类型，1：微博、2：评论、3：私信"
+        },
+        {
+          "name": "inbox",
+          "type": "int",
+          "required": false,
+          "description": "仅对私信有效，当MID类型为私信时用此参数，0：发件箱、1：收件箱，默认为0 。"
+        },
+        {
+          "name": "isBase62",
+          "type": "int",
+          "required": false,
+          "description": "MID是否是base62编码，0：否、1：是，默认为0。"
+        },
+        {
+          "name": "is_batch",
+          "type": "int",
+          "required": false,
+          "description": "是否使用批量模式，0：否、1：是，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "statuses querymid/biz",
+      "proposed_tool_name": "weibo_statuses_querymid_biz",
+      "official_method": "GET",
+      "title": "通过微博（评论、私信）ID获取其MID",
+      "required_fields": [
+        "id",
+        "type"
+      ],
+      "official_flags": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "需要查询的微博（评论、私信）ID，批量模式下，用半角逗号分隔，最多不超过20个。"
+        },
+        {
+          "name": "type",
+          "type": "int",
+          "required": true,
+          "description": "获取类型，1：微博、2：评论、3：私信"
+        },
+        {
+          "name": "is_batch",
+          "type": "int",
+          "required": false,
+          "description": "是否使用批量模式，0：否、1：是，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "statuses repost",
+      "proposed_tool_name": "weibo_statuses_repost",
+      "official_method": "POST",
+      "title": "转发一条微博信息",
+      "required_fields": [
+        "id",
+        "status"
+      ],
+      "official_flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "要转发的微博ID。"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "description": "要发布的微博文本内容。"
+        },
+        {
+          "name": "list_id",
+          "type": "string",
+          "required": false,
+          "description": "微博的保护投递指定分组ID，只有当visible参数为3时生效且必选。"
+        },
+        {
+          "name": "visible",
+          "type": "int",
+          "required": false,
+          "description": "微博的可见性，0：所有人能看，1：仅自己可见，2：密友可见，3：指定分组可见，默认为0。"
+        },
+        {
+          "name": "is_comment",
+          "type": "int",
+          "required": false,
+          "description": "是否在转发的同时发表评论，0：否、1：评论给当前微博、2：评论给原微博、3：都评论，默认为0 。"
+        },
+        {
+          "name": "annotations",
+          "type": "string",
+          "required": false,
+          "description": "元数据，主要是为了方便第三方应用记录一些适合于自己使用的信息，每条微博可以包含一个或者多个元数据，必须以json字串的形式提交，字串长度不超过512个字符，具体内容可以自定。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "statuses repost_timeline/all",
+      "proposed_tool_name": "weibo_statuses_repost_timeline_all",
+      "official_method": "GET",
+      "title": "返回一条微博的全部转发微博列表",
+      "required_fields": [
+        "id"
+      ],
+      "official_flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的微博ID。"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过50，默认为20。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的微博，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0。"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "partial",
+      "browser_tools": [
+        "post.repost.list"
+      ],
+      "verification": "not_tested",
+      "notes": "只确认转发列表工具存在，未测试；分页与覆盖范围需单独核对。"
+    },
+    {
+      "official_command": "statuses repost_timeline/biz",
+      "proposed_tool_name": "weibo_statuses_repost_timeline_biz",
+      "official_method": "GET",
+      "title": "获取当前登录用户发布的一条原创微博的最新转发微博",
+      "required_fields": [
+        "id"
+      ],
+      "official_flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的微博ID。"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为20。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的微博，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0。"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "partial",
+      "browser_tools": [
+        "post.repost.list"
+      ],
+      "verification": "not_tested",
+      "notes": "不保证复现官方 biz 的范围、筛选及分页语义。"
+    },
+    {
+      "official_command": "statuses show_batch/biz",
+      "proposed_tool_name": "weibo_statuses_show_batch_biz",
+      "official_method": "GET",
+      "title": "根据微博ID批量获取微博信息",
+      "required_fields": [
+        "ids"
+      ],
+      "official_flags": [
+        {
+          "name": "ids",
+          "type": "string",
+          "required": true,
+          "description": "需要查询的微博ID，用半角逗号分隔，最多不超过50个。"
+        },
+        {
+          "name": "trim_user",
+          "type": "int",
+          "required": false,
+          "description": "返回值中user字段开关，0：返回完整user字段、1：user字段仅返回uid，默认为0。"
+        },
+        {
+          "name": "isGetLongText",
+          "type": "int",
+          "required": false,
+          "description": "针对字数大于140字微博，是否返回完整内容的开关，0：只返回140以内的微博内容、1：返回值中增加longText字段返回完整微博内容，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "partial",
+      "browser_tools": [
+        "post.get"
+      ],
+      "verification": "single_read_passed",
+      "notes": "只验证单条详情；批量 ids、失败项聚合及返回字段尚未实现。"
+    },
+    {
+      "official_command": "statuses statistic/biz",
+      "proposed_tool_name": "weibo_statuses_statistic_biz",
+      "official_method": "GET",
+      "title": "返回近90天内发布的授权微博每天的被转发数、被评论数、被喜欢数、被点击数（区分短链、图片、视频点击）",
+      "required_fields": [
+        "id",
+        "starttime",
+        "endtime"
+      ],
+      "official_flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的微博ID。"
+        },
+        {
+          "name": "endtime",
+          "type": "string",
+          "required": true,
+          "description": "结束时间，格式为XXXX-XX-XX。"
+        },
+        {
+          "name": "starttime",
+          "type": "string",
+          "required": true,
+          "description": "开始时间，格式为XXXX-XX-XX。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "statuses update",
+      "proposed_tool_name": "weibo_statuses_update",
+      "official_method": "POST",
+      "title": "发布一条微博信息",
+      "required_fields": [
+        "status"
+      ],
+      "official_flags": [
+        {
+          "name": "lat",
+          "type": "number",
+          "required": false,
+          "description": "纬度，有效范围：-90.0到+90.0，+表示北纬，默认为0.0。"
+        },
+        {
+          "name": "long",
+          "type": "number",
+          "required": false,
+          "description": "经度，有效范围：-180.0到+180.0，+表示东经，默认为0.0。"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "description": "要发布的微博文本内容。"
+        },
+        {
+          "name": "list_id",
+          "type": "string",
+          "required": false,
+          "description": "微博的保护投递指定分组ID，只有当visible参数为3时生效且必选。"
+        },
+        {
+          "name": "visible",
+          "type": "int",
+          "required": false,
+          "description": "微博的可见性，0：所有人能看，1：仅自己可见，2：密友可见，3：指定分组可见，默认为0。"
+        },
+        {
+          "name": "annotations",
+          "type": "string",
+          "required": false,
+          "description": "元数据，主要是为了方便第三方应用记录一些适合于自己使用的信息，每条微博可以包含一个或者多个元数据，必须以json字串的形式提交，字串长度不超过512个字符，具体内容可以自定。"
+        },
+        {
+          "name": "is_longtext",
+          "type": "int",
+          "required": false,
+          "description": "是否发送超过140字微博，0：不超过140字，1：超过140字但在2000字以内，默认为0。操作用户需满足发送超过140字微博资格。"
+        },
+        {
+          "name": "mblog_statement",
+          "type": "int",
+          "required": false,
+          "description": "微博内容声明，0:无；1:AI生成；2:虚构演绎；3:内容为转载；4:内容为自主创作。根据相关要求，若内容为AI生成，需 mblog_statement=1，没有按要求打标者责任由开发者或作者自己承担。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "partial",
+      "browser_tools": [
+        "post.create"
+      ],
+      "verification": "dry_run_passed",
+      "notes": "status 映射 text；文本发帖预演通过，未提交。visible、mblog_statement、地理位置等官方参数尚无浏览器等价实现，不得静默丢弃。"
+    },
+    {
+      "official_command": "statuses upload",
+      "proposed_tool_name": "weibo_statuses_upload",
+      "official_method": "POST",
+      "title": "上传图片并发布一条微博",
+      "required_fields": [
+        "pic",
+        "status"
+      ],
+      "official_flags": [
+        {
+          "name": "lat",
+          "type": "number",
+          "required": false,
+          "description": "纬度，有效范围：-90.0到+90.0，+表示北纬，默认为0.0。"
+        },
+        {
+          "name": "pic",
+          "type": "string",
+          "required": true,
+          "description": "要上传的图片，仅支持 JPEG、GIF、PNG 格式且小于 10M。CLI 调用可传本地文件路径；MCP 调用必须传 data:image/<格式>;base64,<内容>、纯 Base64，或服务端可访问的 HTTP/HTTPS 图片 URL，不可传调用方本地文件路径。"
+        },
+        {
+          "name": "long",
+          "type": "number",
+          "required": false,
+          "description": "经度，有效范围：-180.0到+180.0，+表示东经，默认为0.0。"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "description": "要发布的微博文本内容，内容不超过140个汉字。"
+        },
+        {
+          "name": "list_id",
+          "type": "string",
+          "required": false,
+          "description": "微博的保护投递指定分组ID，只有当visible参数为3时生效且必选。"
+        },
+        {
+          "name": "visible",
+          "type": "int",
+          "required": false,
+          "description": "微博的可见性，0：所有人能看，1：仅自己可见，2：密友可见，3：指定分组可见，默认为0。"
+        },
+        {
+          "name": "annotations",
+          "type": "string",
+          "required": false,
+          "description": "元数据，主要是为了方便第三方应用记录一些适合于自己使用的信息，每条微博可以包含一个或者多个元数据，必须以json字串的形式提交，字串长度不超过512个字符，具体内容可以自定。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "statuses upload_pic",
+      "proposed_tool_name": "weibo_statuses_upload_pic",
+      "official_method": "POST",
+      "title": "上传图片，返回图片id",
+      "required_fields": [
+        "pic"
+      ],
+      "official_flags": [
+        {
+          "name": "pic",
+          "type": "string",
+          "required": true,
+          "description": "要上传的图片，仅支持 JPEG、GIF、PNG 格式且小于 10M。CLI 调用可传本地文件路径；MCP 调用必须传 data:image/<格式>;base64,<内容>、纯 Base64，或服务端可访问的 HTTP/HTTPS 图片 URL，不可传调用方本地文件路径。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "statuses upload_url_text",
+      "proposed_tool_name": "weibo_statuses_upload_url_text",
+      "official_method": "POST",
+      "title": "发布一条带单/多图的微博（需要组合上传图片接口）",
+      "required_fields": [
+        "pic_id",
+        "status"
+      ],
+      "official_flags": [
+        {
+          "name": "lat",
+          "type": "number",
+          "required": false,
+          "description": "纬度，有效范围：-90.0到+90.0，+表示北纬，默认为0.0。"
+        },
+        {
+          "name": "long",
+          "type": "number",
+          "required": false,
+          "description": "经度，有效范围：-180.0到+180.0，+表示东经，默认为0.0。"
+        },
+        {
+          "name": "pic_id",
+          "type": "string",
+          "required": true,
+          "description": "已经上传的图片pid，多个时使用英文半角逗号符分隔，最多不超过9个。"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "description": "要发布的微博文本内容。"
+        },
+        {
+          "name": "list_id",
+          "type": "string",
+          "required": false,
+          "description": "微博的保护投递指定分组ID，只有当visible参数为3时生效且必选。"
+        },
+        {
+          "name": "visible",
+          "type": "int",
+          "required": false,
+          "description": "微博的可见性，0：所有人能看，1：仅自己可见，2：密友可见，3：指定分组可见，默认为0。"
+        },
+        {
+          "name": "annotations",
+          "type": "string",
+          "required": false,
+          "description": "元数据，主要是为了方便第三方应用记录一些适合于自己使用的信息，每条微博可以包含一个或者多个元数据，必须以json字串的形式提交，字串长度不超过512个字符，具体内容可以自定。"
+        },
+        {
+          "name": "is_longtext",
+          "type": "int",
+          "required": false,
+          "description": "是否发送超过140字微博，0：不超过140字，1：超过140字但在2000字以内，默认为0。操作用户需满足发送超过140字微博资格。"
+        },
+        {
+          "name": "mblog_statement",
+          "type": "int",
+          "required": false,
+          "description": "微博内容声明，0:无；1:AI生成；2:虚构演绎；3:内容为转载；4:内容为自主创作。根据相关要求，若内容为AI生成，需 mblog_statement=1，没有按要求打标者责任由开发者或作者自己承担。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "statuses user_timeline_batch",
+      "proposed_tool_name": "weibo_statuses_user_timeline_batch",
+      "official_method": "GET",
+      "title": "批量获取用户个人微博列表",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "flag",
+          "type": "int",
+          "required": false,
+          "description": "用于筛选推广微博。0：返回推广微博和普通微博；1：返回推广微博；2：返回普通微博；默认为0。"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "uids",
+          "type": "string",
+          "required": false,
+          "description": "需要查询的用户ID，用半角逗号分隔，一次最多20个。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，默认为20。"
+        },
+        {
+          "name": "feature",
+          "type": "int",
+          "required": false,
+          "description": "过滤类型ID，0：全部、1：原创、2：图片、3：视频、4：音乐，默认为0。"
+        },
+        {
+          "name": "base_app",
+          "type": "int",
+          "required": false,
+          "description": "是否只获取当前应用的数据。0为否（所有数据），1为是（仅当前应用），默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "partial",
+      "browser_tools": [
+        "user.posts.list"
+      ],
+      "verification": "not_tested",
+      "notes": "仅单用户候选工具；批量调度、部分失败处理和返回契约尚未实现。"
+    },
+    {
+      "official_command": "statuses user_timeline/biz",
+      "proposed_tool_name": "weibo_statuses_user_timeline_biz",
+      "official_method": "GET",
+      "title": "获取当前登录用户发布的微博",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "flag",
+          "type": "int",
+          "required": false,
+          "description": "用于筛选推广微博。0：返回推广微博和普通微博；1：返回推广微博；2：返回普通微博；默认为0。"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过25，默认为20。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的微博，默认为0。"
+        },
+        {
+          "name": "feature",
+          "type": "int",
+          "required": false,
+          "description": "过滤类型ID，0：全部、1：原创、2：图片、3：视频、4：音乐、7：纯文本、8：转发，默认为0。"
+        },
+        {
+          "name": "base_app",
+          "type": "int",
+          "required": false,
+          "description": "是否只获取当前应用的数据。0为否（所有数据），1为是（仅当前应用），默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0。"
+        },
+        {
+          "name": "trim_user",
+          "type": "int",
+          "required": false,
+          "description": "返回值中user字段开关，0：返回完整user字段、1：user字段仅返回uid，默认为0。"
+        },
+        {
+          "name": "exclude_comment_like",
+          "type": "int",
+          "required": false,
+          "description": "是否排除评论赞计数，0:表示不排除，1:表示排除，默认为0。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "partial",
+      "browser_tools": [
+        "user.posts.list"
+      ],
+      "verification": "not_tested",
+      "notes": "工具存在；当前账号身份解析、读取范围及官方参数对齐尚未实现。"
+    },
+    {
+      "official_command": "statuses user_timeline/other",
+      "proposed_tool_name": "weibo_statuses_user_timeline_other",
+      "official_method": "GET",
+      "title": "获取其他用户发布的微博",
+      "required_fields": [
+        "uid"
+      ],
+      "official_flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的用户ID。（必填）"
+        },
+        {
+          "name": "flag",
+          "type": "int",
+          "required": false,
+          "description": "用于筛选推广微博。0：返回推广微博和普通微博；1：返回推广微博；2：返回普通微博；默认为0。"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过100，默认为20。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的微博，默认为0。"
+        },
+        {
+          "name": "feature",
+          "type": "int",
+          "required": false,
+          "description": "过滤类型ID，0：全部、1：原创、2：图片、3：视频、4：音乐，默认为0。"
+        },
+        {
+          "name": "base_app",
+          "type": "int",
+          "required": false,
+          "description": "是否只获取当前应用的数据。0为否（所有数据），1为是（仅当前应用），默认为0。"
+        },
+        {
+          "name": "end_time",
+          "type": "int",
+          "required": false,
+          "description": "unix时间戳，若指定此参数，则返回ID比end_time早的微博。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0。"
+        },
+        {
+          "name": "start_time",
+          "type": "int",
+          "required": false,
+          "description": "unix时间戳，若指定此参数，则返回ID比start_time晚的微博。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "partial",
+      "browser_tools": [
+        "user.posts.list"
+      ],
+      "verification": "not_tested",
+      "notes": "工具存在；uid 对齐、分页和过滤条件尚未实测。"
+    },
+    {
+      "official_command": "tags biz",
+      "proposed_tool_name": "weibo_tags_biz",
+      "official_method": "GET",
+      "title": "获取当前登录用户的标签",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，默认为20。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "tags tags_batch/other",
+      "proposed_tool_name": "weibo_tags_tags_batch_other",
+      "official_method": "GET",
+      "title": "批量获取用户标签",
+      "required_fields": [
+        "uids"
+      ],
+      "official_flags": [
+        {
+          "name": "uids",
+          "type": "string",
+          "required": true,
+          "description": "要获取标签的用户ID。最大20，逗号分隔。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "users behavior_trend",
+      "proposed_tool_name": "weibo_users_behavior_trend",
+      "official_method": "GET",
+      "title": "获取授权用户行为数据每日变化趋势",
+      "required_fields": [
+        "starttime",
+        "endtime"
+      ],
+      "official_flags": [
+        {
+          "name": "endtime",
+          "type": "string",
+          "required": true,
+          "description": "结束时间，格式为XXXX-XX-XX。"
+        },
+        {
+          "name": "starttime",
+          "type": "string",
+          "required": true,
+          "description": "开始时间，格式为XXXX-XX-XX。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "users behavior_trend/biz",
+      "proposed_tool_name": "weibo_users_behavior_trend_biz",
+      "official_method": "GET",
+      "title": "获取他人用户行为数据每日变化趋势",
+      "required_fields": [
+        "uid",
+        "starttime",
+        "endtime"
+      ],
+      "official_flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的用户ID。"
+        },
+        {
+          "name": "endtime",
+          "type": "string",
+          "required": true,
+          "description": "结束时间，格式为XXXX-XX-XX。"
+        },
+        {
+          "name": "starttime",
+          "type": "string",
+          "required": true,
+          "description": "开始时间，格式为XXXX-XX-XX。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "users counts_batch/other",
+      "proposed_tool_name": "weibo_users_counts_batch_other",
+      "official_method": "GET",
+      "title": "批量获取用户的粉丝数、关注数、微博数",
+      "required_fields": [
+        "uids"
+      ],
+      "official_flags": [
+        {
+          "name": "uids",
+          "type": "string",
+          "required": true,
+          "description": "需要获取数据的用户UID，多个之间用逗号分隔，最多不超过100个。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "users receive_like_count",
+      "proposed_tool_name": "weibo_users_receive_like_count",
+      "official_method": "GET",
+      "title": "获取某用户近90天每天的被喜欢数",
+      "required_fields": [
+        "starttime",
+        "endtime"
+      ],
+      "official_flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": false,
+          "description": "需要查询的用户ID。"
+        },
+        {
+          "name": "endtime",
+          "type": "string",
+          "required": true,
+          "description": "结束时间，格式为XXXX-XX-XX。"
+        },
+        {
+          "name": "starttime",
+          "type": "string",
+          "required": true,
+          "description": "开始时间，格式为XXXX-XX-XX。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "users show_batch/other",
+      "proposed_tool_name": "weibo_users_show_batch_other",
+      "official_method": "GET",
+      "title": "批量获取其他用户的基本信息",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "uids",
+          "type": "string",
+          "required": false,
+          "description": "需要查询的用户ID，用半角逗号分隔，一次最多50个。"
+        },
+        {
+          "name": "screen_name",
+          "type": "string",
+          "required": false,
+          "description": "需要查询的用户昵称，用半角逗号分隔，一次最多50个。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "partial",
+      "browser_tools": [
+        "user.get"
+      ],
+      "verification": "not_tested",
+      "notes": "候选为逐个读取；批量 ID/昵称转换、部分失败及官方返回字段未实现。"
+    },
+    {
+      "official_command": "users show/biz",
+      "proposed_tool_name": "weibo_users_show_biz",
+      "official_method": "GET",
+      "title": "获取当前登录用户信息",
+      "required_fields": [],
+      "official_flags": [],
+      "registration": "planned",
+      "browser_coverage": "partial",
+      "browser_tools": [
+        "user.get"
+      ],
+      "verification": "not_tested",
+      "notes": "user.get 要求 URL 或昵称，不能用 auth.get 代替当前用户资料；账号身份解析和字段尚未实现。"
+    },
+    {
+      "official_command": "users statistic/biz",
+      "proposed_tool_name": "weibo_users_statistic_biz",
+      "official_method": "GET",
+      "title": "获取当前登录用户近90天每天的被点击数（区分短链、图片点击）、被阅读数、用户去重的被阅读数",
+      "required_fields": [
+        "starttime",
+        "endtime"
+      ],
+      "official_flags": [
+        {
+          "name": "endtime",
+          "type": "string",
+          "required": true,
+          "description": "结束时间，格式为XXXX-XX-XX。"
+        },
+        {
+          "name": "starttime",
+          "type": "string",
+          "required": true,
+          "description": "开始时间，格式为XXXX-XX-XX。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "wbindex ranking/showComing",
+      "proposed_tool_name": "weibo_wbindex_ranking_showComing",
+      "official_method": "GET",
+      "title": "综艺-待播榜",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "pageNum",
+          "type": "number",
+          "required": false,
+          "description": "页码，默认 1。"
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "required": false,
+          "description": "分页大小，默认 20。"
+        },
+        {
+          "name": "timeType",
+          "type": "string",
+          "required": false,
+          "description": "时间类型，默认 hour：min 实时榜、hour 小时榜、day 日榜、week 周榜、month 月榜。",
+          "enum": [
+            "min",
+            "hour",
+            "day",
+            "week",
+            "month"
+          ]
+        },
+        {
+          "name": "timeRange",
+          "type": "string",
+          "required": false,
+          "description": "榜单时间，默认当前小时。实时榜传空字符串；小时榜示例：2025-05-21 09:00:00；日榜/周榜示例：2025-05-21 00:00:00；月榜示例：2025-05-01 00:00:00。与 timeType 配合使用。"
+        },
+        {
+          "name": "portraitType",
+          "type": "string",
+          "required": false,
+          "description": "画像维度筛选，默认空：portraitAge 年龄、portraitGender 性别、portraitProv 省份、portraitCity 城市。与 portraitValue 配合使用。",
+          "enum": [
+            "portraitAge",
+            "portraitGender",
+            "portraitProv",
+            "portraitCity"
+          ]
+        },
+        {
+          "name": "portraitValue",
+          "type": "string",
+          "required": false,
+          "description": "画像具体值，默认空，与 portraitType 配合使用。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "wbindex ranking/showHot",
+      "proposed_tool_name": "weibo_wbindex_ranking_showHot",
+      "official_method": "GET",
+      "title": "综艺-热播榜",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "pageNum",
+          "type": "number",
+          "required": false,
+          "description": "页码，默认 1。"
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "required": false,
+          "description": "分页大小，默认 20。"
+        },
+        {
+          "name": "timeType",
+          "type": "string",
+          "required": false,
+          "description": "时间类型，默认 hour：min 实时榜、hour 小时榜、day 日榜、week 周榜、month 月榜。",
+          "enum": [
+            "min",
+            "hour",
+            "day",
+            "week",
+            "month"
+          ]
+        },
+        {
+          "name": "timeRange",
+          "type": "string",
+          "required": false,
+          "description": "榜单时间，默认当前小时。实时榜传空字符串；小时榜示例：2025-05-21 09:00:00；日榜/周榜示例：2025-05-21 00:00:00；月榜示例：2025-05-01 00:00:00。与 timeType 配合使用。"
+        },
+        {
+          "name": "portraitType",
+          "type": "string",
+          "required": false,
+          "description": "画像维度筛选，默认空：portraitAge 年龄、portraitGender 性别、portraitProv 省份、portraitCity 城市。与 portraitValue 配合使用。",
+          "enum": [
+            "portraitAge",
+            "portraitGender",
+            "portraitProv",
+            "portraitCity"
+          ]
+        },
+        {
+          "name": "portraitValue",
+          "type": "string",
+          "required": false,
+          "description": "画像具体值，默认空，与 portraitType 配合使用。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "wbindex ranking/tvComing",
+      "proposed_tool_name": "weibo_wbindex_ranking_tvComing",
+      "official_method": "GET",
+      "title": "剧集-待播榜",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "pageNum",
+          "type": "number",
+          "required": false,
+          "description": "页码，默认 1。"
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "required": false,
+          "description": "分页大小，默认 20。"
+        },
+        {
+          "name": "timeType",
+          "type": "string",
+          "required": false,
+          "description": "时间类型，默认 hour：min 实时榜、hour 小时榜、day 日榜、week 周榜、month 月榜。",
+          "enum": [
+            "min",
+            "hour",
+            "day",
+            "week",
+            "month"
+          ]
+        },
+        {
+          "name": "timeRange",
+          "type": "string",
+          "required": false,
+          "description": "榜单时间，默认当前小时。实时榜传空字符串；小时榜示例：2025-05-21 09:00:00；日榜/周榜示例：2025-05-21 00:00:00；月榜示例：2025-05-01 00:00:00。与 timeType 配合使用。"
+        },
+        {
+          "name": "portraitType",
+          "type": "string",
+          "required": false,
+          "description": "画像维度筛选，默认空：portraitAge 年龄、portraitGender 性别、portraitProv 省份、portraitCity 城市。与 portraitValue 配合使用。",
+          "enum": [
+            "portraitAge",
+            "portraitGender",
+            "portraitProv",
+            "portraitCity"
+          ]
+        },
+        {
+          "name": "portraitValue",
+          "type": "string",
+          "required": false,
+          "description": "画像具体值，默认空，与 portraitType 配合使用。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "wbindex ranking/tvHot",
+      "proposed_tool_name": "weibo_wbindex_ranking_tvHot",
+      "official_method": "GET",
+      "title": "剧集-热播榜",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "pageNum",
+          "type": "number",
+          "required": false,
+          "description": "页码，默认 1。"
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "required": false,
+          "description": "分页大小，默认 20。"
+        },
+        {
+          "name": "timeType",
+          "type": "string",
+          "required": false,
+          "description": "时间类型，默认 hour：min 实时榜、hour 小时榜、day 日榜、week 周榜、month 月榜。",
+          "enum": [
+            "min",
+            "hour",
+            "day",
+            "week",
+            "month"
+          ]
+        },
+        {
+          "name": "timeRange",
+          "type": "string",
+          "required": false,
+          "description": "榜单时间，默认当前小时。实时榜传空字符串；小时榜示例：2025-05-21 09:00:00；日榜/周榜示例：2025-05-21 00:00:00；月榜示例：2025-05-01 00:00:00。与 timeType 配合使用。"
+        },
+        {
+          "name": "portraitType",
+          "type": "string",
+          "required": false,
+          "description": "画像维度筛选，默认空：portraitAge 年龄、portraitGender 性别、portraitProv 省份、portraitCity 城市。与 portraitValue 配合使用。",
+          "enum": [
+            "portraitAge",
+            "portraitGender",
+            "portraitProv",
+            "portraitCity"
+          ]
+        },
+        {
+          "name": "portraitValue",
+          "type": "string",
+          "required": false,
+          "description": "画像具体值，默认空，与 portraitType 配合使用。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    },
+    {
+      "official_command": "wbindex ranking/tvRole",
+      "proposed_tool_name": "weibo_wbindex_ranking_tvRole",
+      "official_method": "GET",
+      "title": "剧集-热议角色榜",
+      "required_fields": [],
+      "official_flags": [
+        {
+          "name": "pageNum",
+          "type": "number",
+          "required": false,
+          "description": "页码，默认 1。"
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "required": false,
+          "description": "分页大小，默认 20。"
+        },
+        {
+          "name": "timeType",
+          "type": "string",
+          "required": false,
+          "description": "时间类型，默认 hour：min 实时榜、hour 小时榜、day 日榜、week 周榜、month 月榜。",
+          "enum": [
+            "min",
+            "hour",
+            "day",
+            "week",
+            "month"
+          ]
+        },
+        {
+          "name": "timeRange",
+          "type": "string",
+          "required": false,
+          "description": "榜单时间，默认当前小时。实时榜传空字符串；小时榜示例：2025-05-21 09:00:00；日榜/周榜示例：2025-05-21 00:00:00；月榜示例：2025-05-01 00:00:00。与 timeType 配合使用。"
+        },
+        {
+          "name": "portraitType",
+          "type": "string",
+          "required": false,
+          "description": "画像维度筛选，默认空：portraitAge 年龄、portraitGender 性别、portraitProv 省份、portraitCity 城市。与 portraitValue 配合使用。",
+          "enum": [
+            "portraitAge",
+            "portraitGender",
+            "portraitProv",
+            "portraitCity"
+          ]
+        },
+        {
+          "name": "portraitValue",
+          "type": "string",
+          "required": false,
+          "description": "画像具体值，默认空，与 portraitType 配合使用。"
+        }
+      ],
+      "registration": "planned",
+      "browser_coverage": "unsupported",
+      "browser_tools": [],
+      "verification": "not_tested",
+      "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+    }
+  ],
+  "browser_only": [
+    {
+      "name": "auth.get",
+      "purpose": "会话状态检测，须叠加独立登录判断",
+      "verification": "guarded_read_passed"
+    },
+    {
+      "name": "page.get",
+      "purpose": "页面诊断",
+      "verification": "not_tested"
+    },
+    {
+      "name": "timeline.home.list",
+      "purpose": "读取首页动态，当前官方目录没有直接同名对应项",
+      "verification": "read_passed"
+    },
+    {
+      "name": "post.get",
+      "purpose": "单条详情；用于官方批量读取的部分能力参考",
+      "verification": "read_passed"
+    },
+    {
+      "name": "article.listDrafts",
+      "purpose": "文章草稿列表，不在当前官方目录直接对应项中",
+      "verification": "not_tested"
+    },
+    {
+      "name": "article.getDraft",
+      "purpose": "读取文章草稿",
+      "verification": "not_tested"
+    },
+    {
+      "name": "search.ai.summary",
+      "purpose": "网页 AI 搜索摘要，不等于官方微博搜索接口",
+      "verification": "not_tested"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "adapter_package": "@webmcp-bridge/adapter-weibo",
+  "adapter_version": "0.8.2",
+  "default": {
+    "coverage": "unsupported",
+    "tools": [],
+    "verification": "not_tested",
+    "notes": "当前浏览器适配器没有等价工具；正式插件尚未实现此操作。"
+  },
+  "operations": {
+    "statuses update": {
+      "coverage": "partial",
+      "tools": ["post.create"],
+      "verification": "dry_run_passed",
+      "notes": "status 映射 text；文本发帖预演通过，未提交。visible、mblog_statement、地理位置等官方参数尚无浏览器等价实现，不得静默丢弃。"
+    },
+    "comments create": {
+      "coverage": "partial",
+      "tools": ["comment.create"],
+      "verification": "not_tested",
+      "notes": "id 需转换为目标微博 URL，comment 映射 text；只确认工具存在，未测试预演或提交。"
+    },
+    "comments reply": {
+      "coverage": "unsupported",
+      "tools": [],
+      "verification": "not_tested",
+      "notes": "comment.create 不能证明可以回复指定 cid；需单独实现评论楼层定位与结果核验。"
+    },
+    "comments show/all": {
+      "coverage": "partial",
+      "tools": ["post.replies.list"],
+      "verification": "read_passed",
+      "notes": "指定微博评论读取已实测；字段、排序、过滤、分页与官方接口不保证一致，不能宣称完整等价。"
+    },
+    "comments show/biz": {
+      "coverage": "partial",
+      "tools": ["post.replies.list"],
+      "verification": "read_passed",
+      "notes": "同一浏览器读取可作为实现参考；官方 biz 权限与返回契约未复现，正式工具尚未实现。"
+    },
+    "statuses show_batch/biz": {
+      "coverage": "partial",
+      "tools": ["post.get"],
+      "verification": "single_read_passed",
+      "notes": "只验证单条详情；批量 ids、失败项聚合及返回字段尚未实现。"
+    },
+    "statuses repost_timeline/all": {
+      "coverage": "partial",
+      "tools": ["post.repost.list"],
+      "verification": "not_tested",
+      "notes": "只确认转发列表工具存在，未测试；分页与覆盖范围需单独核对。"
+    },
+    "statuses repost_timeline/biz": {
+      "coverage": "partial",
+      "tools": ["post.repost.list"],
+      "verification": "not_tested",
+      "notes": "不保证复现官方 biz 的范围、筛选及分页语义。"
+    },
+    "statuses user_timeline/biz": {
+      "coverage": "partial",
+      "tools": ["user.posts.list"],
+      "verification": "not_tested",
+      "notes": "工具存在；当前账号身份解析、读取范围及官方参数对齐尚未实现。"
+    },
+    "statuses user_timeline/other": {
+      "coverage": "partial",
+      "tools": ["user.posts.list"],
+      "verification": "not_tested",
+      "notes": "工具存在；uid 对齐、分页和过滤条件尚未实测。"
+    },
+    "statuses user_timeline_batch": {
+      "coverage": "partial",
+      "tools": ["user.posts.list"],
+      "verification": "not_tested",
+      "notes": "仅单用户候选工具；批量调度、部分失败处理和返回契约尚未实现。"
+    },
+    "search statuses/limited": {
+      "coverage": "partial",
+      "tools": ["search.weibo"],
+      "verification": "not_tested",
+      "notes": "搜索工具存在；q/type、结果范围、排序和分页尚未对齐，不能把普通网页搜索当成完整等价。"
+    },
+    "users show/biz": {
+      "coverage": "partial",
+      "tools": ["user.get"],
+      "verification": "not_tested",
+      "notes": "user.get 要求 URL 或昵称，不能用 auth.get 代替当前用户资料；账号身份解析和字段尚未实现。"
+    },
+    "users show_batch/other": {
+      "coverage": "partial",
+      "tools": ["user.get"],
+      "verification": "not_tested",
+      "notes": "候选为逐个读取；批量 ID/昵称转换、部分失败及官方返回字段未实现。"
+    },
+    "article preview": {
+      "coverage": "partial",
+      "tools": ["article.draftMarkdown"],
+      "verification": "not_tested",
+      "notes": "仅功能近似。后台草稿可能写入服务器，不等同只读官方预览；付费参数和免费预览范围尚未对齐。"
+    },
+    "article publish": {
+      "coverage": "partial",
+      "tools": ["article.publishMarkdown"],
+      "verification": "not_tested",
+      "notes": "仅工具存在；不能认定标题、短微博同步、pay_type 与付费/专栏语义兼容，不在首版开放。"
+    }
+  },
+  "browser_only": [
+    {"name": "auth.get", "purpose": "会话状态检测，须叠加独立登录判断", "verification": "guarded_read_passed"},
+    {"name": "page.get", "purpose": "页面诊断", "verification": "not_tested"},
+    {"name": "timeline.home.list", "purpose": "读取首页动态，当前官方目录没有直接同名对应项", "verification": "read_passed"},
+    {"name": "post.get", "purpose": "单条详情；用于官方批量读取的部分能力参考", "verification": "read_passed"},
+    {"name": "article.listDrafts", "purpose": "文章草稿列表，不在当前官方目录直接对应项中", "verification": "not_tested"},
+    {"name": "article.getDraft", "purpose": "读取文章草稿", "verification": "not_tested"},
+    {"name": "search.ai.summary", "purpose": "网页 AI 搜索摘要，不等于官方微博搜索接口", "verification": "not_tested"}
+  ]
+}

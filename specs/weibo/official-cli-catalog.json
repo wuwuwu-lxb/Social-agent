@@ -1,0 +1,3889 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-11-13T02:23:54.6536584+00:00",
+  "cli_package": "@weibo-ai/weibo-cli",
+  "cli_version": "0.9.8",
+  "source_command": "commands list --all --output json",
+  "source_url": "https://open.weibo.com/cli/quickstart",
+  "catalog_version": "457761d16c50510ec276524e9586d4c6193b82572e460d24da4cf3850aed9d03",
+  "total": 75,
+  "commands": [
+    {
+      "name": "attitudes create",
+      "group": "attitudes",
+      "action": "create",
+      "api_path": "attitudes/create",
+      "invocation_path": "/attitudes/create.json",
+      "method": "POST",
+      "title": "发布一条表态",
+      "description": "发布一条表态",
+      "required_fields": [
+        "id"
+      ],
+      "input_schema": {
+        "id": "int",
+        "attitude": "string",
+        "attitude_type": "string"
+      },
+      "flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "微博ID"
+        },
+        {
+          "name": "attitude",
+          "type": "string",
+          "required": false,
+          "description": "表态内容，默认为heart。heart(赞)；happy(喜)；sad(悲)；surprise(惊)；angry(怒)；hug(抱一抱)"
+        },
+        {
+          "name": "attitude_type",
+          "type": "string",
+          "required": false,
+          "description": "表态类型，默认为1。1(赞)；2(喜)；3(惊)；4(悲)；5(怒)；8(抱一抱)"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "025bf2b0dc79db46a24555d79d719ca0f5a954263edc492053be6740eac0fc51"
+    },
+    {
+      "name": "attitudes destroy",
+      "group": "attitudes",
+      "action": "destroy",
+      "api_path": "attitudes/destroy",
+      "invocation_path": "/attitudes/destroy.json",
+      "method": "POST",
+      "title": "删除一条表态",
+      "description": "删除一条表态",
+      "required_fields": [
+        "id"
+      ],
+      "input_schema": {
+        "id": "int",
+        "attid": "int"
+      },
+      "flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "微博ID"
+        },
+        {
+          "name": "attid",
+          "type": "int",
+          "required": false,
+          "description": "表态ID"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "1dae45de16216083b9fcfd018e5b9a3a3655af0046281d91d0a5d7e074ef5f84"
+    },
+    {
+      "name": "attitudes show/biz",
+      "group": "attitudes",
+      "action": "show/biz",
+      "api_path": "attitudes/show/biz",
+      "invocation_path": "/attitudes/show/biz.json",
+      "method": "GET",
+      "title": "根据微博ID返回某条微博的赞列表",
+      "description": "根据微博ID返回某条微博的赞列表",
+      "required_fields": [
+        "id"
+      ],
+      "input_schema": {
+        "id": "int",
+        "page": "int",
+        "count": "int",
+        "max_id": "int",
+        "since_id": "int"
+      },
+      "flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "微博ID。"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的赞信息，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则只返回ID比since_id大的赞信息（即比since_id发表时间晚的赞信息），默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "6e6bdde4e429dda118ae7f2f6854cf979f0236a9d042e1ddd8c8d2c533f7ed6e"
+    },
+    {
+      "name": "comments by_me/biz",
+      "group": "comments",
+      "action": "by_me/biz",
+      "api_path": "comments/by_me/biz",
+      "invocation_path": "/comments/by_me/biz.json",
+      "method": "GET",
+      "title": "获取当前登录用户发出的评论列表",
+      "description": "获取当前登录用户发出的评论列表",
+      "required_fields": [],
+      "input_schema": {
+        "page": "int",
+        "count": "int",
+        "max_id": "int",
+        "since_id": "int",
+        "filter_by_source": "int"
+      },
+      "flags": [
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "filter_by_source",
+          "type": "int",
+          "required": false,
+          "description": "来源筛选类型，0：全部、1：来自微博的评论、2：来自微群的评论，默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "6ada19d3ff7d6b5c2cedc89cda8cd87e1b08434ccc13216454f425892fbbb5b1"
+    },
+    {
+      "name": "comments by_me/other",
+      "group": "comments",
+      "action": "by_me/other",
+      "api_path": "comments/by_me/other",
+      "invocation_path": "/comments/by_me/other.json",
+      "method": "GET",
+      "title": "获取某个用户发出的评论列表",
+      "description": "获取某个用户发出的评论列表",
+      "required_fields": [
+        "uid"
+      ],
+      "input_schema": {
+        "uid": "int",
+        "page": "int",
+        "count": "int",
+        "max_id": "int",
+        "since_id": "int",
+        "filter_by_source": "int"
+      },
+      "flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的用户ID。（必填）"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "filter_by_source",
+          "type": "int",
+          "required": false,
+          "description": "来源筛选类型，0：全部、1：来自微博的评论、2：来自微群的评论，默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "453435bfe545955b38687145c675237abfcd6e99ad749f422f48ad4ff147642b"
+    },
+    {
+      "name": "comments create",
+      "group": "comments",
+      "action": "create",
+      "api_path": "comments/create",
+      "invocation_path": "/comments/create.json",
+      "method": "POST",
+      "title": "评论一条微博",
+      "description": "评论一条微博",
+      "required_fields": [
+        "comment",
+        "id"
+      ],
+      "input_schema": {
+        "id": "int",
+        "comment": "string",
+        "pic_ids": "string",
+        "is_repost": "int",
+        "comment_ori": "int"
+      },
+      "flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "需要评论的微博ID。"
+        },
+        {
+          "name": "comment",
+          "type": "string",
+          "required": true,
+          "description": "评论内容，内容不超过140个汉字。"
+        },
+        {
+          "name": "pic_ids",
+          "type": "string",
+          "required": false,
+          "description": "需要评论的图片ID，多个之间用逗号分隔。"
+        },
+        {
+          "name": "is_repost",
+          "type": "int",
+          "required": false,
+          "description": "评论的同时转发到我的微博, 0:不转发。1：转发。默认0."
+        },
+        {
+          "name": "comment_ori",
+          "type": "int",
+          "required": false,
+          "description": "当评论转发微博时，是否评论给原微博，0：否、1：是，默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "3b924e587d1c88d3e75a4e82e970897fb76eb7f8d09701f98769da888948183a"
+    },
+    {
+      "name": "comments destroy",
+      "group": "comments",
+      "action": "destroy",
+      "api_path": "comments/destroy",
+      "invocation_path": "/comments/destroy.json",
+      "method": "POST",
+      "title": "删除一条评论",
+      "description": "删除一条评论",
+      "required_fields": [
+        "cid"
+      ],
+      "input_schema": {
+        "cid": "int"
+      },
+      "flags": [
+        {
+          "name": "cid",
+          "type": "int",
+          "required": true,
+          "description": "要删除的评论ID，只能删除登录用户自己发布的评论。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "111650279c2dae8518bb64d9a5eb38f3340089b0f164f5803f3464c38054c5a5"
+    },
+    {
+      "name": "comments mentions/biz",
+      "group": "comments",
+      "action": "mentions/biz",
+      "api_path": "comments/mentions/biz",
+      "invocation_path": "/comments/mentions/biz.json",
+      "method": "GET",
+      "title": "获取@当前登录用户的评论",
+      "description": "获取@当前登录用户的评论",
+      "required_fields": [],
+      "input_schema": {
+        "page": "int",
+        "count": "int",
+        "max_id": "int",
+        "since_id": "int",
+        "filter_by_author": "int",
+        "filter_by_source": "int"
+      },
+      "flags": [
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        },
+        {
+          "name": "filter_by_source",
+          "type": "int",
+          "required": false,
+          "description": "来源筛选类型，0：全部、1：来自微博的评论、2：来自微群的评论，默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "52640294e16f214ba97e456f096edb89283e83e4504ae4b4bead4a352beebb04"
+    },
+    {
+      "name": "comments mentions/other",
+      "group": "comments",
+      "action": "mentions/other",
+      "api_path": "comments/mentions/other",
+      "invocation_path": "/comments/mentions/other.json",
+      "method": "GET",
+      "title": "获取@某人的评论",
+      "description": "获取@某人的评论",
+      "required_fields": [
+        "uid"
+      ],
+      "input_schema": {
+        "uid": "int",
+        "page": "int",
+        "count": "int",
+        "max_id": "int",
+        "since_id": "int",
+        "filter_by_author": "int",
+        "filter_by_source": "int"
+      },
+      "flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的用户ID。（必填）"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        },
+        {
+          "name": "filter_by_source",
+          "type": "int",
+          "required": false,
+          "description": "来源筛选类型，0：全部、1：来自微博的评论、2：来自微群的评论，默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "35c8500dec52463b580738cd29dc11e4de86545a44460e0297e7ffd965c5ba89"
+    },
+    {
+      "name": "comments reply",
+      "group": "comments",
+      "action": "reply",
+      "api_path": "comments/reply",
+      "invocation_path": "/comments/reply.json",
+      "method": "POST",
+      "title": "回复一条评论",
+      "description": "回复一条评论",
+      "required_fields": [
+        "cid",
+        "id",
+        "comment"
+      ],
+      "input_schema": {
+        "id": "int",
+        "cid": "int",
+        "comment": "string",
+        "pic_ids": "string",
+        "is_repost": "int",
+        "comment_ori": "int",
+        "without_mention": "int"
+      },
+      "flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "需要评论的微博ID。"
+        },
+        {
+          "name": "cid",
+          "type": "int",
+          "required": true,
+          "description": "需要回复的评论ID。"
+        },
+        {
+          "name": "comment",
+          "type": "string",
+          "required": true,
+          "description": "回复评论内容，内容不超过140个汉字。"
+        },
+        {
+          "name": "pic_ids",
+          "type": "string",
+          "required": false,
+          "description": "需要评论的图片ID，多个之间用逗号分隔。"
+        },
+        {
+          "name": "is_repost",
+          "type": "int",
+          "required": false,
+          "description": "评论的同时转发到我的微博, 0:不转发。1：转发。默认0."
+        },
+        {
+          "name": "comment_ori",
+          "type": "int",
+          "required": false,
+          "description": "当评论转发微博时，是否评论给原微博，0：否、1：是，默认为0。"
+        },
+        {
+          "name": "without_mention",
+          "type": "int",
+          "required": false,
+          "description": "回复中是否自动加入“回复@用户名”，0：是、1：否，默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "cc6eccd810ad2f3238a246dc51f62b0193fb74f00082a1f418cb205e19d32f34"
+    },
+    {
+      "name": "comments show_batch/biz",
+      "group": "comments",
+      "action": "show_batch/biz",
+      "api_path": "comments/show_batch/biz",
+      "invocation_path": "/comments/show_batch/biz.json",
+      "method": "GET",
+      "title": "批量获取评论内容",
+      "description": "批量获取评论内容",
+      "required_fields": [
+        "cids"
+      ],
+      "input_schema": {
+        "cids": "int"
+      },
+      "flags": [
+        {
+          "name": "cids",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的批量评论ID，用半角逗号分隔，最大50。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "fe3e5519cb6c61ef509b9672d5e2d71cac3634fa6f0e2024272cf6b43f54da02"
+    },
+    {
+      "name": "comments show/all",
+      "group": "comments",
+      "action": "show/all",
+      "api_path": "comments/show/all",
+      "invocation_path": "/comments/show/all.json",
+      "method": "GET",
+      "title": "返回一条微博的全部评论列表",
+      "description": "返回一条微博的全部评论列表",
+      "required_fields": [
+        "id"
+      ],
+      "input_schema": {
+        "id": "int",
+        "page": "int",
+        "count": "int",
+        "max_id": "int",
+        "since_id": "int",
+        "filter_by_author": "int"
+      },
+      "flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的微博ID。"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "a426dc6286a4a9869be184a314137ede50a9ed32b3f6bd2cd391bbeb22d5ea65"
+    },
+    {
+      "name": "comments show/biz",
+      "group": "comments",
+      "action": "show/biz",
+      "api_path": "comments/show/biz",
+      "invocation_path": "/comments/show/biz.json",
+      "method": "GET",
+      "title": "获取当前登录用户发布的微博下的评论列表",
+      "description": "获取当前登录用户发布的微博下的评论列表",
+      "required_fields": [
+        "id"
+      ],
+      "input_schema": {
+        "id": "int",
+        "page": "int",
+        "count": "int",
+        "max_id": "int",
+        "since_id": "int",
+        "filter_by_author": "int"
+      },
+      "flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的微博ID。"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "b64747a36bd0bedf26ac3cc8a8cd1ca0fb8d966d5b1620396acc85f24885a486"
+    },
+    {
+      "name": "comments timeline/biz",
+      "group": "comments",
+      "action": "timeline/biz",
+      "api_path": "comments/timeline/biz",
+      "invocation_path": "/comments/timeline/biz.json",
+      "method": "GET",
+      "title": "获取当前登录用户发出及收到的评论列表",
+      "description": "获取当前登录用户发出及收到的评论列表",
+      "required_fields": [],
+      "input_schema": {
+        "page": "int",
+        "count": "int",
+        "max_id": "int",
+        "since_id": "int",
+        "trim_user": "int"
+      },
+      "flags": [
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "trim_user",
+          "type": "int",
+          "required": false,
+          "description": "返回值中user字段开关，0：返回完整user字段、1：user字段仅返回uid，默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "9a0b973e52c02781f3f73293b97a60bb10bf317659cd0d99696907f92a8066ce"
+    },
+    {
+      "name": "comments timeline/other",
+      "group": "comments",
+      "action": "timeline/other",
+      "api_path": "comments/timeline/other",
+      "invocation_path": "/comments/timeline/other.json",
+      "method": "GET",
+      "title": "获取某个用户发出和收到的评论列表",
+      "description": "获取某个用户发出和收到的评论列表",
+      "required_fields": [
+        "uid"
+      ],
+      "input_schema": {
+        "uid": "int",
+        "page": "int",
+        "count": "int",
+        "max_id": "int",
+        "since_id": "int",
+        "trim_user": "int"
+      },
+      "flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的用户ID。（必填）"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "trim_user",
+          "type": "int",
+          "required": false,
+          "description": "返回值中user字段开关，0：返回完整user字段、1：user字段仅返回uid，默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "2aafa22b4b5c88c3f3905f3b79ffce37b2a9cc3006c3d1dc577d154dfe8cb62f"
+    },
+    {
+      "name": "comments to_me/biz",
+      "group": "comments",
+      "action": "to_me/biz",
+      "api_path": "comments/to_me/biz",
+      "invocation_path": "/comments/to_me/biz.json",
+      "method": "GET",
+      "title": "获取当前登录用户收到的评论列表",
+      "description": "获取当前登录用户收到的评论列表",
+      "required_fields": [],
+      "input_schema": {
+        "page": "int",
+        "count": "int",
+        "max_id": "int",
+        "since_id": "int",
+        "filter_by_author": "int",
+        "filter_by_source": "int"
+      },
+      "flags": [
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        },
+        {
+          "name": "filter_by_source",
+          "type": "int",
+          "required": false,
+          "description": "来源筛选类型，0：全部、1：来自微博的评论、2：来自微群的评论，默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "d07ec2e71f68bec2f4b750dd39574a5e071dc3f468847dc3659fa53b3005e525"
+    },
+    {
+      "name": "comments to_me/other",
+      "group": "comments",
+      "action": "to_me/other",
+      "api_path": "comments/to_me/other",
+      "invocation_path": "/comments/to_me/other.json",
+      "method": "GET",
+      "title": "获取某个用户收到的评论列表",
+      "description": "获取某个用户收到的评论列表",
+      "required_fields": [
+        "uid"
+      ],
+      "input_schema": {
+        "uid": "int",
+        "page": "int",
+        "count": "int",
+        "max_id": "int",
+        "since_id": "int",
+        "filter_by_author": "int",
+        "filter_by_source": "int"
+      },
+      "flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的用户ID。（必填）"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的评论，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0。"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        },
+        {
+          "name": "filter_by_source",
+          "type": "int",
+          "required": false,
+          "description": "来源筛选类型，0：全部、1：来自微博的评论、2：来自微群的评论，默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "b62572a09d8de10c5a9516343f3eae167da32db6123e865a21bd15ab9b8c2d4f"
+    },
+    {
+      "name": "friendships followers/active_list",
+      "group": "friendships",
+      "action": "followers/active_list",
+      "api_path": "friendships/followers/active_list",
+      "invocation_path": "/friendships/followers/active_list.json",
+      "method": "GET",
+      "title": "获取授权用户活跃或互动粉丝TOP20列表",
+      "description": "获取授权用户活跃或互动粉丝TOP20列表",
+      "required_fields": [
+        "flag"
+      ],
+      "input_schema": {
+        "flag": "int"
+      },
+      "flags": [
+        {
+          "name": "flag",
+          "type": "int",
+          "required": true,
+          "description": "列表类型：0=活跃粉丝，1=互动粉丝",
+          "enum": [
+            "0",
+            "1"
+          ]
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "2186a4937e4c296d688a732d57859e523e774727f2be532e0392b0030aedaa89"
+    },
+    {
+      "name": "friendships followers/age_group_count",
+      "group": "friendships",
+      "action": "followers/age_group_count",
+      "api_path": "friendships/followers/age_group_count",
+      "invocation_path": "/friendships/followers/age_group_count.json",
+      "method": "GET",
+      "title": "获取某用户粉丝的年龄段、性别细分数据",
+      "description": "获取某用户粉丝的年龄段、性别细分数据",
+      "required_fields": [
+        "uid"
+      ],
+      "input_schema": {
+        "uid": "int"
+      },
+      "flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "3b364d3fb0918a09c96c15b9e12261b3d91ea7880b9ff52bfcfc311433000a11"
+    },
+    {
+      "name": "friendships followers/biz",
+      "group": "friendships",
+      "action": "followers/biz",
+      "api_path": "friendships/followers/biz",
+      "invocation_path": "/friendships/followers/biz.json",
+      "method": "GET",
+      "title": "获取当前登录用户的粉丝列表",
+      "description": "获取当前登录用户的粉丝列表",
+      "required_fields": [],
+      "input_schema": {
+        "age": "string",
+        "city": "int",
+        "flag": "int",
+        "type": "int",
+        "bucket": "int",
+        "gender": "string",
+        "max_time": "string",
+        "province": "int",
+        "cursor_uid": "int"
+      },
+      "flags": [
+        {
+          "name": "age",
+          "type": "string",
+          "required": false,
+          "description": "指定接收用户的年龄范围，取值内容为：6-12、13-18、19-22、23-25、26-29、30-39、40-59、60-80、其他。"
+        },
+        {
+          "name": "city",
+          "type": "int",
+          "required": false,
+          "description": "指定接收用户的城市范围，城市ID。"
+        },
+        {
+          "name": "flag",
+          "type": "int",
+          "required": false,
+          "description": "指定粉丝的属性条件。0：所有粉丝；1：活跃粉丝；2：互动粉丝；支持任意数字叠加值，如，3：活跃粉丝+互动粉丝，默认为0。"
+        },
+        {
+          "name": "type",
+          "type": "int",
+          "required": false,
+          "description": "指定粉丝的认证类型。0：所有用户；1：普通用户；2：黄V；4：蓝v（包括政府，企业，媒体，网站，校园，应用，机构/团体，公益组织）；8：达人；支持任意数字叠加值，如，6：黄V+蓝V，默认为所有用户。"
+        },
+        {
+          "name": "bucket",
+          "type": "int",
+          "required": false,
+          "description": "筛选粉丝的个数范围，默认为50，最大不超过200。"
+        },
+        {
+          "name": "gender",
+          "type": "string",
+          "required": false,
+          "description": "指定接收用户的性别范围，m：男、f：女。"
+        },
+        {
+          "name": "max_time",
+          "type": "string",
+          "required": false,
+          "description": "返回结果的时间戳游标，若指定此参数，则返回关注时间小于或等于max_time的粉丝，默认从当前时间开始算。返回结果中会得到next_cursor字段，表示下一页的max_time。next_cursor为0表示已经到记录末尾。"
+        },
+        {
+          "name": "province",
+          "type": "int",
+          "required": false,
+          "description": "指定接收用户的省份范围，省份ID。"
+        },
+        {
+          "name": "cursor_uid",
+          "type": "int",
+          "required": false,
+          "description": "排重ID，传上次获取时最后一个用户ID。"
+        }
+      ],
+      "usage_notes": [
+        "分页不是快照：关系变化及上游可见性过滤可能影响结果。total_number 不保证等于可获取且去重后的条数；按 idstr（字符串）去重，按本命令 flags 传递分页参数，不要混用 page、cursor 和 max_time。",
+        "仅在该接口返回下一页游标且参数支持时使用它；重复游标应停止并报告未完成，不应把连续无新增自动视为完整采集。"
+      ],
+      "schema_version": "160b54fa214015adeb28fcb8368d7dd677e1c3b90385e8de96b59ed848f347b6"
+    },
+    {
+      "name": "friendships followers/demographics_day",
+      "group": "friendships",
+      "action": "followers/demographics_day",
+      "api_path": "friendships/followers/demographics_day",
+      "invocation_path": "/friendships/followers/demographics_day.json",
+      "method": "GET",
+      "title": "获取用户粉丝的星座、兴趣标签和粉丝量级的细分数据",
+      "description": "获取用户粉丝的星座、兴趣标签和粉丝量级的细分数据",
+      "required_fields": [
+        "uid",
+        "property"
+      ],
+      "input_schema": {
+        "uid": "string",
+        "property": "string"
+      },
+      "flags": [
+        {
+          "name": "uid",
+          "type": "string",
+          "required": true,
+          "description": "要查询的用户 UID"
+        },
+        {
+          "name": "property",
+          "type": "string",
+          "required": true,
+          "description": "查询条件：tag=兴趣标签，astro=星座，fan=粉丝量级",
+          "enum": [
+            "tag",
+            "astro",
+            "fan"
+          ]
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "c34522815d55a0c38258d947bee3acaed1749b2112db2da5d2bed7a152b11c04"
+    },
+    {
+      "name": "friendships followers/influence_top20",
+      "group": "friendships",
+      "action": "followers/influence_top20",
+      "api_path": "friendships/followers/influence_top20",
+      "invocation_path": "/friendships/followers/influence_top20.json",
+      "method": "GET",
+      "title": "获取近7天转发或互动最多的粉丝TOP20（仅蓝V）",
+      "description": "获取近7天转发或互动最多的粉丝TOP20（仅蓝V）",
+      "required_fields": [
+        "uid",
+        "time_span",
+        "flag"
+      ],
+      "input_schema": {
+        "uid": "int",
+        "flag": "int",
+        "time_span": "int"
+      },
+      "flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的用户ID。"
+        },
+        {
+          "name": "flag",
+          "type": "int",
+          "required": true,
+          "description": "查询条件。1：转发最多粉丝；2：互动最多粉丝。",
+          "enum": [
+            "1",
+            "2"
+          ]
+        },
+        {
+          "name": "time_span",
+          "type": "int",
+          "required": true,
+          "description": "查询时间范围。1：近7天；2：近30天；3：近90天。",
+          "enum": [
+            "1",
+            "2",
+            "3"
+          ]
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "8e5f5a4b9e593ad36a4cc054bd28ff2efb068e6eebc6b489ac62bc2727491d3d"
+    },
+    {
+      "name": "friendships followers/location_count",
+      "group": "friendships",
+      "action": "followers/location_count",
+      "api_path": "friendships/followers/location_count",
+      "invocation_path": "/friendships/followers/location_count.json",
+      "method": "GET",
+      "title": "获取用户粉丝的地区细分数据",
+      "description": "获取用户粉丝的地区细分数据",
+      "required_fields": [],
+      "input_schema": {
+        "uid": "string"
+      },
+      "flags": [
+        {
+          "name": "uid",
+          "type": "string",
+          "required": false,
+          "description": "需要查询用户的uid。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "040de87c345e2bf65575cc8c01b322d086efbdb94db4575e8e738929c4f61700"
+    },
+    {
+      "name": "friendships followers/online_time/biz",
+      "group": "friendships",
+      "action": "followers/online_time/biz",
+      "api_path": "friendships/followers/online_time/biz",
+      "invocation_path": "/friendships/followers/online_time/biz.json",
+      "method": "GET",
+      "title": "获取当前登录用户粉丝最近一周在线时段比例分布",
+      "description": "获取当前登录用户粉丝最近一周在线时段比例分布",
+      "required_fields": [
+        "type"
+      ],
+      "input_schema": {
+        "type": "string"
+      },
+      "flags": [
+        {
+          "name": "type",
+          "type": "string",
+          "required": true,
+          "description": "分布类型：hour-小时分布，day-天分布"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "cccc6e8595488def6d0d054eff489bce84600ffee32ffc4f3fc92185c2cc7134"
+    },
+    {
+      "name": "friendships followers/source",
+      "group": "friendships",
+      "action": "followers/source",
+      "api_path": "friendships/followers/source",
+      "invocation_path": "/friendships/followers/source.json",
+      "method": "GET",
+      "title": "获取某用户粉丝的关注来源",
+      "description": "获取某用户粉丝的关注来源",
+      "required_fields": [],
+      "input_schema": {
+        "uid": "int"
+      },
+      "flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": false,
+          "description": "主用户ID。默认为当前登陆用户。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "9e5c062987a0e0aade09969ae8d5993cfbfbc75faa88794fc91455fd69622f76"
+    },
+    {
+      "name": "friendships followers/trend_other/biz",
+      "group": "friendships",
+      "action": "followers/trend_other/biz",
+      "api_path": "friendships/followers/trend_other/biz",
+      "invocation_path": "/friendships/followers/trend_other/biz.json",
+      "method": "GET",
+      "title": "获取当前登录用户的粉丝每天增加和减少数量",
+      "description": "获取当前登录用户的粉丝每天增加和减少数量",
+      "required_fields": [
+        "starttime",
+        "endtime"
+      ],
+      "input_schema": {
+        "endtime": "string",
+        "starttime": "string"
+      },
+      "flags": [
+        {
+          "name": "endtime",
+          "type": "string",
+          "required": true,
+          "description": "结束时间，格式为XXXX-XX-XX。"
+        },
+        {
+          "name": "starttime",
+          "type": "string",
+          "required": true,
+          "description": "开始时间，格式为XXXX-XX-XX。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "53e7b42ca92f159acb50b85a2faefe16d1d8eb5dd6dd2d70c4698468caa65b68"
+    },
+    {
+      "name": "friendships followers/unfollower_count",
+      "group": "friendships",
+      "action": "followers/unfollower_count",
+      "api_path": "friendships/followers/unfollower_count",
+      "invocation_path": "/friendships/followers/unfollower_count.json",
+      "method": "GET",
+      "title": "获取最长近90天内每天取消关注该账户的用户数",
+      "description": "获取最长近90天内每天取消关注该账户的用户数",
+      "required_fields": [
+        "uid",
+        "starttime",
+        "endtime"
+      ],
+      "input_schema": {
+        "uid": "int",
+        "endtime": "int",
+        "starttime": "int"
+      },
+      "flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的用户ID。"
+        },
+        {
+          "name": "endtime",
+          "type": "int",
+          "required": true,
+          "description": "搜索范围结束时间，格式为xxxx-xx-xx。"
+        },
+        {
+          "name": "starttime",
+          "type": "int",
+          "required": true,
+          "description": "搜索范围起始时间，格式为xxxx-xx-xx。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "56db65bce42163a32591c7a1251422cad9c3bd9a9acd39b99e9f4c82ea13c573"
+    },
+    {
+      "name": "friendships friends/biz",
+      "group": "friendships",
+      "action": "friends/biz",
+      "api_path": "friendships/friends/biz",
+      "invocation_path": "/friendships/friends/biz.json",
+      "method": "GET",
+      "title": "获取当前登录用户的关注列表",
+      "description": "获取当前登录用户的关注列表",
+      "required_fields": [],
+      "input_schema": {
+        "page": "int",
+        "count": "int",
+        "trim_status": "int"
+      },
+      "flags": [
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果页码。默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为50。"
+        },
+        {
+          "name": "trim_status",
+          "type": "int",
+          "required": false,
+          "description": "user中的status信息开关， 1：user中的status字段仅返回status_id， 0：返回完整status信息。默认trim_status为1。"
+        }
+      ],
+      "usage_notes": [
+        "分页不是快照：关系变化及上游可见性过滤可能影响结果。total_number 不保证等于可获取且去重后的条数；按 idstr（字符串）去重，按本命令 flags 传递分页参数，不要混用 page、cursor 和 max_time。",
+        "仅在该接口返回下一页游标且参数支持时使用它；重复游标应停止并报告未完成，不应把连续无新增自动视为完整采集。"
+      ],
+      "schema_version": "e6133c4f2fde6840f69f028d7928d5e466c3778e2d5df9345958b9fa4670b21e"
+    },
+    {
+      "name": "search hot_word_cate/biz",
+      "group": "search",
+      "action": "hot_word_cate/biz",
+      "api_path": "search/hot_word_cate/biz",
+      "invocation_path": "/search/hot_word_cate/biz.json",
+      "method": "GET",
+      "title": "搜索分类榜单",
+      "description": "获取微博搜索分类榜单，按 category 单选榜单：1 文娱榜、2 社会榜、3 科技榜、4 acg榜、5 生活榜、6 体育榜。category 为必填字符串；count 为可选返回条数，默认 50，最大 50。返回 cat 榜单标识、app_link 榜单 App 唤起地址、h5_link 榜单 H5 地址及 data 榜单列表。data 条目包含：id 排名、word 搜索词、num 搜索热度、flag 搜索词标记（1 新、2 热、4 爆、16 沸、0 无标记）、app_query_link 搜索词 App 唤起地址、h5_query_link 搜索词 H5 地址、flag_link 标记图片地址。",
+      "required_fields": [
+        "category"
+      ],
+      "input_schema": {
+        "count": "int",
+        "category": "string"
+      },
+      "flags": [
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "返回结果条数，可选，默认 50，最大不超过 50。"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "required": true,
+          "description": "榜单类型，必填，单选：1=文娱榜、2=社会榜、3=科技榜、4=acg榜、5=生活榜、6=体育榜。",
+          "enum": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ]
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "7ecc3cae363f0de2a510bc086a6dbece5a1251f42ae81f49ecea80e19cf7be0b"
+    },
+    {
+      "name": "search hot_word/biz",
+      "group": "search",
+      "action": "hot_word/biz",
+      "api_path": "search/hot_word/biz",
+      "invocation_path": "/search/hot_word/biz.json",
+      "method": "GET",
+      "title": "微博热搜主榜",
+      "description": "获取微博热搜主榜，返回热搜词、排名、搜索热度及跳转链接。可通过 count 指定返回条数，默认 50，最大 50。返回 cat 榜单标识、app_link 榜单 App 唤起地址、h5_link 榜单 H5 地址及 data 榜单列表。data 条目包含：id 排名（0 表示置顶词，置顶不是固定位）、word 搜索词、num 搜索热度、flag 搜索词标记（1 新、2 热、4 爆、16 沸、0 无标记）、app_query_link 搜索词 App 唤起地址、h5_query_link 搜索词 H5 地址、flag_link 标记图片地址。文档：https://open.weibo.com/wiki/C/2/search/hot_word/biz",
+      "required_fields": [],
+      "input_schema": {
+        "count": "int"
+      },
+      "flags": [
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "每页返回数量，最大不超过50，默认为50。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "830405141a02fde57a37f265dfa77f0477ff050ff1cd59695539ebf0f14fbce9"
+    },
+    {
+      "name": "search statuses/limited",
+      "group": "search",
+      "action": "statuses/limited",
+      "api_path": "search/statuses/limited",
+      "invocation_path": "/search/statuses/limited.json",
+      "method": "GET",
+      "title": "搜索含某关键词的微博",
+      "description": "搜索含某关键词的微博",
+      "required_fields": [
+        "q",
+        "type"
+      ],
+      "input_schema": {
+        "q": "string",
+        "dup": "int",
+        "ids": "string",
+        "city": "int",
+        "hasv": "int",
+        "page": "int",
+        "sort": "string",
+        "type": "int",
+        "count": "int",
+        "hasat": "int",
+        "istag": "int",
+        "hasori": "int",
+        "haspic": "int",
+        "hasret": "int",
+        "endtime": "int",
+        "haslink": "int",
+        "hastext": "int",
+        "antispam": "int",
+        "base_app": "int",
+        "hasmusic": "int",
+        "hasvideo": "int",
+        "is_batch": "int",
+        "starttime": "int"
+      },
+      "flags": [
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "description": "搜索的关键字( 不能包含{、}、“ 等特殊字符)。"
+        },
+        {
+          "name": "dup",
+          "type": "int",
+          "required": false,
+          "description": "是否排重（不显示相似数据），0：否、1：是，默认为1。"
+        },
+        {
+          "name": "ids",
+          "type": "string",
+          "required": false,
+          "description": "搜索指定批量用户的微博，传用户UID，多个用~分隔，最多不超过50个。"
+        },
+        {
+          "name": "city",
+          "type": "int",
+          "required": false,
+          "description": "搜索的城市ID，参考省份城市编码表。"
+        },
+        {
+          "name": "hasv",
+          "type": "int",
+          "required": false,
+          "description": "是否为v用户发言，0：否、1：是，默认为空（全部）。"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "页码，默认为1。"
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "required": false,
+          "description": "排序方式，time：时间倒序、hot：热门度【设置此参数只会返回精选微博】、fwnum：按转发数倒序、cmtnum：评论数倒序，默认为time。"
+        },
+        {
+          "name": "type",
+          "type": "int",
+          "required": true,
+          "description": "获取类型，1：微博、2：评论、3：私信，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过50，最小为10，默认为10。"
+        },
+        {
+          "name": "hasat",
+          "type": "int",
+          "required": false,
+          "description": "是否包含@，0：不包含@、1：只包含@，默认为空（全部）。"
+        },
+        {
+          "name": "istag",
+          "type": "int",
+          "required": false,
+          "description": "是否严格为搜##内的话题，0：否、1：##内模糊匹配、2：##内精确匹配，默认为0。"
+        },
+        {
+          "name": "hasori",
+          "type": "int",
+          "required": false,
+          "description": "是否包含原创，0：不包含原创、1：只包含原创，默认为空（全部）。"
+        },
+        {
+          "name": "haspic",
+          "type": "int",
+          "required": false,
+          "description": "是否包含图片，0：不包含图片、1：只包含图片，默认为空（全部）。"
+        },
+        {
+          "name": "hasret",
+          "type": "int",
+          "required": false,
+          "description": "是否包含转发，0：不包含转发、1：只包含转发，默认为空（全部）。"
+        },
+        {
+          "name": "endtime",
+          "type": "int",
+          "required": false,
+          "description": "搜索范围结束时间，取值为时间戳，单位为秒。"
+        },
+        {
+          "name": "haslink",
+          "type": "int",
+          "required": false,
+          "description": "是否包含链接，0：不包含链接、1：只包含链接，默认为空（全部）。"
+        },
+        {
+          "name": "hastext",
+          "type": "int",
+          "required": false,
+          "description": "是否包含纯文本，0：不包含纯文本、1：只包含纯文本，默认为空（全部）。"
+        },
+        {
+          "name": "antispam",
+          "type": "int",
+          "required": false,
+          "description": "是否反垃圾（不显示低质量数据），0：否、1：是，默认为1。"
+        },
+        {
+          "name": "base_app",
+          "type": "int",
+          "required": false,
+          "description": "是否只获取当前应用的数据。0为否（所有数据），1为是（仅当前应用），默认为0。"
+        },
+        {
+          "name": "hasmusic",
+          "type": "int",
+          "required": false,
+          "description": "是否包含音乐，0：不包含音乐、1：只包含音乐，默认为空（全部）。"
+        },
+        {
+          "name": "hasvideo",
+          "type": "int",
+          "required": false,
+          "description": "是否包含视频，0：不包含视频、1：只包含视频，默认为空（全部）。"
+        },
+        {
+          "name": "is_batch",
+          "type": "int",
+          "required": false,
+          "description": "是否使用批量模式，0：否、1：是，默认为0。"
+        },
+        {
+          "name": "starttime",
+          "type": "int",
+          "required": false,
+          "description": "搜索范围起始时间，取值为时间戳，单位为秒。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "8bd6e2b3514257f1b1ac2be1b6b014fb2d5f90735db213393077df0fc73373a4"
+    },
+    {
+      "name": "search suggestions/users/biz",
+      "group": "search",
+      "action": "suggestions/users/biz",
+      "api_path": "search/suggestions/users/biz",
+      "invocation_path": "/search/suggestions/users/biz.json",
+      "method": "GET",
+      "title": "搜用户搜索建议",
+      "description": "搜用户搜索建议",
+      "required_fields": [
+        "q"
+      ],
+      "input_schema": {
+        "q": "string",
+        "count": "int"
+      },
+      "flags": [
+        {
+          "name": "q",
+          "type": "string",
+          "required": true,
+          "description": "搜索的关键字。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，默认为10。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "57d4eaef295b5fc88eb9add302791a3895a8fc67bd1def6d01335179648ea6b7"
+    },
+    {
+      "name": "short_url expand",
+      "group": "short_url",
+      "action": "expand",
+      "api_path": "short_url/expand",
+      "invocation_path": "/short_url/expand.json",
+      "method": "POST",
+      "title": "将一个或多个短链接还原成原始的长链接",
+      "description": "将一个或多个短链接还原成原始的长链接",
+      "required_fields": [
+        "url_short"
+      ],
+      "input_schema": {
+        "url_short": "string"
+      },
+      "flags": [
+        {
+          "name": "url_short",
+          "type": "string",
+          "required": true,
+          "description": "需要还原的短链接"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "c5b2ec1e7e06616e8082e023b0cb3490a42b6669851cbf4b52dc677d71ecb6d8"
+    },
+    {
+      "name": "short_url shorten",
+      "group": "short_url",
+      "action": "shorten",
+      "api_path": "short_url/shorten",
+      "invocation_path": "/short_url/shorten.json",
+      "method": "POST",
+      "title": "将一个或多个长链接转换成短链接",
+      "description": "将一个或多个长链接转换成短链接",
+      "required_fields": [
+        "url_long"
+      ],
+      "input_schema": {
+        "url_long": "string"
+      },
+      "flags": [
+        {
+          "name": "url_long",
+          "type": "string",
+          "required": true,
+          "description": "需要转换的长链接"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "c0b0642cbd55ba7c4ef5b373c2e191b30870f1e096508c39471002da945c1b51"
+    },
+    {
+      "name": "statuses count_sp/biz",
+      "group": "statuses",
+      "action": "count_sp/biz",
+      "api_path": "statuses/count_sp/biz",
+      "invocation_path": "/statuses/count_sp/biz.json",
+      "method": "GET",
+      "title": "批量获取指定授权微博的转发数、评论数、赞数、阅读数",
+      "description": "批量获取指定授权微博的转发数、评论数、赞数、阅读数",
+      "required_fields": [
+        "ids"
+      ],
+      "input_schema": {
+        "ids": "string",
+        "exclude_comment_like": "string"
+      },
+      "flags": [
+        {
+          "name": "ids",
+          "type": "string",
+          "required": true,
+          "description": "微博ID，英文半角逗号分隔，最大100。"
+        },
+        {
+          "name": "exclude_comment_like",
+          "type": "string",
+          "required": false,
+          "description": "是否排除评论赞计数，0:表示不排除，1:表示排除，默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "fabab14fc419afcfbc62991a212434b6f4115cc939d823f373d5180990d1e7be"
+    },
+    {
+      "name": "statuses count/biz",
+      "group": "statuses",
+      "action": "count/biz",
+      "api_path": "statuses/count/biz",
+      "invocation_path": "/statuses/count/biz.json",
+      "method": "GET",
+      "title": "批量获取指定微博的转发数评论数喜欢数",
+      "description": "批量获取指定微博的转发数评论数喜欢数",
+      "required_fields": [
+        "ids"
+      ],
+      "input_schema": {
+        "ids": "string",
+        "exclude_comment_like": "int"
+      },
+      "flags": [
+        {
+          "name": "ids",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "exclude_comment_like",
+          "type": "int",
+          "required": false
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "44e7691dd493a4ddab5564c95635126154f289cb6467e022df28f1875c8d5c5f"
+    },
+    {
+      "name": "statuses destroy",
+      "group": "statuses",
+      "action": "destroy",
+      "api_path": "statuses/destroy",
+      "invocation_path": "/statuses/destroy.json",
+      "method": "POST",
+      "title": "删除微博信息",
+      "description": "删除微博信息",
+      "required_fields": [
+        "id"
+      ],
+      "input_schema": {
+        "id": "int"
+      },
+      "flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "需要删除的微博ID。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "c8ae0b385ab8367322faa0d9f5a6e59eb7ffa968c9f5c45a47655096d9083221"
+    },
+    {
+      "name": "statuses mentions/biz",
+      "group": "statuses",
+      "action": "mentions/biz",
+      "api_path": "statuses/mentions/biz",
+      "invocation_path": "/statuses/mentions/biz.json",
+      "method": "GET",
+      "title": "获取@当前登录用户的微博列表",
+      "description": "获取@当前登录用户的微博列表",
+      "required_fields": [],
+      "input_schema": {
+        "page": "int",
+        "count": "int",
+        "max_id": "int",
+        "since_id": "int",
+        "filter_by_type": "int",
+        "filter_by_author": "int",
+        "filter_by_source": "int"
+      },
+      "flags": [
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为20。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的微博，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0。"
+        },
+        {
+          "name": "filter_by_type",
+          "type": "int",
+          "required": false,
+          "description": "原创筛选类型，0：全部微博、1：原创的微博，默认为0。"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        },
+        {
+          "name": "filter_by_source",
+          "type": "int",
+          "required": false,
+          "description": "来源筛选类型，0：全部、1：来自微博、2：来自微群，默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "1fda63f59f3bfbfdbaab70b2d70608d3abe76cf618b32915102914845c7320b3"
+    },
+    {
+      "name": "statuses mentions/other",
+      "group": "statuses",
+      "action": "mentions/other",
+      "api_path": "statuses/mentions/other",
+      "invocation_path": "/statuses/mentions/other.json",
+      "method": "GET",
+      "title": "获取@某人的微博",
+      "description": "获取@某人的微博",
+      "required_fields": [
+        "uid"
+      ],
+      "input_schema": {
+        "uid": "int",
+        "page": "int",
+        "count": "int",
+        "max_id": "int",
+        "since_id": "int",
+        "filter_by_type": "int",
+        "filter_by_author": "int",
+        "filter_by_source": "int"
+      },
+      "flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的用户ID。（必填）"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为20。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的微博，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0。"
+        },
+        {
+          "name": "filter_by_type",
+          "type": "int",
+          "required": false,
+          "description": "原创筛选类型，0：全部微博、1：原创的微博，默认为0"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        },
+        {
+          "name": "filter_by_source",
+          "type": "int",
+          "required": false,
+          "description": "来源筛选类型，0：全部、1：来自微博、2：来自微群，默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "da8f67a015d4cfb408f96827f1ed1dfb955b23492065125a6738dd71d516317f"
+    },
+    {
+      "name": "statuses queryid/biz",
+      "group": "statuses",
+      "action": "queryid/biz",
+      "api_path": "statuses/queryid/biz",
+      "invocation_path": "/statuses/queryid/biz.json",
+      "method": "GET",
+      "title": "通过微博（评论、私信）MID获取其ID",
+      "description": "通过微博（评论、私信）MID获取其ID",
+      "required_fields": [
+        "mid",
+        "type"
+      ],
+      "input_schema": {
+        "mid": "string",
+        "type": "int",
+        "inbox": "int",
+        "isBase62": "int",
+        "is_batch": "int"
+      },
+      "flags": [
+        {
+          "name": "mid",
+          "type": "string",
+          "required": true,
+          "description": "需要查询的微博（评论、私信）MID，批量模式下，用半角逗号分隔，最多不超过20个。"
+        },
+        {
+          "name": "type",
+          "type": "int",
+          "required": true,
+          "description": "获取类型，1：微博、2：评论、3：私信"
+        },
+        {
+          "name": "inbox",
+          "type": "int",
+          "required": false,
+          "description": "仅对私信有效，当MID类型为私信时用此参数，0：发件箱、1：收件箱，默认为0 。"
+        },
+        {
+          "name": "isBase62",
+          "type": "int",
+          "required": false,
+          "description": "MID是否是base62编码，0：否、1：是，默认为0。"
+        },
+        {
+          "name": "is_batch",
+          "type": "int",
+          "required": false,
+          "description": "是否使用批量模式，0：否、1：是，默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "28e074d31a698f6c3d266a3485420eef5b71b1d3bfe3b7057876f8d839a5412b"
+    },
+    {
+      "name": "statuses querymid/biz",
+      "group": "statuses",
+      "action": "querymid/biz",
+      "api_path": "statuses/querymid/biz",
+      "invocation_path": "/statuses/querymid/biz.json",
+      "method": "GET",
+      "title": "通过微博（评论、私信）ID获取其MID",
+      "description": "通过微博（评论、私信）ID获取其MID",
+      "required_fields": [
+        "id",
+        "type"
+      ],
+      "input_schema": {
+        "id": "string",
+        "type": "int",
+        "is_batch": "int"
+      },
+      "flags": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "需要查询的微博（评论、私信）ID，批量模式下，用半角逗号分隔，最多不超过20个。"
+        },
+        {
+          "name": "type",
+          "type": "int",
+          "required": true,
+          "description": "获取类型，1：微博、2：评论、3：私信"
+        },
+        {
+          "name": "is_batch",
+          "type": "int",
+          "required": false,
+          "description": "是否使用批量模式，0：否、1：是，默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "db1a0a60df6842ba106c2f28f58fa9fea01b22ee20d347fc454c19a18d017780"
+    },
+    {
+      "name": "statuses repost",
+      "group": "statuses",
+      "action": "repost",
+      "api_path": "statuses/repost",
+      "invocation_path": "/statuses/repost.json",
+      "method": "POST",
+      "title": "转发一条微博信息",
+      "description": "转发一条微博信息",
+      "required_fields": [
+        "id",
+        "status"
+      ],
+      "input_schema": {
+        "id": "int",
+        "status": "string",
+        "list_id": "string",
+        "visible": "int",
+        "is_comment": "int",
+        "annotations": "string"
+      },
+      "flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "要转发的微博ID。"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "description": "要发布的微博文本内容。"
+        },
+        {
+          "name": "list_id",
+          "type": "string",
+          "required": false,
+          "description": "微博的保护投递指定分组ID，只有当visible参数为3时生效且必选。"
+        },
+        {
+          "name": "visible",
+          "type": "int",
+          "required": false,
+          "description": "微博的可见性，0：所有人能看，1：仅自己可见，2：密友可见，3：指定分组可见，默认为0。"
+        },
+        {
+          "name": "is_comment",
+          "type": "int",
+          "required": false,
+          "description": "是否在转发的同时发表评论，0：否、1：评论给当前微博、2：评论给原微博、3：都评论，默认为0 。"
+        },
+        {
+          "name": "annotations",
+          "type": "string",
+          "required": false,
+          "description": "元数据，主要是为了方便第三方应用记录一些适合于自己使用的信息，每条微博可以包含一个或者多个元数据，必须以json字串的形式提交，字串长度不超过512个字符，具体内容可以自定。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "5c26fb299f6d43bddf5b00a5c9eae79fadcde6c247f345974bb6bc7fd3bc7ea7"
+    },
+    {
+      "name": "statuses repost_timeline/all",
+      "group": "statuses",
+      "action": "repost_timeline/all",
+      "api_path": "statuses/repost_timeline/all",
+      "invocation_path": "/statuses/repost_timeline/all.json",
+      "method": "GET",
+      "title": "返回一条微博的全部转发微博列表",
+      "description": "返回一条微博的全部转发微博列表",
+      "required_fields": [
+        "id"
+      ],
+      "input_schema": {
+        "id": "int",
+        "page": "int",
+        "count": "int",
+        "max_id": "int",
+        "since_id": "int",
+        "filter_by_author": "int"
+      },
+      "flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的微博ID。"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过50，默认为20。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的微博，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0。"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "c68888a14270ee3de6aaac95e1df62a438439a56d18312d216383d2147e55168"
+    },
+    {
+      "name": "statuses repost_timeline/biz",
+      "group": "statuses",
+      "action": "repost_timeline/biz",
+      "api_path": "statuses/repost_timeline/biz",
+      "invocation_path": "/statuses/repost_timeline/biz.json",
+      "method": "GET",
+      "title": "获取当前登录用户发布的一条原创微博的最新转发微博",
+      "description": "获取当前登录用户发布的一条原创微博的最新转发微博",
+      "required_fields": [
+        "id"
+      ],
+      "input_schema": {
+        "id": "int",
+        "page": "int",
+        "count": "int",
+        "max_id": "int",
+        "since_id": "int",
+        "filter_by_author": "int"
+      },
+      "flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的微博ID。"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过200，默认为20。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的微博，默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0。"
+        },
+        {
+          "name": "filter_by_author",
+          "type": "int",
+          "required": false,
+          "description": "作者筛选类型，0：全部、1：我关注的人、2：陌生人，默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "b991d95690a4451fe483de5578790ffca37ab0bce3925f627a3933fb8eed77b4"
+    },
+    {
+      "name": "statuses show_batch/biz",
+      "group": "statuses",
+      "action": "show_batch/biz",
+      "api_path": "statuses/show_batch/biz",
+      "invocation_path": "/statuses/show_batch/biz.json",
+      "method": "GET",
+      "title": "根据微博ID批量获取微博信息",
+      "description": "根据微博ID批量获取微博信息",
+      "required_fields": [
+        "ids"
+      ],
+      "input_schema": {
+        "ids": "string",
+        "trim_user": "int",
+        "isGetLongText": "int"
+      },
+      "flags": [
+        {
+          "name": "ids",
+          "type": "string",
+          "required": true,
+          "description": "需要查询的微博ID，用半角逗号分隔，最多不超过50个。"
+        },
+        {
+          "name": "trim_user",
+          "type": "int",
+          "required": false,
+          "description": "返回值中user字段开关，0：返回完整user字段、1：user字段仅返回uid，默认为0。"
+        },
+        {
+          "name": "isGetLongText",
+          "type": "int",
+          "required": false,
+          "description": "针对字数大于140字微博，是否返回完整内容的开关，0：只返回140以内的微博内容、1：返回值中增加longText字段返回完整微博内容，默认为0。"
+        }
+      ],
+      "usage_notes": [
+        "长文：仅当本命令 flags 包含 isGetLongText 时传 1；上游可能返回 longText，CLI 当前输出对应 long_text。请检查实际全文字段，is_long_text=true 本身不保证取得全文；若字段缺失，保留原始返回并报告全文不可用。",
+        "私密微博：作者在网页端可见不代表此读接口可读取；空结果不能证明微博不存在或已删除。visible=1 的发布结果请保存 id/idstr，当前不保证可回读。"
+      ],
+      "schema_version": "3533149d6193f70b90caeddceb1231cad487e8bbde4424ef79f65cd2b44fe010"
+    },
+    {
+      "name": "statuses statistic/biz",
+      "group": "statuses",
+      "action": "statistic/biz",
+      "api_path": "statuses/statistic/biz",
+      "invocation_path": "/statuses/statistic/biz.json",
+      "method": "GET",
+      "title": "返回近90天内发布的授权微博每天的被转发数、被评论数、被喜欢数、被点击数（区分短链、图片、视频点击）",
+      "description": "返回近90天内发布的授权微博每天的被转发数、被评论数、被喜欢数、被点击数（区分短链、图片、视频点击）",
+      "required_fields": [
+        "id",
+        "starttime",
+        "endtime"
+      ],
+      "input_schema": {
+        "id": "int",
+        "endtime": "string",
+        "starttime": "string"
+      },
+      "flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的微博ID。"
+        },
+        {
+          "name": "endtime",
+          "type": "string",
+          "required": true,
+          "description": "结束时间，格式为XXXX-XX-XX。"
+        },
+        {
+          "name": "starttime",
+          "type": "string",
+          "required": true,
+          "description": "开始时间，格式为XXXX-XX-XX。"
+        }
+      ],
+      "usage_notes": [
+        "统计结果为空时本次不扣费，exit 0；CLI 输出包含 outcome=NO_STATISTICS_DATA 和 billing.deducted=0。该状态只表示本次无可用数据，不推断权限、微博有效性或永久无数据。"
+      ],
+      "schema_version": "c2dcd516a7e8ca70b3af37ebffac7b4ad2ff9c0205ad8204e8614304cf3748f2"
+    },
+    {
+      "name": "statuses update",
+      "group": "statuses",
+      "action": "update",
+      "api_path": "statuses/update",
+      "invocation_path": "/statuses/update.json",
+      "method": "POST",
+      "title": "发布一条微博信息",
+      "description": "发布一条微博信息",
+      "required_fields": [
+        "status"
+      ],
+      "input_schema": {
+        "lat": "number",
+        "long": "number",
+        "status": "string",
+        "list_id": "string",
+        "visible": "int",
+        "annotations": "string",
+        "is_longtext": "int",
+        "mblog_statement": "int"
+      },
+      "flags": [
+        {
+          "name": "lat",
+          "type": "number",
+          "required": false,
+          "description": "纬度，有效范围：-90.0到+90.0，+表示北纬，默认为0.0。"
+        },
+        {
+          "name": "long",
+          "type": "number",
+          "required": false,
+          "description": "经度，有效范围：-180.0到+180.0，+表示东经，默认为0.0。"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "description": "要发布的微博文本内容。"
+        },
+        {
+          "name": "list_id",
+          "type": "string",
+          "required": false,
+          "description": "微博的保护投递指定分组ID，只有当visible参数为3时生效且必选。"
+        },
+        {
+          "name": "visible",
+          "type": "int",
+          "required": false,
+          "description": "微博的可见性，0：所有人能看，1：仅自己可见，2：密友可见，3：指定分组可见，默认为0。"
+        },
+        {
+          "name": "annotations",
+          "type": "string",
+          "required": false,
+          "description": "元数据，主要是为了方便第三方应用记录一些适合于自己使用的信息，每条微博可以包含一个或者多个元数据，必须以json字串的形式提交，字串长度不超过512个字符，具体内容可以自定。"
+        },
+        {
+          "name": "is_longtext",
+          "type": "int",
+          "required": false,
+          "description": "是否发送超过140字微博，0：不超过140字，1：超过140字但在2000字以内，默认为0。操作用户需满足发送超过140字微博资格。"
+        },
+        {
+          "name": "mblog_statement",
+          "type": "int",
+          "required": false,
+          "description": "微博内容声明，0:无；1:AI生成；2:虚构演绎；3:内容为转载；4:内容为自主创作。根据相关要求，若内容为AI生成，需 mblog_statement=1，没有按要求打标者责任由开发者或作者自己承担。"
+        }
+      ],
+      "usage_notes": [
+        "发布后保存 id/idstr。visible=1 的微博目前不保证可通过列表或批量查询回读。出现上游空响应或超时，应先核对发布结果再决定重试，避免重复发布。"
+      ],
+      "schema_version": "e7c1edd74ba26cfe886600cd7438a8db404bca30a82c93db6e322a513fb271f3"
+    },
+    {
+      "name": "statuses upload",
+      "group": "statuses",
+      "action": "upload",
+      "api_path": "statuses/upload",
+      "invocation_path": "/statuses/upload.json",
+      "method": "POST",
+      "title": "上传图片并发布一条微博",
+      "description": "上传图片并发布一条微博",
+      "required_fields": [
+        "pic",
+        "status"
+      ],
+      "input_schema": {
+        "lat": "number",
+        "pic": "string",
+        "long": "number",
+        "status": "string",
+        "list_id": "string",
+        "visible": "int",
+        "annotations": "string"
+      },
+      "flags": [
+        {
+          "name": "lat",
+          "type": "number",
+          "required": false,
+          "description": "纬度，有效范围：-90.0到+90.0，+表示北纬，默认为0.0。"
+        },
+        {
+          "name": "pic",
+          "type": "string",
+          "required": true,
+          "description": "要上传的图片，仅支持 JPEG、GIF、PNG 格式且小于 10M。CLI 调用可传本地文件路径；MCP 调用必须传 data:image/<格式>;base64,<内容>、纯 Base64，或服务端可访问的 HTTP/HTTPS 图片 URL，不可传调用方本地文件路径。"
+        },
+        {
+          "name": "long",
+          "type": "number",
+          "required": false,
+          "description": "经度，有效范围：-180.0到+180.0，+表示东经，默认为0.0。"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "description": "要发布的微博文本内容，内容不超过140个汉字。"
+        },
+        {
+          "name": "list_id",
+          "type": "string",
+          "required": false,
+          "description": "微博的保护投递指定分组ID，只有当visible参数为3时生效且必选。"
+        },
+        {
+          "name": "visible",
+          "type": "int",
+          "required": false,
+          "description": "微博的可见性，0：所有人能看，1：仅自己可见，2：密友可见，3：指定分组可见，默认为0。"
+        },
+        {
+          "name": "annotations",
+          "type": "string",
+          "required": false,
+          "description": "元数据，主要是为了方便第三方应用记录一些适合于自己使用的信息，每条微博可以包含一个或者多个元数据，必须以json字串的形式提交，字串长度不超过512个字符，具体内容可以自定。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "40527eb0126a7ae8e81fc4b33721d493e3e2cc1bbe04515c8390955f9518fa76"
+    },
+    {
+      "name": "statuses upload_pic",
+      "group": "statuses",
+      "action": "upload_pic",
+      "api_path": "statuses/upload_pic",
+      "invocation_path": "/statuses/upload_pic.json",
+      "method": "POST",
+      "title": "上传图片，返回图片id",
+      "description": "上传图片，返回图片id",
+      "required_fields": [
+        "pic"
+      ],
+      "input_schema": {
+        "pic": "string"
+      },
+      "flags": [
+        {
+          "name": "pic",
+          "type": "string",
+          "required": true,
+          "description": "要上传的图片，仅支持 JPEG、GIF、PNG 格式且小于 10M。CLI 调用可传本地文件路径；MCP 调用必须传 data:image/<格式>;base64,<内容>、纯 Base64，或服务端可访问的 HTTP/HTTPS 图片 URL，不可传调用方本地文件路径。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "722c11d3fa92f563e534205c4044a1bfb12a4560fc28b5b8ebb1486e9c0b7d3a"
+    },
+    {
+      "name": "statuses upload_url_text",
+      "group": "statuses",
+      "action": "upload_url_text",
+      "api_path": "statuses/upload_url_text",
+      "invocation_path": "/statuses/upload_url_text.json",
+      "method": "POST",
+      "title": "发布一条带单/多图的微博（需要组合上传图片接口）",
+      "description": "发布一条带单/多图的微博（需要组合上传图片接口）",
+      "required_fields": [
+        "pic_id",
+        "status"
+      ],
+      "input_schema": {
+        "lat": "number",
+        "long": "number",
+        "pic_id": "string",
+        "status": "string",
+        "list_id": "string",
+        "visible": "int",
+        "annotations": "string",
+        "is_longtext": "int",
+        "mblog_statement": "int"
+      },
+      "flags": [
+        {
+          "name": "lat",
+          "type": "number",
+          "required": false,
+          "description": "纬度，有效范围：-90.0到+90.0，+表示北纬，默认为0.0。"
+        },
+        {
+          "name": "long",
+          "type": "number",
+          "required": false,
+          "description": "经度，有效范围：-180.0到+180.0，+表示东经，默认为0.0。"
+        },
+        {
+          "name": "pic_id",
+          "type": "string",
+          "required": true,
+          "description": "已经上传的图片pid，多个时使用英文半角逗号符分隔，最多不超过9个。"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "description": "要发布的微博文本内容。"
+        },
+        {
+          "name": "list_id",
+          "type": "string",
+          "required": false,
+          "description": "微博的保护投递指定分组ID，只有当visible参数为3时生效且必选。"
+        },
+        {
+          "name": "visible",
+          "type": "int",
+          "required": false,
+          "description": "微博的可见性，0：所有人能看，1：仅自己可见，2：密友可见，3：指定分组可见，默认为0。"
+        },
+        {
+          "name": "annotations",
+          "type": "string",
+          "required": false,
+          "description": "元数据，主要是为了方便第三方应用记录一些适合于自己使用的信息，每条微博可以包含一个或者多个元数据，必须以json字串的形式提交，字串长度不超过512个字符，具体内容可以自定。"
+        },
+        {
+          "name": "is_longtext",
+          "type": "int",
+          "required": false,
+          "description": "是否发送超过140字微博，0：不超过140字，1：超过140字但在2000字以内，默认为0。操作用户需满足发送超过140字微博资格。"
+        },
+        {
+          "name": "mblog_statement",
+          "type": "int",
+          "required": false,
+          "description": "微博内容声明，0:无；1:AI生成；2:虚构演绎；3:内容为转载；4:内容为自主创作。根据相关要求，若内容为AI生成，需 mblog_statement=1，没有按要求打标者责任由开发者或作者自己承担。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "6f6f487c3884737421107e0e2b758bdc63d665a17a6188a43891b0dede6e98aa"
+    },
+    {
+      "name": "statuses user_timeline_batch",
+      "group": "statuses",
+      "action": "user_timeline_batch",
+      "api_path": "statuses/user_timeline_batch",
+      "invocation_path": "/statuses/user_timeline_batch.json",
+      "method": "GET",
+      "title": "批量获取用户个人微博列表",
+      "description": "批量获取用户个人微博列表",
+      "required_fields": [],
+      "input_schema": {
+        "flag": "int",
+        "page": "int",
+        "uids": "string",
+        "count": "int",
+        "feature": "int",
+        "base_app": "int"
+      },
+      "flags": [
+        {
+          "name": "flag",
+          "type": "int",
+          "required": false,
+          "description": "用于筛选推广微博。0：返回推广微博和普通微博；1：返回推广微博；2：返回普通微博；默认为0。"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "uids",
+          "type": "string",
+          "required": false,
+          "description": "需要查询的用户ID，用半角逗号分隔，一次最多20个。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，默认为20。"
+        },
+        {
+          "name": "feature",
+          "type": "int",
+          "required": false,
+          "description": "过滤类型ID，0：全部、1：原创、2：图片、3：视频、4：音乐，默认为0。"
+        },
+        {
+          "name": "base_app",
+          "type": "int",
+          "required": false,
+          "description": "是否只获取当前应用的数据。0为否（所有数据），1为是（仅当前应用），默认为0。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "891194c9a2505d93de347b62f0c83c5aff989b2235b0f984ee7c15dd4bf8b2c7"
+    },
+    {
+      "name": "statuses user_timeline/biz",
+      "group": "statuses",
+      "action": "user_timeline/biz",
+      "api_path": "statuses/user_timeline/biz",
+      "invocation_path": "/statuses/user_timeline/biz.json",
+      "method": "GET",
+      "title": "获取当前登录用户发布的微博",
+      "description": "获取当前登录用户发布的微博",
+      "required_fields": [],
+      "input_schema": {
+        "flag": "int",
+        "page": "int",
+        "count": "int",
+        "max_id": "int",
+        "feature": "int",
+        "base_app": "int",
+        "since_id": "int",
+        "trim_user": "int",
+        "exclude_comment_like": "int"
+      },
+      "flags": [
+        {
+          "name": "flag",
+          "type": "int",
+          "required": false,
+          "description": "用于筛选推广微博。0：返回推广微博和普通微博；1：返回推广微博；2：返回普通微博；默认为0。"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过25，默认为20。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的微博，默认为0。"
+        },
+        {
+          "name": "feature",
+          "type": "int",
+          "required": false,
+          "description": "过滤类型ID，0：全部、1：原创、2：图片、3：视频、4：音乐、7：纯文本、8：转发，默认为0。"
+        },
+        {
+          "name": "base_app",
+          "type": "int",
+          "required": false,
+          "description": "是否只获取当前应用的数据。0为否（所有数据），1为是（仅当前应用），默认为0。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0。"
+        },
+        {
+          "name": "trim_user",
+          "type": "int",
+          "required": false,
+          "description": "返回值中user字段开关，0：返回完整user字段、1：user字段仅返回uid，默认为0。"
+        },
+        {
+          "name": "exclude_comment_like",
+          "type": "int",
+          "required": false,
+          "description": "是否排除评论赞计数，0:表示不排除，1:表示排除，默认为0。"
+        }
+      ],
+      "usage_notes": [
+        "长文：仅当本命令 flags 包含 isGetLongText 时传 1；上游可能返回 longText，CLI 当前输出对应 long_text。请检查实际全文字段，is_long_text=true 本身不保证取得全文；若字段缺失，保留原始返回并报告全文不可用。",
+        "私密微博：作者在网页端可见不代表此读接口可读取；空结果不能证明微博不存在或已删除。visible=1 的发布结果请保存 id/idstr，当前不保证可回读。"
+      ],
+      "schema_version": "4d5cf72dcca1a511c39c7f4ec033d07eb223245f299b3622b9a341611b8ef085"
+    },
+    {
+      "name": "statuses user_timeline/other",
+      "group": "statuses",
+      "action": "user_timeline/other",
+      "api_path": "statuses/user_timeline/other",
+      "invocation_path": "/statuses/user_timeline/other.json",
+      "method": "GET",
+      "title": "获取其他用户发布的微博",
+      "description": "获取其他用户发布的微博",
+      "required_fields": [
+        "uid"
+      ],
+      "input_schema": {
+        "uid": "int",
+        "flag": "int",
+        "page": "int",
+        "count": "int",
+        "max_id": "int",
+        "feature": "int",
+        "base_app": "int",
+        "end_time": "int",
+        "since_id": "int",
+        "start_time": "int"
+      },
+      "flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的用户ID。（必填）"
+        },
+        {
+          "name": "flag",
+          "type": "int",
+          "required": false,
+          "description": "用于筛选推广微博。0：返回推广微博和普通微博；1：返回推广微博；2：返回普通微博；默认为0。"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，最大不超过100，默认为20。"
+        },
+        {
+          "name": "max_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID小于或等于max_id的微博，默认为0。"
+        },
+        {
+          "name": "feature",
+          "type": "int",
+          "required": false,
+          "description": "过滤类型ID，0：全部、1：原创、2：图片、3：视频、4：音乐，默认为0。"
+        },
+        {
+          "name": "base_app",
+          "type": "int",
+          "required": false,
+          "description": "是否只获取当前应用的数据。0为否（所有数据），1为是（仅当前应用），默认为0。"
+        },
+        {
+          "name": "end_time",
+          "type": "int",
+          "required": false,
+          "description": "unix时间戳，若指定此参数，则返回ID比end_time早的微博。"
+        },
+        {
+          "name": "since_id",
+          "type": "int",
+          "required": false,
+          "description": "若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0。"
+        },
+        {
+          "name": "start_time",
+          "type": "int",
+          "required": false,
+          "description": "unix时间戳，若指定此参数，则返回ID比start_time晚的微博。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "fcfd53c5a6cd0aaebce6d8bddcc6a0a151c46aa408e89a5e11795090737240fe"
+    },
+    {
+      "name": "tags biz",
+      "group": "tags",
+      "action": "biz",
+      "api_path": "tags/biz",
+      "invocation_path": "/tags/biz.json",
+      "method": "GET",
+      "title": "获取当前登录用户的标签",
+      "description": "获取当前登录用户的标签",
+      "required_fields": [],
+      "input_schema": {
+        "page": "int",
+        "count": "int"
+      },
+      "flags": [
+        {
+          "name": "page",
+          "type": "int",
+          "required": false,
+          "description": "返回结果的页码，默认为1。"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "required": false,
+          "description": "单页返回的记录条数，默认为20。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "54dc0a0eb8c9fdc15a000cb98a9a415f0618399a2eef8c0c26e1af0ed8e54c91"
+    },
+    {
+      "name": "tags tags_batch/other",
+      "group": "tags",
+      "action": "tags_batch/other",
+      "api_path": "tags/tags_batch/other",
+      "invocation_path": "/tags/tags_batch/other.json",
+      "method": "GET",
+      "title": "批量获取用户标签",
+      "description": "批量获取用户标签",
+      "required_fields": [
+        "uids"
+      ],
+      "input_schema": {
+        "uids": "string"
+      },
+      "flags": [
+        {
+          "name": "uids",
+          "type": "string",
+          "required": true,
+          "description": "要获取标签的用户ID。最大20，逗号分隔。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "982e6c9c551c92b8894da3954ce47a8a99110324a3cfb35b0c059ee959819596"
+    },
+    {
+      "name": "users behavior_trend",
+      "group": "users",
+      "action": "behavior_trend",
+      "api_path": "users/behavior_trend",
+      "invocation_path": "/users/behavior_trend.json",
+      "method": "GET",
+      "title": "获取授权用户行为数据每日变化趋势",
+      "description": "获取授权用户行为数据每日变化趋势",
+      "required_fields": [
+        "starttime",
+        "endtime"
+      ],
+      "input_schema": {
+        "endtime": "string",
+        "starttime": "string"
+      },
+      "flags": [
+        {
+          "name": "endtime",
+          "type": "string",
+          "required": true,
+          "description": "结束时间，格式为XXXX-XX-XX。"
+        },
+        {
+          "name": "starttime",
+          "type": "string",
+          "required": true,
+          "description": "开始时间，格式为XXXX-XX-XX。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "c150fa7037f10806434f7c20dfa621c64d70ef988ef85f748cca1876769fb45d"
+    },
+    {
+      "name": "users behavior_trend/biz",
+      "group": "users",
+      "action": "behavior_trend/biz",
+      "api_path": "users/behavior_trend/biz",
+      "invocation_path": "/users/behavior_trend/biz.json",
+      "method": "GET",
+      "title": "获取他人用户行为数据每日变化趋势",
+      "description": "获取他人用户行为数据每日变化趋势",
+      "required_fields": [
+        "uid",
+        "starttime",
+        "endtime"
+      ],
+      "input_schema": {
+        "uid": "int",
+        "endtime": "string",
+        "starttime": "string"
+      },
+      "flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": true,
+          "description": "需要查询的用户ID。"
+        },
+        {
+          "name": "endtime",
+          "type": "string",
+          "required": true,
+          "description": "结束时间，格式为XXXX-XX-XX。"
+        },
+        {
+          "name": "starttime",
+          "type": "string",
+          "required": true,
+          "description": "开始时间，格式为XXXX-XX-XX。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "4389871cff1c945dfd993426909011d84eaa88eedcdc754b7c8147e1e37b5a80"
+    },
+    {
+      "name": "users counts_batch/other",
+      "group": "users",
+      "action": "counts_batch/other",
+      "api_path": "users/counts_batch/other",
+      "invocation_path": "/users/counts_batch/other.json",
+      "method": "GET",
+      "title": "批量获取用户的粉丝数、关注数、微博数",
+      "description": "批量获取用户的粉丝数、关注数、微博数",
+      "required_fields": [
+        "uids"
+      ],
+      "input_schema": {
+        "uids": "string"
+      },
+      "flags": [
+        {
+          "name": "uids",
+          "type": "string",
+          "required": true,
+          "description": "需要获取数据的用户UID，多个之间用逗号分隔，最多不超过100个。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "5db5491f96f24e0cd5206daf82887edca8502944a6eba470b96aab5767595783"
+    },
+    {
+      "name": "users receive_like_count",
+      "group": "users",
+      "action": "receive_like_count",
+      "api_path": "users/receive_like_count",
+      "invocation_path": "/users/receive_like_count.json",
+      "method": "GET",
+      "title": "获取某用户近90天每天的被喜欢数",
+      "description": "获取某用户近90天每天的被喜欢数",
+      "required_fields": [
+        "starttime",
+        "endtime"
+      ],
+      "input_schema": {
+        "uid": "int",
+        "endtime": "string",
+        "starttime": "string"
+      },
+      "flags": [
+        {
+          "name": "uid",
+          "type": "int",
+          "required": false,
+          "description": "需要查询的用户ID。"
+        },
+        {
+          "name": "endtime",
+          "type": "string",
+          "required": true,
+          "description": "结束时间，格式为XXXX-XX-XX。"
+        },
+        {
+          "name": "starttime",
+          "type": "string",
+          "required": true,
+          "description": "开始时间，格式为XXXX-XX-XX。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "79fdb6333ca76d56b4b3699f58a665b53758ae1488fb17aa9102da52eb210a5f"
+    },
+    {
+      "name": "users show_batch/other",
+      "group": "users",
+      "action": "show_batch/other",
+      "api_path": "users/show_batch/other",
+      "invocation_path": "/users/show_batch/other.json",
+      "method": "GET",
+      "title": "批量获取其他用户的基本信息",
+      "description": "批量获取其他用户的基本信息",
+      "required_fields": [],
+      "input_schema": {
+        "uids": "string",
+        "screen_name": "string"
+      },
+      "flags": [
+        {
+          "name": "uids",
+          "type": "string",
+          "required": false,
+          "description": "需要查询的用户ID，用半角逗号分隔，一次最多50个。"
+        },
+        {
+          "name": "screen_name",
+          "type": "string",
+          "required": false,
+          "description": "需要查询的用户昵称，用半角逗号分隔，一次最多50个。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "128ae629a9b7b869c0816bed8e8751de7575f55f9c1097e61b4a04a38c363c99"
+    },
+    {
+      "name": "users show/biz",
+      "group": "users",
+      "action": "show/biz",
+      "api_path": "users/show/biz",
+      "invocation_path": "/users/show/biz.json",
+      "method": "GET",
+      "title": "获取当前登录用户信息",
+      "description": "获取当前登录用户信息",
+      "required_fields": [],
+      "input_schema": {},
+      "flags": [],
+      "usage_notes": [],
+      "schema_version": "8f0c27ce20da2711bd2b79de994dd8d957eb4c89da81cc8161d643ceb7de6629"
+    },
+    {
+      "name": "users statistic/biz",
+      "group": "users",
+      "action": "statistic/biz",
+      "api_path": "users/statistic/biz",
+      "invocation_path": "/users/statistic/biz.json",
+      "method": "GET",
+      "title": "获取当前登录用户近90天每天的被点击数（区分短链、图片点击）、被阅读数、用户去重的被阅读数",
+      "description": "获取当前登录用户近90天每天的被点击数（区分短链、图片点击）、被阅读数、用户去重的被阅读数",
+      "required_fields": [
+        "starttime",
+        "endtime"
+      ],
+      "input_schema": {
+        "endtime": "string",
+        "starttime": "string"
+      },
+      "flags": [
+        {
+          "name": "endtime",
+          "type": "string",
+          "required": true,
+          "description": "结束时间，格式为XXXX-XX-XX。"
+        },
+        {
+          "name": "starttime",
+          "type": "string",
+          "required": true,
+          "description": "开始时间，格式为XXXX-XX-XX。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "52f024ba41a80c10cd41dee9b942fd71b91f5aae421acb18f4a1390be4a22cb0"
+    },
+    {
+      "name": "wbindex ranking/showComing",
+      "group": "wbindex",
+      "action": "ranking/showComing",
+      "api_path": "wbindex/ranking/showComing",
+      "invocation_path": "/wbindex/ranking/showComing.json",
+      "method": "GET",
+      "title": "综艺-待播榜",
+      "description": "查询微博指数综艺待播榜，返回待播综艺的排名及指数。支持实时榜、小时榜、日榜、周榜和月榜，默认查询当前小时榜；支持画像筛选和分页。所有业务请求参数均可选，通过 Query 传参。返回 data.result 榜单列表、data.total 总条数、data.pageIndex 当前页码、data.pageSize 每页大小、data.pageTotal 总页数，以及 data.ext.ranking_time_type 时间类型和 data.ext.ranking_time 榜单时间。榜单条目为节目维度，包含 sort 排名、trend 趋势（1 上升、0 持平、-1 下降）、index_value 指数值、id 节目 ID、name 节目名称、pic 封面图、official_uid 官方微博 UID、premiere_time 首播时间、end_time 完播时间、program_type 节目类型标签数组、platform 播放平台数组、actor_info 演员信息（uid、name、role_name）、dp_score 微博评分、subscribe_num 预约量、chart 指数趋势数据（dt 时间点、value 指数值）和 mapp_scheme 跳转 scheme。",
+      "required_fields": [],
+      "input_schema": {
+        "pageNum": "number",
+        "pageSize": "number",
+        "timeType": "string",
+        "timeRange": "string",
+        "portraitType": "string",
+        "portraitValue": "string"
+      },
+      "flags": [
+        {
+          "name": "pageNum",
+          "type": "number",
+          "required": false,
+          "description": "页码，默认 1。"
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "required": false,
+          "description": "分页大小，默认 20。"
+        },
+        {
+          "name": "timeType",
+          "type": "string",
+          "required": false,
+          "description": "时间类型，默认 hour：min 实时榜、hour 小时榜、day 日榜、week 周榜、month 月榜。",
+          "enum": [
+            "min",
+            "hour",
+            "day",
+            "week",
+            "month"
+          ]
+        },
+        {
+          "name": "timeRange",
+          "type": "string",
+          "required": false,
+          "description": "榜单时间，默认当前小时。实时榜传空字符串；小时榜示例：2025-05-21 09:00:00；日榜/周榜示例：2025-05-21 00:00:00；月榜示例：2025-05-01 00:00:00。与 timeType 配合使用。"
+        },
+        {
+          "name": "portraitType",
+          "type": "string",
+          "required": false,
+          "description": "画像维度筛选，默认空：portraitAge 年龄、portraitGender 性别、portraitProv 省份、portraitCity 城市。与 portraitValue 配合使用。",
+          "enum": [
+            "portraitAge",
+            "portraitGender",
+            "portraitProv",
+            "portraitCity"
+          ]
+        },
+        {
+          "name": "portraitValue",
+          "type": "string",
+          "required": false,
+          "description": "画像具体值，默认空，与 portraitType 配合使用。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "c1cd9881b6d85525b38bff634d0be855a7e6379cc0f5693fffa27093efbde1aa"
+    },
+    {
+      "name": "wbindex ranking/showHot",
+      "group": "wbindex",
+      "action": "ranking/showHot",
+      "api_path": "wbindex/ranking/showHot",
+      "invocation_path": "/wbindex/ranking/showHot.json",
+      "method": "GET",
+      "title": "综艺-热播榜",
+      "description": "查询微博指数综艺热播榜，返回热播综艺的排名及指数。支持实时榜、小时榜、日榜、周榜和月榜，默认查询当前小时榜；支持画像筛选和分页。所有业务请求参数均可选，通过 Query 传参。返回 data.result 榜单列表、data.total 总条数、data.pageIndex 当前页码、data.pageSize 每页大小、data.pageTotal 总页数，以及 data.ext.ranking_time_type 时间类型和 data.ext.ranking_time 榜单时间。榜单条目为节目维度，包含 sort 排名、trend 趋势（1 上升、0 持平、-1 下降）、index_value 指数值、id 节目 ID、name 节目名称、pic 封面图、official_uid 官方微博 UID、premiere_time 首播时间、end_time 完播时间、program_type 节目类型标签数组、platform 播放平台数组、actor_info 演员信息（uid、name、role_name）、dp_score 微博评分、subscribe_num 预约量、chart 指数趋势数据（dt 时间点、value 指数值）和 mapp_scheme 跳转 scheme。",
+      "required_fields": [],
+      "input_schema": {
+        "pageNum": "number",
+        "pageSize": "number",
+        "timeType": "string",
+        "timeRange": "string",
+        "portraitType": "string",
+        "portraitValue": "string"
+      },
+      "flags": [
+        {
+          "name": "pageNum",
+          "type": "number",
+          "required": false,
+          "description": "页码，默认 1。"
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "required": false,
+          "description": "分页大小，默认 20。"
+        },
+        {
+          "name": "timeType",
+          "type": "string",
+          "required": false,
+          "description": "时间类型，默认 hour：min 实时榜、hour 小时榜、day 日榜、week 周榜、month 月榜。",
+          "enum": [
+            "min",
+            "hour",
+            "day",
+            "week",
+            "month"
+          ]
+        },
+        {
+          "name": "timeRange",
+          "type": "string",
+          "required": false,
+          "description": "榜单时间，默认当前小时。实时榜传空字符串；小时榜示例：2025-05-21 09:00:00；日榜/周榜示例：2025-05-21 00:00:00；月榜示例：2025-05-01 00:00:00。与 timeType 配合使用。"
+        },
+        {
+          "name": "portraitType",
+          "type": "string",
+          "required": false,
+          "description": "画像维度筛选，默认空：portraitAge 年龄、portraitGender 性别、portraitProv 省份、portraitCity 城市。与 portraitValue 配合使用。",
+          "enum": [
+            "portraitAge",
+            "portraitGender",
+            "portraitProv",
+            "portraitCity"
+          ]
+        },
+        {
+          "name": "portraitValue",
+          "type": "string",
+          "required": false,
+          "description": "画像具体值，默认空，与 portraitType 配合使用。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "a1b380143e7251e14d0f4fd9556688d8209459dc719596b917e38b28e86ebd9c"
+    },
+    {
+      "name": "wbindex ranking/tvComing",
+      "group": "wbindex",
+      "action": "ranking/tvComing",
+      "api_path": "wbindex/ranking/tvComing",
+      "invocation_path": "/wbindex/ranking/tvComing.json",
+      "method": "GET",
+      "title": "剧集-待播榜",
+      "description": "查询微博指数剧集待播榜，返回待播剧集的排名及指数。支持实时榜、小时榜、日榜、周榜和月榜，默认查询当前小时榜；支持画像筛选和分页。所有业务请求参数均可选，通过 Query 传参。返回 data.result 榜单列表、data.total 总条数、data.pageIndex 当前页码、data.pageSize 每页大小、data.pageTotal 总页数，以及 data.ext.ranking_time_type 时间类型和 data.ext.ranking_time 榜单时间。榜单条目为节目维度，包含 sort 排名、trend 趋势（1 上升、0 持平、-1 下降）、index_value 指数值、id 节目 ID、name 节目名称、pic 封面图、official_uid 官方微博 UID、premiere_time 首播时间、end_time 完播时间、program_type 节目类型标签数组、platform 播放平台数组、actor_info 演员信息（uid、name、role_name）、dp_score 微博评分、subscribe_num 预约量、chart 指数趋势数据（dt 时间点、value 指数值）和 mapp_scheme 跳转 scheme。",
+      "required_fields": [],
+      "input_schema": {
+        "pageNum": "number",
+        "pageSize": "number",
+        "timeType": "string",
+        "timeRange": "string",
+        "portraitType": "string",
+        "portraitValue": "string"
+      },
+      "flags": [
+        {
+          "name": "pageNum",
+          "type": "number",
+          "required": false,
+          "description": "页码，默认 1。"
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "required": false,
+          "description": "分页大小，默认 20。"
+        },
+        {
+          "name": "timeType",
+          "type": "string",
+          "required": false,
+          "description": "时间类型，默认 hour：min 实时榜、hour 小时榜、day 日榜、week 周榜、month 月榜。",
+          "enum": [
+            "min",
+            "hour",
+            "day",
+            "week",
+            "month"
+          ]
+        },
+        {
+          "name": "timeRange",
+          "type": "string",
+          "required": false,
+          "description": "榜单时间，默认当前小时。实时榜传空字符串；小时榜示例：2025-05-21 09:00:00；日榜/周榜示例：2025-05-21 00:00:00；月榜示例：2025-05-01 00:00:00。与 timeType 配合使用。"
+        },
+        {
+          "name": "portraitType",
+          "type": "string",
+          "required": false,
+          "description": "画像维度筛选，默认空：portraitAge 年龄、portraitGender 性别、portraitProv 省份、portraitCity 城市。与 portraitValue 配合使用。",
+          "enum": [
+            "portraitAge",
+            "portraitGender",
+            "portraitProv",
+            "portraitCity"
+          ]
+        },
+        {
+          "name": "portraitValue",
+          "type": "string",
+          "required": false,
+          "description": "画像具体值，默认空，与 portraitType 配合使用。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "a0a5c87f08121318c75c1605daefcc946c8f0f6dc5e5067a4210ad5cf2569dd0"
+    },
+    {
+      "name": "wbindex ranking/tvHot",
+      "group": "wbindex",
+      "action": "ranking/tvHot",
+      "api_path": "wbindex/ranking/tvHot",
+      "invocation_path": "/wbindex/ranking/tvHot.json",
+      "method": "GET",
+      "title": "剧集-热播榜",
+      "description": "查询微博指数剧集热播榜，返回热播剧集的排名及指数。支持实时榜、小时榜、日榜、周榜和月榜，默认查询当前小时榜；支持画像筛选和分页。所有业务请求参数均可选，通过 Query 传参。返回 data.result 榜单列表、data.total 总条数、data.pageIndex 当前页码、data.pageSize 每页大小、data.pageTotal 总页数，以及 data.ext.ranking_time_type 时间类型和 data.ext.ranking_time 榜单时间。榜单条目为节目维度，包含 sort 排名、trend 趋势（1 上升、0 持平、-1 下降）、index_value 指数值、id 节目 ID、name 节目名称、pic 封面图、official_uid 官方微博 UID、premiere_time 首播时间、end_time 完播时间、program_type 节目类型标签数组、platform 播放平台数组、actor_info 演员信息（uid、name、role_name）、dp_score 微博评分、subscribe_num 预约量、chart 指数趋势数据（dt 时间点、value 指数值）和 mapp_scheme 跳转 scheme。",
+      "required_fields": [],
+      "input_schema": {
+        "pageNum": "number",
+        "pageSize": "number",
+        "timeType": "string",
+        "timeRange": "string",
+        "portraitType": "string",
+        "portraitValue": "string"
+      },
+      "flags": [
+        {
+          "name": "pageNum",
+          "type": "number",
+          "required": false,
+          "description": "页码，默认 1。"
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "required": false,
+          "description": "分页大小，默认 20。"
+        },
+        {
+          "name": "timeType",
+          "type": "string",
+          "required": false,
+          "description": "时间类型，默认 hour：min 实时榜、hour 小时榜、day 日榜、week 周榜、month 月榜。",
+          "enum": [
+            "min",
+            "hour",
+            "day",
+            "week",
+            "month"
+          ]
+        },
+        {
+          "name": "timeRange",
+          "type": "string",
+          "required": false,
+          "description": "榜单时间，默认当前小时。实时榜传空字符串；小时榜示例：2025-05-21 09:00:00；日榜/周榜示例：2025-05-21 00:00:00；月榜示例：2025-05-01 00:00:00。与 timeType 配合使用。"
+        },
+        {
+          "name": "portraitType",
+          "type": "string",
+          "required": false,
+          "description": "画像维度筛选，默认空：portraitAge 年龄、portraitGender 性别、portraitProv 省份、portraitCity 城市。与 portraitValue 配合使用。",
+          "enum": [
+            "portraitAge",
+            "portraitGender",
+            "portraitProv",
+            "portraitCity"
+          ]
+        },
+        {
+          "name": "portraitValue",
+          "type": "string",
+          "required": false,
+          "description": "画像具体值，默认空，与 portraitType 配合使用。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "126368413564e312285416437c666360b7239669b2679a08e858518797b5c6a3"
+    },
+    {
+      "name": "wbindex ranking/tvRole",
+      "group": "wbindex",
+      "action": "ranking/tvRole",
+      "api_path": "wbindex/ranking/tvRole",
+      "invocation_path": "/wbindex/ranking/tvRole.json",
+      "method": "GET",
+      "title": "剧集-热议角色榜",
+      "description": "查询微博指数剧集热议角色榜，返回角色的排名及指数。支持实时榜、小时榜、日榜、周榜和月榜，默认查询当前小时榜；支持画像筛选和分页。所有业务请求参数均可选，通过 Query 传参。返回 data.result 榜单列表、data.total 总条数、data.pageIndex 当前页码、data.pageSize 每页大小、data.pageTotal 总页数，以及 data.ext.ranking_time_type 时间类型和 data.ext.ranking_time 榜单时间。榜单条目为角色维度，包含 sort 排名、trend 趋势（1 上升、0 持平、-1 下降）、index_value 指数值、role_id 角色 ID、role_name 角色名称、role_img 角色图片、role_avatar 角色头像、role_uid 角色微博 UID、role_status 角色状态（1 在线、2 完播）、actor_uid 演员微博 UID、actor_name 演员名称、program_name 所属节目名称、chart 指数趋势数据（dt 时间点、value 指数值）和 mapp_scheme 跳转 scheme。",
+      "required_fields": [],
+      "input_schema": {
+        "pageNum": "number",
+        "pageSize": "number",
+        "timeType": "string",
+        "timeRange": "string",
+        "portraitType": "string",
+        "portraitValue": "string"
+      },
+      "flags": [
+        {
+          "name": "pageNum",
+          "type": "number",
+          "required": false,
+          "description": "页码，默认 1。"
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "required": false,
+          "description": "分页大小，默认 20。"
+        },
+        {
+          "name": "timeType",
+          "type": "string",
+          "required": false,
+          "description": "时间类型，默认 hour：min 实时榜、hour 小时榜、day 日榜、week 周榜、month 月榜。",
+          "enum": [
+            "min",
+            "hour",
+            "day",
+            "week",
+            "month"
+          ]
+        },
+        {
+          "name": "timeRange",
+          "type": "string",
+          "required": false,
+          "description": "榜单时间，默认当前小时。实时榜传空字符串；小时榜示例：2025-05-21 09:00:00；日榜/周榜示例：2025-05-21 00:00:00；月榜示例：2025-05-01 00:00:00。与 timeType 配合使用。"
+        },
+        {
+          "name": "portraitType",
+          "type": "string",
+          "required": false,
+          "description": "画像维度筛选，默认空：portraitAge 年龄、portraitGender 性别、portraitProv 省份、portraitCity 城市。与 portraitValue 配合使用。",
+          "enum": [
+            "portraitAge",
+            "portraitGender",
+            "portraitProv",
+            "portraitCity"
+          ]
+        },
+        {
+          "name": "portraitValue",
+          "type": "string",
+          "required": false,
+          "description": "画像具体值，默认空，与 portraitType 配合使用。"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "1605e6535e5ba6a17827b17c47a64279ee0341bda8e4a3f83908d77a88894851"
+    },
+    {
+      "name": "article collections/create",
+      "group": "article",
+      "action": "collections/create",
+      "api_path": "article/collections/create",
+      "invocation_path": "/article/collections/create.json",
+      "method": "POST",
+      "title": "创建付费专栏",
+      "description": "创建付费专栏。需先开通V+付费专栏权限，如未开通请访问 https://videoalbum.e.weibo.com/signup/standard 申请。定价档位（单位分）：990/1900/2900/4900/6900/9900/12800，对应9.9/19/29/49/69/99/128元。60秒内同一用户最多5次请求。video_nums需3-100范围。创建成功返回collections_id。",
+      "required_fields": [
+        "title",
+        "money",
+        "content",
+        "video_nums",
+        "images",
+        "category_id"
+      ],
+      "input_schema": {
+        "type": "int",
+        "money": "int",
+        "title": "string",
+        "images": "string",
+        "content": "string",
+        "sale_money": "int",
+        "video_nums": "int",
+        "category_id": "int",
+        "is_recommend": "int",
+        "sale_end_time": "string"
+      },
+      "flags": [
+        {
+          "name": "type",
+          "type": "int",
+          "required": false,
+          "description": "固定传0"
+        },
+        {
+          "name": "money",
+          "type": "int",
+          "required": true,
+          "description": "专栏定价（分），只能是990/1900/2900/4900/6900/9900/12800之一"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "专栏标题"
+        },
+        {
+          "name": "images",
+          "type": "string",
+          "required": true,
+          "description": "图片JSON字符串，包含albumCover（封面图对象，含pic_id和url字段，只有一张）和albumDesc（介绍图数组，每个元素含pic_id和url字段，没有则传空数组[]）"
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "required": true,
+          "description": "专栏介绍"
+        },
+        {
+          "name": "sale_money",
+          "type": "int",
+          "required": false,
+          "description": "优惠价格（分）"
+        },
+        {
+          "name": "video_nums",
+          "type": "int",
+          "required": true,
+          "description": "预计更新视频数（3-100）"
+        },
+        {
+          "name": "category_id",
+          "type": "int",
+          "required": true,
+          "description": "分类id：97财商知识/98教育课程/99健康科普/100兴趣生活"
+        },
+        {
+          "name": "is_recommend",
+          "type": "int",
+          "required": false,
+          "description": "0聚合页推荐/1不推荐"
+        },
+        {
+          "name": "sale_end_time",
+          "type": "string",
+          "required": false,
+          "description": "优惠价结束时间（如2026-09-12 03:22:59）"
+        }
+      ],
+      "usage_notes": [
+        "单位：money、sale_money 为分；不要直接复用 article/publish 中以元计的金额。"
+      ],
+      "schema_version": "047e2fc20d3b97a64937abf228aded916cb90573671c72e78073fb5bcc70f25e"
+    },
+    {
+      "name": "article collections/delete",
+      "group": "article",
+      "action": "collections/delete",
+      "api_path": "article/collections/delete",
+      "invocation_path": "/article/collections/delete.json",
+      "method": "POST",
+      "title": "删除专栏",
+      "description": "删除指定专栏。已被购买过的专栏无法删除。需先开通V+付费专栏权限，如未开通请访问 https://videoalbum.e.weibo.com/signup/standard 申请。",
+      "required_fields": [
+        "id"
+      ],
+      "input_schema": {
+        "id": "int"
+      },
+      "flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "要删除的专栏id（或审核流水号）"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "c97410225375d99cea3a7dbf04685cbd171c42b715e448be68363acf187d7c6e"
+    },
+    {
+      "name": "article collections/info",
+      "group": "article",
+      "action": "collections/info",
+      "api_path": "article/collections/info",
+      "invocation_path": "/article/collections/info.json",
+      "method": "GET",
+      "title": "查询专栏详情",
+      "description": "查询指定专栏的详细信息，包括标题、价格、状态、封面图、分类等。需先开通V+付费专栏权限，如未开通请访问 https://videoalbum.e.weibo.com/signup/standard 申请。",
+      "required_fields": [],
+      "input_schema": {
+        "id": "int"
+      },
+      "flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": false,
+          "description": "专栏id（或审核流水号）"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "5de63ebe7f16d478a698638fc88bca513b21aed6bb5e90dcbee703f427c04d60"
+    },
+    {
+      "name": "article collections/list",
+      "group": "article",
+      "action": "collections/list",
+      "api_path": "article/collections/list",
+      "invocation_path": "/article/collections/list.json",
+      "method": "GET",
+      "title": "查询专栏列表",
+      "description": "查询当前用户的专栏列表，包含已发布和审核中的专栏。支持分页。需先开通V+付费专栏权限，如未开通请访问 https://videoalbum.e.weibo.com/signup/standard 申请。",
+      "required_fields": [
+        "page",
+        "limit",
+        "short_play"
+      ],
+      "input_schema": {
+        "page": "int",
+        "limit": "int",
+        "short_play": "int"
+      },
+      "flags": [
+        {
+          "name": "page",
+          "type": "int",
+          "required": true,
+          "description": "页码"
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "required": true,
+          "description": "每页条数"
+        },
+        {
+          "name": "short_play",
+          "type": "int",
+          "required": true,
+          "description": "是否短剧：1是/0否，默认传0"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "c3ebcb72dfa290a45689fe81ae1d9ff1a84e8df1819ebbf8e70602f3c397ce5a"
+    },
+    {
+      "name": "article collections/update",
+      "group": "article",
+      "action": "collections/update",
+      "api_path": "article/collections/update",
+      "invocation_path": "/article/collections/update.json",
+      "method": "POST",
+      "title": "更新专栏",
+      "description": "更新专栏信息。注意：title/money/images/content/video_nums必须每次完整传，不支持部分更新。60秒内同一用户最多5次请求。money必须是约定价位之一。video_nums不能比当前已有章节数小。id参数传列表接口中的collections_id。需先开通V+付费专栏权限，如未开通请访问 https://videoalbum.e.weibo.com/signup/standard 申请。",
+      "required_fields": [
+        "id",
+        "title",
+        "money",
+        "images",
+        "content",
+        "video_nums",
+        "category_id"
+      ],
+      "input_schema": {
+        "id": "int",
+        "money": "int",
+        "title": "string",
+        "images": "string",
+        "content": "string",
+        "change_img": "int",
+        "sale_money": "int",
+        "video_nums": "int",
+        "category_id": "int",
+        "is_recommend": "int",
+        "sale_end_time": "string"
+      },
+      "flags": [
+        {
+          "name": "id",
+          "type": "int",
+          "required": true,
+          "description": "要更新的专栏id（即列表接口中的collections_id）"
+        },
+        {
+          "name": "money",
+          "type": "int",
+          "required": true,
+          "description": "专栏定价（分），只能是990/1900/2900/4900/6900/9900/12800之一"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "专栏标题"
+        },
+        {
+          "name": "images",
+          "type": "string",
+          "required": true,
+          "description": "图片JSON字符串，包含albumCover（封面图对象，含pic_id和url字段，只有一张）和albumDesc（介绍图数组，每个元素含pic_id和url字段，没有则传空数组[]）"
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "required": true,
+          "description": "专栏介绍"
+        },
+        {
+          "name": "change_img",
+          "type": "int",
+          "required": false,
+          "description": "是否改了封面/简介图（1表示改了，需重新审核）"
+        },
+        {
+          "name": "sale_money",
+          "type": "int",
+          "required": false,
+          "description": "优惠价格（分）"
+        },
+        {
+          "name": "video_nums",
+          "type": "int",
+          "required": true,
+          "description": "预计更新视频数，不能比当前已有章节数小"
+        },
+        {
+          "name": "category_id",
+          "type": "int",
+          "required": true,
+          "description": "分类id：97财商知识/98教育课程/99健康科普/100兴趣生活"
+        },
+        {
+          "name": "is_recommend",
+          "type": "int",
+          "required": false,
+          "description": "0聚合页推荐/1不推荐"
+        },
+        {
+          "name": "sale_end_time",
+          "type": "string",
+          "required": false,
+          "description": "优惠价结束时间"
+        }
+      ],
+      "usage_notes": [
+        "单位：money、sale_money 为分；不要直接复用 article/publish 中以元计的金额。"
+      ],
+      "schema_version": "7492d54ce6b1bfb27234143412b621e94be0cb2edf80bf47fa2dbbe2144f00f8"
+    },
+    {
+      "name": "article preview",
+      "group": "article",
+      "action": "preview",
+      "api_path": "article/preview",
+      "invocation_path": "/article/preview.json",
+      "method": "GET",
+      "title": "生成文章预览链接",
+      "description": "提交文章内容生成预览链接，用户可在浏览器中打开预览链接查看发布后的效果。预览链接30分钟内有效，需用户登录微博后访问。同一用户重复提交会覆盖之前的预览数据。注意：预览接口标题长度限制为32字，与发文接口的64字不同。正文内容使用标准Markdown格式，支持标题/粗体/斜体/删除线/引用/有序无序列表/分割线/行内代码/代码块/链接/图片/表格/表情/转义字符/数学公式，不支持HTML标签/任务列表/脚注/TOC目录等。",
+      "required_fields": [
+        "title",
+        "content",
+        "free_content",
+        "pay_type"
+      ],
+      "input_schema": {
+        "cover": "string",
+        "title": "string",
+        "content": "string",
+        "summary": "string",
+        "pay_type": "string",
+        "free_content": "string"
+      },
+      "flags": [
+        {
+          "name": "cover",
+          "type": "string",
+          "required": false,
+          "description": "封面图URL（须为*.sinaimg.cn域名）"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "文章标题（1-32字）"
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "required": true,
+          "description": "正文内容（Markdown格式）"
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "required": false,
+          "description": "文章摘要"
+        },
+        {
+          "name": "pay_type",
+          "type": "string",
+          "required": true,
+          "description": "付费类型",
+          "enum": [
+            "free",
+            "vclub",
+            "single_pay_new"
+          ]
+        },
+        {
+          "name": "free_content",
+          "type": "string",
+          "required": true,
+          "description": "免费试读内容"
+        }
+      ],
+      "usage_notes": [],
+      "schema_version": "4dabc197b93c5f0895f41aee0241e522d59c3ec7e95399c86edb5cf5d33be030"
+    },
+    {
+      "name": "article publish",
+      "group": "article",
+      "action": "publish",
+      "api_path": "article/publish",
+      "invocation_path": "/article/publish.json",
+      "method": "POST",
+      "title": "发布文章",
+      "description": "发布头条文章并同步发布短微博。一次调用同时发布文章和短微博，两者都发。支持免费文章、V+会员专栏、V+单篇付费、单篇付费四种类型。发布后不可撤销。5秒内同uid同内容重复提交会被去重。注意：follow_to_read、collection_id、非free付费三者最多出现1种。关联专栏发文时pay_type传free。正文内容使用标准Markdown格式，支持标题/粗体/斜体/删除线/引用/有序无序列表/分割线/行内代码/代码块/链接/图片/表格/表情/转义字符/数学公式，不支持HTML标签/任务列表/脚注/TOC目录等。",
+      "required_fields": [
+        "title",
+        "content",
+        "text",
+        "pay_type"
+      ],
+      "input_schema": {
+        "text": "string",
+        "cover": "string",
+        "money": "string",
+        "title": "string",
+        "writer": "string",
+        "content": "string",
+        "is_word": "int",
+        "summary": "string",
+        "pay_type": "string",
+        "freecontent": "string",
+        "collection_id": "string",
+        "follow_to_read": "int",
+        "vclub_single_pay_money": "string"
+      },
+      "flags": [
+        {
+          "name": "text",
+          "type": "string",
+          "required": true,
+          "description": "短微博文案（≤1980字）"
+        },
+        {
+          "name": "cover",
+          "type": "string",
+          "required": false,
+          "description": "封面图URL（须为*.sinaimg.cn域名）"
+        },
+        {
+          "name": "money",
+          "type": "string",
+          "required": false,
+          "description": "单篇付费金额（pay_type=single_pay_new时必填，单位元）"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "文章标题（1-64字）"
+        },
+        {
+          "name": "writer",
+          "type": "string",
+          "required": false,
+          "description": "第二作者（1-48字）"
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "required": true,
+          "description": "正文内容（Markdown格式，1-300000字）"
+        },
+        {
+          "name": "is_word",
+          "type": "int",
+          "required": false,
+          "description": "导入word（0/1，默认0）"
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "required": false,
+          "description": "文章简介"
+        },
+        {
+          "name": "pay_type",
+          "type": "string",
+          "required": true,
+          "description": "付费类型",
+          "enum": [
+            "free",
+            "vclub",
+            "single_pay_new",
+            "vclub_single_pay"
+          ]
+        },
+        {
+          "name": "freecontent",
+          "type": "string",
+          "required": false,
+          "description": "免费试读内容（pay_type非free时必填）"
+        },
+        {
+          "name": "collection_id",
+          "type": "string",
+          "required": false,
+          "description": "专栏ID"
+        },
+        {
+          "name": "follow_to_read",
+          "type": "int",
+          "required": false,
+          "description": "加关注看全文（0/1，默认0）"
+        },
+        {
+          "name": "vclub_single_pay_money",
+          "type": "string",
+          "required": false,
+          "description": "V+单篇付费金额（pay_type=vclub_single_pay时必填，单位元）"
+        }
+      ],
+      "usage_notes": [
+        "单位：money、vclub_single_pay_money 为元；article/collections 的 money 为分。"
+      ],
+      "schema_version": "2bfeb1d8ecac2de2490a1efb715942d8357c2c6fe0cc5fdd0e5e5cace3d450f4"
+    },
+    {
+      "name": "article config",
+      "group": "article",
+      "action": "config",
+      "api_path": "article/config",
+      "invocation_path": "/article/config.json",
+      "method": "GET",
+      "title": "查询发文配置",
+      "description": "查询当前用户可用的付费类型（V+会员专栏、单篇付费、V+单篇付费等）和价格区间。发文前调用此接口确认用户能发什么类型的文章及价格范围。无需传入任何参数。",
+      "required_fields": [],
+      "input_schema": {},
+      "flags": [],
+      "usage_notes": [],
+      "schema_version": "e47b2307470c9c1552a3fb15c2a2354c19b910d10f894834a8e2da86d2bd8194"
+    }
+  ]
+}

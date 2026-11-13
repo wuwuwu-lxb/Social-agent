@@ -1,17 +1,34 @@
 # 技术与文献资料
 
-更新时间：2026-11-12。
+更新时间：2026-11-13。
 
 本目录保存选型依据、源码阅读笔记、接入步骤和论文笔记，随项目进入 GitHub。当前优先级是运行系统与学习实现，汇报安排不作为开发前置条件。
 
 ## 阅读入口
 
-1. [相关开源案例](cases.md)：哪些项目能读取，哪些能写入，具体参考什么。
-2. [AstrBot 接入与插件实现](astrbot-integration.md)：真实扩展接口、代码位置、加载方式和运行检查。
-3. [实际落地路线](implementation.md)：当前浏览器主线与 CLI 历史记录。
-4. [文献阅读笔记](papers.md)：与工具调用、账号记忆、社交行为直接相关的研究。
-5. [CLI 实机验证记录](weibo-cli-validation.md)：安装版本、已运行命令与当前缺口。
-6. [浏览器分支实测](browser-experiments.md)：两条实验路线、AstrBot SDK 测试与登录入口。
+1. [正式插件设计](../docs/plugin-design.md)：微信发帖闭环、工具契约、模块、任务与开发顺序。
+2. [官方 CLI 全量工具对照](weibo-tool-matrix.md)：75 项接口、完整拟用工具名、浏览器对应与缺口。
+3. [weibo_probe bridge 说明](weibo-probe.md)：谁写的、代码在哪、怎样执行与怎样验证。
+4. [AstrBot 接入](astrbot-integration.md)：命令与模型工具、实验插件安装配置、真实微信验收。
+5. [当前实施路线](implementation.md)：近期目标与各层职责。
+
+## 实验和背景资料
+
+- [浏览器分支实测](browser-experiments.md)：实验过程、登录问题与结果。
+- [CLI 实机验证记录](weibo-cli-validation.md)：安装、授权修复及目录探索的历史记录。
+- [相关开源案例](cases.md)：参考项目与复用范围。
+- [文献阅读笔记](papers.md)：与工具调用、账号记忆、社交行为相关的研究。
+
+## 接口资料如何维护
+
+`specs/weibo/official-cli-catalog.json` 保存去除账号状态的完整接口定义；
+`browser-mapping.json` 是人工维护的候选映射与证据；
+`tool-contract.json` 和本文链接的全量表由脚本生成，尚不代表工具已经注册。
+
+```powershell
+.\tools\sync-weibo-catalog.ps1          # 查询定义并更新，未调用任何业务接口
+.\tools\sync-weibo-catalog.ps1 -Offline # 仅从已有快照重建
+```
 
 ## 证据约定
 
