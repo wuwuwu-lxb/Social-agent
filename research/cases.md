@@ -6,7 +6,7 @@
 
 - 仓库：https://github.com/holon-run/webmcp-bridge
 - 使用包：`@webmcp-bridge/adapter-weibo@0.8.2`。
-- 实测：16 个工具注册成功，无点赞工具；未登录页面存在登录误判，已在实验入口加独立保护。
+- 实测：16 个工具注册成功，无点赞工具；未登录页面存在登录误判，已在实验入口加独立保护。2026-11-13 修正捕获初始化顺序后，真实动态、详情、评论读取与发帖预演通过，未验证提交。
 - 详情与自建 Playwright 路线对比：[实测记录](browser-experiments.md)。
 
 ## 微博官方 CLI

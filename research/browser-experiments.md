@@ -1,12 +1,44 @@
 # 微博浏览器接入实测
 
-日期：2026-11-12。本文件只把已执行的结果标为通过。
+更新：2026-11-13。本文件只把已执行的结果标为通过。
+
+## 2026-11-13 登录后复测
+
+本人在专用 Edge 完成登录并关闭窗口后，webmcp 路线已通过：
+
+| 项目 | 实测结果 |
+| --- | --- |
+| 独立登录判断 | 存在账号发帖输入框，非登录页 |
+| 首页动态 | `timeline.home.list` 取得 2 条，`source=network` |
+| 单条微博 | `post.get` 返回详情，`source=network` |
+| 评论列表 | `post.replies.list` 取得 17 条，`source=network` |
+| 发帖预演 | `ok=true, dryRun=true, submitVisible=true` |
+| 业务写入 | 没有提交；拦截到的业务写请求数为 0 |
+
+首轮登录后仍失败，随后定位到探测入口在导航完成后才执行
+`adapter.start`，错过了首页网络请求。现已改为在 `page.goto` 之前
+安装捕获脚本，并等待动态元素加载。调整后上述调用成功；发帖预演
+也恢复，不再将首轮错误直接归因于上游控件失效。
+
+当前页面实测有 6 个 `article`，旧版 feed 选择器匹配 0 个。
+因此本次成功主要依靠适配器的网络路径，不能据此认为 DOM 回退可靠。
+原有登录误判防护继续保留。上游仍无点赞工具，真实发布与评论提交尚未验证。
+
+本次结果说明 webmcp 可以继续作为候选执行路线。这里使用它的微博适配器
+模块 API；尚未部署 MCP 服务，也未验证 AstrBot 的 MCP 客户端连接。
+终端仅输出状态、条数和来源；正文、详情、评论保留在忽略的本地结果 JSON。
+
+同日使用本机 AstrBot SDK 调用插件的 `weibo_probe(..., "bridge")`：
+`sdk_import=passed`、`command_handler=passed`，返回已登录、2 条动态、
+详情存在、20 条评论、`dry_run_ok=true` 和退出码 0。
+与上一轮的 17 条为两次独立请求结果，不把条数固定当作验收条件。
+这验证了插件方法到适配器的调用，尚未覆盖桌面聊天消息分发。
 
 ## 实验分支
 
 | 分支 | 本机工作树 | 已验证 | 缺口 |
 | --- | --- | --- | --- |
-| `codex/experiment-webmcp` | `runtime/experiments/webmcp` | Edge 启动、适配器加载、16 个工具枚举、未登录保护 | 未验证登录后的读取与写入；无点赞工具 |
+| `codex/experiment-webmcp` | `runtime/experiments/webmcp` | 16 个工具枚举、登录保护、真实动态/详情/评论读取、发帖预演 | 无点赞工具；未验证业务写入与 MCP 服务接入 |
 | `codex/experiment-playwright` | `runtime/experiments/playwright` | Edge 启动、页面 DOM 读取、AstrBot SDK 导入与命令处理函数调用 | 未确认登录；未在 AstrBot 桌面聊天中触发 |
 
 依赖固定为 Playwright 1.58.2、`@webmcp-bridge/adapter-weibo` 0.8.2。使用本机 Edge，无需下载另一个 Chromium。
@@ -37,13 +69,14 @@ search.weibo, search.ai.summary
 未修改第三方依赖。探测还拦截微博 `/ajax/statuses/`、
 `/ajax/comments/`、`/ajax/attitudes/` 下的非只读请求。
 
-当前结论：保留作工具结构参考与对比实验，不直接作为默认执行器。
+2026-11-12 初步结论为仅保留对比；2026-11-13 调整捕获初始化顺序后，
+登录后读取与发帖预演成功，现继续验证此路线。
 
 ## 自建 DOM 路线
 
 探测保存页面标题、登录提示、输入框及动态数量，不提交任何内容。
 未登录页面也可以显示公开动态，因此不把动态数量当成登录成功。
-本机得到 `status=login_not_confirmed`，浏览器正常退出。
+2026-11-12 本机得到 `status=login_not_confirmed`，浏览器正常退出。
 
 登录入口使用有界面的专用 Edge 配置，登录由本人完成。网页会话与官方
 CLI 授权相互独立；之前 CLI 授权成功不能让这个专用浏览器自动登录。
@@ -55,7 +88,8 @@ CLI 授权相互独立；之前 CLI 授权成功不能让这个专用浏览器�
 
 测试使用实际安装的 SDK 导入插件，调用命令方法及浏览器子进程，
 并检查非法路线、未配置目录两种情况。输出
-`sdk_import=passed`、`command_handler=passed`，DOM 探测返回未确认登录。
+`sdk_import=passed`、`command_handler=passed`，2026-11-12 DOM 探测返回未确认登录，
+2026-11-13 bridge 探测返回已登录且读取、预演通过。
 测试事件对象仅实现 `plain_result`；没有测试真实消息分发、模型调用或桌面插件加载。
 
 插件提供 `/weibo_probe dom`、`/weibo_probe bridge` 两个固定命令，
@@ -99,9 +133,9 @@ git worktree add runtime/experiments/webmcp codex/experiment-webmcp
 
 ## 下一步验收
 
-1. 本人登录专用浏览器后，重新运行两条探测，验证登录判断与内容读取。
-2. 在 AstrBot 加载插件，从聊天入口取得相同状态结果。
-3. 自建执行器实现指定微博读取、草稿与预演，明确页面变化及超时的错误。
-4. 确认测试文案与目标后，逐项验证发布、评论、点赞及结果查询。
+1. 在 AstrBot 加载插件，从聊天入口调用 `/weibo_probe bridge`。
+2. 将已验证的读取与预演封装成任务，增加草稿、确认和结果记录。
+3. 确认测试文案与目标后，逐项验证发布、评论及结果查询。
+4. 点赞单独评估扩展实现，不把它算作现成适配器已有能力。
 
 暂不做定时自主互动，也没有执行真实发帖、评论或点赞。
