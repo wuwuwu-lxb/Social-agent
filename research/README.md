@@ -12,6 +12,9 @@
 4. [AstrBot 接入](astrbot-integration.md)：命令与模型工具、实验插件安装配置、真实微信验收。
 5. [当前实施路线](implementation.md)：近期目标与各层职责。
 
+最小插件 v0.1.0 已实现并部署，当前支持一个草稿预演模型工具及任务查询，
+实测范围和微信测试文案见 [插件使用说明](../astrbot_plugin_social_agent/README.md)。
+
 ## 实验和背景资料
 
 - [浏览器分支实测](browser-experiments.md)：实验过程、登录问题与结果。

@@ -10,10 +10,11 @@
   },
   "operations": {
     "statuses update": {
+      "registration": "enabled_preview_only",
       "coverage": "partial",
       "tools": ["post.create"],
       "verification": "dry_run_passed",
-      "notes": "status 映射 text；文本发帖预演通过，未提交。visible、mblog_statement、地理位置等官方参数尚无浏览器等价实现，不得静默丢弃。"
+      "notes": "v0.1.0 已注册 weibo_statuses_update，仅保存草稿和预演，不能真实发布。status 映射 text。visible、mblog_statement、地理位置等官方参数尚无浏览器等价实现，不得静默丢弃。"
     },
     "comments create": {
       "coverage": "partial",

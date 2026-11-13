@@ -17,7 +17,9 @@
 ```
 
 用户已说明微信接入完成；本项目尚未独立测试该消息链路。
-此前验证的是插件方法和浏览器执行，不应表述为微信发帖已成功。
+v0.1.0 已安装到真实 AstrBot，后端日志确认加载及模型工具注册。
+真实 SDK 注册表调用和浏览器预演通过，尚未验证微信消息触发。
+安装、配置、实测范围及微信测试指令见 [插件说明](../astrbot_plugin_social_agent/README.md)。
 
 ## 插件入口分为命令和模型工具
 
@@ -25,22 +27,25 @@
 
 | 机制 | 用途 | 当前情况 |
 | --- | --- | --- |
-| `Star` 子类 | 被插件管理器加载 | 实验插件已编写，SDK 导入通过 |
+| `Star` 子类 | 被插件管理器加载 | v0.1.0 真实插件管理器加载及本机后端加载通过 |
 | `@filter.command("weibo_probe")` | 用户明确发送诊断命令 | 已实现；仅在 SDK 测试中直接调用方法 |
-| `@filter.llm_tool(name=...)` | 模型根据自然语言选择并调用工具 | 正式业务插件待实现 |
-| `_conf_schema.json` | 向插件注入配置 | 实验插件定义了 `project_root` |
+| `@filter.llm_tool(name=...)` | 模型根据自然语言选择并调用工具 | 已注册 `weibo_statuses_update`，仅草稿预演；模型选择待验 |
+| `_conf_schema.json` | 向插件注入配置 | 正式插件配置 Node、浏览器目录和用户限制 |
 | `event.plain_result(...)` | 命令返回消息结果 | 使用测试事件对象验证；真实微信发送待验 |
 
 当前 `/weibo_probe bridge` 是项目自定义诊断入口，不是 AstrBot 或
 webmcp 自带命令；`bridge` 也不是 MCP 地址。来源和测试方法见
 [探测命令说明](weibo-probe.md)。
 
-正式工具按官方 CLI 接口命名。例如 `statuses update` 对应拟用工具
+正式工具按官方 CLI 接口命名。例如 `statuses update` 对应已注册工具
 `weibo_statuses_update`，文本参数仍叫 `status`，再由执行器转换成
 `post.create` 的 `text`。75 项完整设计见 [接口对照](weibo-tool-matrix.md)。
 只有实现并验收过的工具才能启用；接口清单不是运行时注册清单。
 
-## 当前实验插件怎么装、怎么用
+## 历史实验插件怎么装、怎么用
+
+以下保留早期诊断插件的复现方式；当前使用正式 v0.1.0，
+请按上方插件说明安装与测试，不需要先安装此实验插件。
 
 插件源码在本机 `codex/experiment-playwright` 分支：
 

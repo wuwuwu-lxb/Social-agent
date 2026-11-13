@@ -1,0 +1,17 @@
+{
+  "node_path": {
+    "description": "Node executable path; empty uses PATH or the known local runtime",
+    "type": "string",
+    "default": ""
+  },
+  "browser_profile": {
+    "description": "Absolute path of a dedicated, manually logged-in Edge profile",
+    "type": "string",
+    "default": ""
+  },
+  "allowed_user_ids": {
+    "description": "Allowed chat sender IDs; empty permits private-chat draft preview only. Group chats are disabled.",
+    "type": "list",
+    "default": []
+  }
+}

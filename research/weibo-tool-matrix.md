@@ -5,7 +5,7 @@
 官方目录版本：`457761d16c50510ec276524e9586d4c6193b82572e460d24da4cf3850aed9d03`。共 75 项，CLI 0.9.8。
 快照时间及完整参数、枚举、说明见 [官方目录 JSON](../specs/weibo/official-cli-catalog.json)；[插件契约 JSON](../specs/weibo/tool-contract.json)保留所有拟用工具名及官方参数。
 
-所有工具注册状态均为 planned。下表的已验证表示底层适配器实验结果，不代表正式插件工具已实现。partial 表示有相关能力，参数、权限、分页或返回语义不完全等价；unsupported 表示当前没有实现。GET/POST 为官方方法，不直接代表业务副作用。
+除 statuses update 已注册为仅草稿预演工具（enabled_preview_only）外，其余工具状态为 planned。下表的浏览器验证结果不等于正式插件已实现。partial 表示参数、权限、分页或返回语义不完全等价；unsupported 表示当前没有实现。GET/POST 为官方方法，不直接代表业务副作用。
 
 已验证：read_passed=真实读取；single_read_passed=只验证单条；dry_run_passed=只验证预演；not_tested=尚未验证。
 
@@ -65,7 +65,7 @@
 | `statuses repost_timeline/biz` / 获取当前登录用户发布的一条原创微博的最新转发微博 | `weibo_statuses_repost_timeline_biz` | GET | id | partial: post.repost.list | not_tested | 不保证复现官方 biz 的范围、筛选及分页语义。 |
 | `statuses show_batch/biz` / 根据微博ID批量获取微博信息 | `weibo_statuses_show_batch_biz` | GET | ids | partial: post.get | single_read_passed | 只验证单条详情；批量 ids、失败项聚合及返回字段尚未实现。 |
 | `statuses statistic/biz` / 返回近90天内发布的授权微博每天的被转发数、被评论数、被喜欢数、被点击数（区分短链、图片、视频点击） | `weibo_statuses_statistic_biz` | GET | id, starttime, endtime | unsupported: 无 | not_tested | 当前浏览器适配器没有等价工具；正式插件尚未实现此操作。 |
-| `statuses update` / 发布一条微博信息 | `weibo_statuses_update` | POST | status | partial: post.create | dry_run_passed | status 映射 text；文本发帖预演通过，未提交。visible、mblog_statement、地理位置等官方参数尚无浏览器等价实现，不得静默丢弃。 |
+| `statuses update` / 发布一条微博信息 | `weibo_statuses_update` | POST | status | partial: post.create | dry_run_passed | v0.1.0 已注册 weibo_statuses_update，仅保存草稿和预演，不能真实发布。status 映射 text。visible、mblog_statement、地理位置等官方参数尚无浏览器等价实现，不得静默丢弃。 |
 | `statuses upload` / 上传图片并发布一条微博 | `weibo_statuses_upload` | POST | pic, status | unsupported: 无 | not_tested | 当前浏览器适配器没有等价工具；正式插件尚未实现此操作。 |
 | `statuses upload_pic` / 上传图片，返回图片id | `weibo_statuses_upload_pic` | POST | pic | unsupported: 无 | not_tested | 当前浏览器适配器没有等价工具；正式插件尚未实现此操作。 |
 | `statuses upload_url_text` / 发布一条带单/多图的微博（需要组合上传图片接口） | `weibo_statuses_upload_url_text` | POST | pic_id, status | unsupported: 无 | not_tested | 当前浏览器适配器没有等价工具；正式插件尚未实现此操作。 |

@@ -1,0 +1,76 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@webmcp-bridge/adapter-weibo':
+        specifier: 0.8.2
+        version: 0.8.2
+      playwright:
+        specifier: 1.58.2
+        version: 1.58.2
+
+packages:
+
+  '@webmcp-bridge/adapter-utils@0.8.2':
+    resolution: {integrity: sha512-0mvp1ocEej1R+jcIEa7FylSRhy0GiZ2DODo+6i5ZZAMK8EeNM9Q7TdGMN1goXBwcHcyaEp/KNcubipxAzpFFAQ==}
+
+  '@webmcp-bridge/adapter-weibo@0.8.2':
+    resolution: {integrity: sha512-t9QN337+TaWqRM5j3/6Gr4mCpNsE7hAuYSKWJ/lJEsFfzWRzaCo8lNGQtKc72Uu2FOjnPvTtP54AVBbnCW7DOw==}
+
+  '@webmcp-bridge/core@0.8.2':
+    resolution: {integrity: sha512-cphO9yPYvo2L+INRNexU2F7tRR/hsbMcDBMflPwMwD8LaW7nmL9OEzjC820xgpN/X8gp4aEWsdaR+Cxk0yESAA==}
+
+  '@webmcp-bridge/playwright@0.8.2':
+    resolution: {integrity: sha512-iW8GI0523LzRW3BGH6BJnJuoqTqg17Fv72yr4EdmefRaUxW7dK8uK4B2PUy0Y+tkkT6WjAHXDx+8sjovKOFOOQ==}
+
+  fsevents@2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+
+  playwright-core@1.58.2:
+    resolution: {integrity: sha512-yZkEtftgwS8CsfYo7nm0KE8jsvm6i/PTgVtB8DL726wNf6H2IMsDuxCpJj59KDaxCtSnrWan2AeDqM7JBaultg==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  playwright@1.58.2:
+    resolution: {integrity: sha512-vA30H8Nvkq/cPBnNw4Q8TWz1EJyqgpuinBcHET0YVJVFldr8JDNiU9LaWAE1KqSkRYazuaBhTpB5ZzShOezQ6A==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+snapshots:
+
+  '@webmcp-bridge/adapter-utils@0.8.2':
+    dependencies:
+      playwright: 1.58.2
+
+  '@webmcp-bridge/adapter-weibo@0.8.2':
+    dependencies:
+      '@webmcp-bridge/adapter-utils': 0.8.2
+      '@webmcp-bridge/core': 0.8.2
+      '@webmcp-bridge/playwright': 0.8.2
+      playwright: 1.58.2
+
+  '@webmcp-bridge/core@0.8.2': {}
+
+  '@webmcp-bridge/playwright@0.8.2':
+    dependencies:
+      '@webmcp-bridge/core': 0.8.2
+      playwright: 1.58.2
+
+  fsevents@2.3.2:
+    optional: true
+
+  playwright-core@1.58.2: {}
+
+  playwright@1.58.2:
+    dependencies:
+      playwright-core: 1.58.2
+    optionalDependencies:
+      fsevents: 2.3.2

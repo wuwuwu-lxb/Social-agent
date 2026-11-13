@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "catalog_version": "457761d16c50510ec276524e9586d4c6193b82572e460d24da4cf3850aed9d03",
-  "scope": "planned_tool_contract_not_runtime_registration",
+  "scope": "tool_contract_with_explicit_registration_state",
   "parameter_policy": "preserve_official_names_reject_unsupported_fields",
   "id_policy": "decimal_string_no_javascript_number",
   "browser_adapter": "@webmcp-bridge/adapter-weibo@0.8.2",
@@ -2417,13 +2417,13 @@
           "description": "微博内容声明，0:无；1:AI生成；2:虚构演绎；3:内容为转载；4:内容为自主创作。根据相关要求，若内容为AI生成，需 mblog_statement=1，没有按要求打标者责任由开发者或作者自己承担。"
         }
       ],
-      "registration": "planned",
+      "registration": "enabled_preview_only",
       "browser_coverage": "partial",
       "browser_tools": [
         "post.create"
       ],
       "verification": "dry_run_passed",
-      "notes": "status 映射 text；文本发帖预演通过，未提交。visible、mblog_statement、地理位置等官方参数尚无浏览器等价实现，不得静默丢弃。"
+      "notes": "v0.1.0 已注册 weibo_statuses_update，仅保存草稿和预演，不能真实发布。status 映射 text。visible、mblog_statement、地理位置等官方参数尚无浏览器等价实现，不得静默丢弃。"
     },
     {
       "official_command": "statuses upload",

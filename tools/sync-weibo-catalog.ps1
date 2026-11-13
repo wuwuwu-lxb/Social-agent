@@ -72,7 +72,7 @@ $taskOperations = @($taskSnapshot.commands | Sort-Object { $_.name } | ForEach-O
         title = $_.title
         required_fields = @($_.required_fields)
         official_flags = @($_.flags)
-        registration = 'planned'
+        registration = $(if ($taskRoute.registration) { $taskRoute.registration } else { 'planned' })
         browser_coverage = $taskRoute.coverage
         browser_tools = @($taskRoute.tools)
         verification = $taskRoute.verification
@@ -82,7 +82,7 @@ $taskOperations = @($taskSnapshot.commands | Sort-Object { $_.name } | ForEach-O
 $taskContract = [ordered]@{
     schema_version = 1
     catalog_version = $taskSnapshot.catalog_version
-    scope = 'planned_tool_contract_not_runtime_registration'
+    scope = 'tool_contract_with_explicit_registration_state'
     parameter_policy = 'preserve_official_names_reject_unsupported_fields'
     id_policy = 'decimal_string_no_javascript_number'
     browser_adapter = "$($taskMapping.adapter_package)@$($taskMapping.adapter_version)"
@@ -98,7 +98,7 @@ $taskLines.Add('')
 $taskLines.Add("官方目录版本：``$($taskSnapshot.catalog_version)``。共 $($taskOperations.Count) 项，CLI $($taskSnapshot.cli_version)。")
 $taskLines.Add('快照时间及完整参数、枚举、说明见 [官方目录 JSON](../specs/weibo/official-cli-catalog.json)；[插件契约 JSON](../specs/weibo/tool-contract.json)保留所有拟用工具名及官方参数。')
 $taskLines.Add('')
-$taskLines.Add('所有工具注册状态均为 planned。下表的已验证表示底层适配器实验结果，不代表正式插件工具已实现。partial 表示有相关能力，参数、权限、分页或返回语义不完全等价；unsupported 表示当前没有实现。GET/POST 为官方方法，不直接代表业务副作用。')
+$taskLines.Add('除 statuses update 已注册为仅草稿预演工具（enabled_preview_only）外，其余工具状态为 planned。下表的浏览器验证结果不等于正式插件已实现。partial 表示参数、权限、分页或返回语义不完全等价；unsupported 表示当前没有实现。GET/POST 为官方方法，不直接代表业务副作用。')
 $taskLines.Add('')
 $taskLines.Add('已验证：read_passed=真实读取；single_read_passed=只验证单条；dry_run_passed=只验证预演；not_tested=尚未验证。')
 $taskLines.Add('')
@@ -129,4 +129,4 @@ if (-not $Offline) {
 }
 [IO.File]::WriteAllText((Join-Path $taskSpecRoot 'tool-contract.json'), ($taskContract | ConvertTo-Json -Depth 40) + "`n", $taskUtf8)
 [IO.File]::WriteAllText((Join-Path $taskRoot 'research/weibo-tool-matrix.md'), ($taskLines -join "`n") + "`n", $taskUtf8)
-Write-Output "Validated and generated $($taskOperations.Count) unique planned tools."
+Write-Output "Validated and generated $($taskOperations.Count) unique tool contracts."
