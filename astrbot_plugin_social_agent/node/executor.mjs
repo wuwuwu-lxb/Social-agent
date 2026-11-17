@@ -2,12 +2,14 @@ import { chromium } from "playwright";
 import { createWeiboAdapter } from "@webmcp-bridge/adapter-weibo";
 import { mkdir, open, unlink } from "node:fs/promises";
 import path from "node:path";
+import {prepareComposer, submitPost} from "./publish.mjs";
 
 let context;
 let adapter;
 let session;
 let lock;
 let lockPath;
+const gate = {allow:false, clickStarted:false, sent:0};
 let result = { ok: false, status: "internal_error", submitted: false };
 try {
   let text = "";
@@ -17,7 +19,7 @@ try {
     if (text.length > 32768) throw new Error("input_too_large");
   }
   const request = JSON.parse(text);
-  if (request.operation !== "statuses.update.preview") {
+  if (!["statuses.update.preview", "statuses.update.publish", "statuses.update.preflight"].includes(request.operation)) {
     throw new Error("unsupported_operation");
   }
   if (typeof request.status !== "string" || !request.status.trim() ||
@@ -39,11 +41,19 @@ try {
   });
   let blocked = 0;
   await context.route("**/*", async route => {
-    const request = route.request();
-    const url = new URL(request.url());
+    const incoming = route.request();
+    const url = new URL(incoming.url());
     if (/(^|\.)weibo\.com$/.test(url.hostname) &&
         /^\/ajax\/(statuses|comments|attitudes)\//.test(url.pathname) &&
-        !["GET", "HEAD", "OPTIONS"].includes(request.method())) {
+        !["GET", "HEAD", "OPTIONS"].includes(incoming.method())) {
+      let fields;
+      try {fields=incoming.postDataJSON();} catch {fields=null;}
+      if (gate.allow && gate.sent===0 && incoming.method()==="POST" &&
+          url.pathname==="/ajax/statuses/update" && fields?.status===request.status) {
+        gate.sent++;
+        await route.continue();
+        return;
+      }
       blocked++;
       await route.abort();
     } else {
@@ -64,6 +74,13 @@ try {
     !/扫码登录|登录注册更精彩/.test(document.body?.innerText || "") &&
     Boolean(document.querySelector("textarea[placeholder*='新鲜事'], textarea[placeholder*='分享']")));
   if (!authenticated) throw new Error("auth_required");
+  if (request.operation === "statuses.update.publish") {
+    result = await submitPost(context, page, request.status, gate);
+  } else if (request.operation === "statuses.update.preflight") {
+    const prepared=await prepareComposer(page,request.status);
+    result={ok:true,status:"preflight_ready",submitted:false,ai_declaration_selected:prepared.ai_declaration_selected,
+      visibility:prepared.visibility,authenticated:true,blocked_mutations:blocked};
+  } else {
   const preview = await adapter.callTool({
     name: "post.create",
     input: { text: request.status, dryRun: true },
@@ -80,9 +97,11 @@ try {
     blocked_mutations: blocked,
     adapter_error: preview?.error?.code || null,
   };
+  }
 } catch (error) {
   const known = new Set(["validation_error", "unsupported_operation", "busy", "auth_required", "input_too_large"]);
-  result = { ok: false, status: known.has(error.message) ? error.message : "browser_error", submitted: false };
+  result = { ok: false, status: gate.clickStarted ? "unknown" : known.has(error.message) ? error.message : "browser_error",
+    submitted: gate.clickStarted ? null : false };
 } finally {
   if (session && adapter) await adapter.stop(session).catch(() => {});
   if (context) await context.close().catch(() => {});

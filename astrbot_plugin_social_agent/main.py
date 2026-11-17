@@ -46,12 +46,15 @@ class SocialAgentPlugin(Star):
 
     @filter.llm_tool(name="weibo_statuses_update")
     async def weibo_statuses_update(self, event: AstrMessageEvent, status: str) -> str:
-        """Prepare a Weibo text draft and run a browser preview. NEVER publishes.
+        """Prepare a Weibo text draft and preview. This tool never submits it.
 
         Use when the user asks to draft or publish a Weibo post. This version only
         saves a draft and checks the composer without clicking Send. Tell the user
         the task ID and preview result and explicitly say it has NOT been published.
-        Actual publishing and confirmation are unavailable in this version.
+        When publish_available is true, show the exact draft, public visibility,
+        the AI-generated declaration, task ID and confirmation_command to the user.
+        The user must personally send that command to publish. Do not confirm on
+        their behalf or claim success based on a preview.
         A draft is saved before browser access. If draft_saved is true but ok is
         false, report that the draft exists and the browser preview failed.
         Only plain text of 1-140 characters is supported; no visibility, media or
@@ -68,7 +71,7 @@ class SocialAgentPlugin(Star):
         if result.get("ok"):
             message = (
                 f"微博草稿预演通过，尚未发布。\n任务：{result['task_id']}\n"
-                f"文案：{result['content']}\n当前版本暂不支持确认发布。"
+                f"文案：{result['content']}"
             )
         else:
             message = f"未发布。草稿预演未通过：{result['status']}"
@@ -76,6 +79,28 @@ class SocialAgentPlugin(Star):
                 message += f"\n草稿已保存，浏览器预演失败不会丢失文案。\n文案：{result['content']}"
             if result.get("task_id"):
                 message += f"\n任务：{result['task_id']}"
+        if result.get("publish_available"):
+            message += ("\n发布设置：公开，内容由AI生成。\n确认以上文案后，由你发送：\n"
+                        f"{result['confirmation_command']}")
+        yield event.plain_result(message)
+
+    @filter.command("weibo_confirm")
+    async def weibo_confirm(self, event: AstrMessageEvent, task_id: str):
+        identity = self._identity(event)
+        if identity is None or self.service is None:
+            yield event.plain_result("无权发布或插件尚未初始化。")
+            return
+        result = await self.service.confirm(*identity, task_id)
+        if result.get("status") == "succeeded":
+            message = f"微博已发布，正文读回核验通过。\n任务：{task_id}\n{result['url']}"
+        elif result.get("status") in {"unknown", "executing"}:
+            message = f"任务：{task_id}\n发布结果未知或仍在执行，请先在微博核对，不要重新创建同文任务发布。"
+            if result.get("url"):
+                message += f"\n待核对链接：{result['url']}"
+        else:
+            message = f"发布未成功：{result.get('reason', result['status'])}\n任务：{task_id}"
+        if result.get("reused"):
+            message += "\n本次仅返回已有结果，没有再次提交。"
         yield event.plain_result(message)
 
     @filter.command("weibo_drafts")
@@ -88,8 +113,9 @@ class SocialAgentPlugin(Star):
         if not rows:
             yield event.plain_result("当前会话还没有草稿。")
             return
-        message = "最近 5 条草稿（均未发布）：\n" + "\n\n".join(
-            f"{row['task_id']}\n{row['content']}\n预演状态：{row['status']}" for row in rows
+        message = "最近 5 条任务：\n" + "\n\n".join(
+            f"{row['task_id']}\n{row['content']}\n预演状态：{row['status']}\n"
+            f"发布状态：{row.get('publication', {}).get('status', '尚未提交')}" for row in rows
         )
         yield event.plain_result(message)
 

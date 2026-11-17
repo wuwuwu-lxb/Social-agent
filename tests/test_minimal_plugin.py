@@ -65,6 +65,7 @@ async def main():
     metadata = next(item for item in star_registry if item.name == plugin_name)
     assert metadata.star_cls is not None
     handlers = star_handlers_registry.get_handlers_by_module_name(metadata.module_path)
+    assert any(item.handler_name == "weibo_confirm" for item in handlers)
     draft_handler = next(item for item in handlers if item.handler_name == "weibo_draft")
     command_filter = next(item for item in draft_handler.event_filters if isinstance(item, CommandFilter))
     assert command_filter.validate_and_convert_params(
@@ -111,6 +112,23 @@ async def main():
     denied_listing = [item async for item in plugin.weibo_drafts(denied_event)]
     assert failed["task_id"] not in denied_listing[0]
     plugin.service.runner = runner
+    plugin.config["allow_publish"] = True
+
+    class FakePublisher:
+        calls = 0
+
+        async def publish(self, status):
+            self.calls += 1
+            return {"ok": True, "status": "succeeded", "submitted": True, "verified": True,
+                    "post_id": "1234567890123456", "url": "https://weibo.com/detail/1234567890123456"}
+
+    publisher = FakePublisher()
+    plugin.service.runner = publisher
+    confirmed = [item async for item in plugin.weibo_confirm(event, failed["task_id"])]
+    repeated = [item async for item in plugin.weibo_confirm(event, failed["task_id"])]
+    assert "正文读回核验通过" in confirmed[0]
+    assert "没有再次提交" in repeated[0] and publisher.calls == 1
+    plugin.service.runner = runner
     print(json.dumps({
         "plugin_manager_load": "passed",
         "registered_tool_call": "passed",
@@ -119,6 +137,7 @@ async def main():
         "task_query": "passed",
         "draft_survives_browser_failure": "passed",
         "draft_list_and_isolation": "passed",
+        "confirmation_command_with_fake_publisher": "passed",
         "preview": result,
         "scope": "isolated_plugin_manager_and_registry_not_live_wechat",
     }))

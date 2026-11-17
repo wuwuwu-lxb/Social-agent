@@ -14,7 +14,7 @@
       "coverage": "partial",
       "tools": ["post.create"],
       "verification": "dry_run_passed",
-      "notes": "v0.1.0 已注册 weibo_statuses_update，仅保存草稿和预演，不能真实发布。status 映射 text。visible、mblog_statement、地理位置等官方参数尚无浏览器等价实现，不得静默丢弃。"
+      "notes": "v0.2.0 模型工具仍只准备草稿。本人通过 /weibo_confirm 可执行真实公开文本发布，含页面 AI 声明选择、单次提交及正文读回实现；真实提交首次平台验收待做。发布前检查已通过，发布链路已通过拦截夹具测试。status 映射 text，暂不暴露 visible、mblog_statement、地理位置等官方参数。"
     },
     "comments create": {
       "coverage": "partial",

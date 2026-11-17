@@ -13,5 +13,10 @@
     "description": "Allowed chat sender IDs; empty permits private-chat draft preview only. Group chats are disabled.",
     "type": "list",
     "default": []
+  },
+  "allow_publish": {
+    "description": "Enable real public text posts after the owning user sends /weibo_confirm. Requires a non-empty allowed_user_ids list. Posts select the AI-generated declaration.",
+    "type": "bool",
+    "default": false
   }
 }

@@ -9,7 +9,7 @@ $taskDestination = Join-Path $AstrBotRoot "data/plugins/$taskName"
 $taskFiles = @(
     'main.py', 'metadata.yaml', '_conf_schema.json', 'README.md',
     'social_agent/__init__.py', 'social_agent/service.py',
-    'node/package.json', 'node/pnpm-lock.yaml', 'node/executor.mjs'
+    'node/package.json', 'node/pnpm-lock.yaml', 'node/executor.mjs', 'node/publish.mjs'
 )
 $taskNodeCommand = Get-Command node -CommandType Application -ErrorAction SilentlyContinue
 $taskNode = if ($taskNodeCommand) { $taskNodeCommand.Source } else {
@@ -44,7 +44,7 @@ if (-not (Test-Path -LiteralPath $taskConfig)) {
 $taskPackages = Join-Path $taskProject 'runtime/packages'
 New-Item -ItemType Directory -Path $taskPackages -Force | Out-Null
 Add-Type -AssemblyName System.IO.Compression.FileSystem
-$taskZipPath = Join-Path $taskPackages "$taskName-v0.1.1.zip"
+$taskZipPath = Join-Path $taskPackages "$taskName-v0.2.0.zip"
 $taskZipStream = [IO.File]::Open($taskZipPath, [IO.FileMode]::Create)
 $taskArchive = [IO.Compression.ZipArchive]::new($taskZipStream, [IO.Compression.ZipArchiveMode]::Create)
 try {

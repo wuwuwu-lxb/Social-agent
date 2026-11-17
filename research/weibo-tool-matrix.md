@@ -65,7 +65,7 @@
 | `statuses repost_timeline/biz` / 获取当前登录用户发布的一条原创微博的最新转发微博 | `weibo_statuses_repost_timeline_biz` | GET | id | partial: post.repost.list | not_tested | 不保证复现官方 biz 的范围、筛选及分页语义。 |
 | `statuses show_batch/biz` / 根据微博ID批量获取微博信息 | `weibo_statuses_show_batch_biz` | GET | ids | partial: post.get | single_read_passed | 只验证单条详情；批量 ids、失败项聚合及返回字段尚未实现。 |
 | `statuses statistic/biz` / 返回近90天内发布的授权微博每天的被转发数、被评论数、被喜欢数、被点击数（区分短链、图片、视频点击） | `weibo_statuses_statistic_biz` | GET | id, starttime, endtime | unsupported: 无 | not_tested | 当前浏览器适配器没有等价工具；正式插件尚未实现此操作。 |
-| `statuses update` / 发布一条微博信息 | `weibo_statuses_update` | POST | status | partial: post.create | dry_run_passed | v0.1.0 已注册 weibo_statuses_update，仅保存草稿和预演，不能真实发布。status 映射 text。visible、mblog_statement、地理位置等官方参数尚无浏览器等价实现，不得静默丢弃。 |
+| `statuses update` / 发布一条微博信息 | `weibo_statuses_update` | POST | status | partial: post.create | dry_run_passed | v0.2.0 模型工具仍只准备草稿。本人通过 /weibo_confirm 可执行真实公开文本发布，含页面 AI 声明选择、单次提交及正文读回实现；真实提交首次平台验收待做。发布前检查已通过，发布链路已通过拦截夹具测试。status 映射 text，暂不暴露 visible、mblog_statement、地理位置等官方参数。 |
 | `statuses upload` / 上传图片并发布一条微博 | `weibo_statuses_upload` | POST | pic, status | unsupported: 无 | not_tested | 当前浏览器适配器没有等价工具；正式插件尚未实现此操作。 |
 | `statuses upload_pic` / 上传图片，返回图片id | `weibo_statuses_upload_pic` | POST | pic | unsupported: 无 | not_tested | 当前浏览器适配器没有等价工具；正式插件尚未实现此操作。 |
 | `statuses upload_url_text` / 发布一条带单/多图的微博（需要组合上传图片接口） | `weibo_statuses_upload_url_text` | POST | pic_id, status | unsupported: 无 | not_tested | 当前浏览器适配器没有等价工具；正式插件尚未实现此操作。 |
