@@ -11,8 +11,9 @@ let lockPath;
 let result = { ok: false, status: "internal_error", submitted: false };
 try {
   let text = "";
+  process.stdin.setEncoding("utf8");
   for await (const chunk of process.stdin) {
-    text += chunk.toString("utf8");
+    text += chunk;
     if (text.length > 32768) throw new Error("input_too_large");
   }
   const request = JSON.parse(text);

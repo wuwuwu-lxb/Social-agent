@@ -39,6 +39,21 @@ class DraftStore:
             return None
         return {"task_id": row[0], "content": row[1], **json.loads(row[2])}
 
+    def update_result(self, task_id: str, owner: str, session: str, result: dict):
+        with sqlite3.connect(self.path) as db:
+            db.execute(
+                "UPDATE drafts SET result=? WHERE id=? AND owner=? AND session=?",
+                (json.dumps(result, ensure_ascii=False), task_id, owner, session),
+            )
+
+    def recent(self, owner: str, session: str) -> list[dict]:
+        with sqlite3.connect(self.path) as db:
+            rows = db.execute(
+                "SELECT id, content, result FROM drafts WHERE owner=? AND session=? "
+                "ORDER BY created_at DESC, rowid DESC LIMIT 5", (owner, session),
+            ).fetchall()
+        return [{"task_id": row[0], "content": row[1], **json.loads(row[2])} for row in rows]
+
 
 class BrowserRunner:
     def __init__(self, package: Path, config: dict):
@@ -121,8 +136,15 @@ class DraftService:
         if not isinstance(status, str) or not status.strip() or len(status) > 140:
             return {"ok": False, "status": "validation_error",
                     "message": "This first version accepts 1-140 characters of text."}
-        result = await self.runner.preview(status)
-        result.update(operation="statuses update", backend="browser",
-                      submitted=False, publish_available=False)
+        result = {"ok": False, "status": "preview_pending", "draft_saved": True,
+                  "operation": "statuses update", "backend": "browser",
+                  "submitted": False, "publish_available": False}
         task_id = await asyncio.to_thread(self.store.save, owner, session, status, result)
+        try:
+            preview = await self.runner.preview(status)
+        except Exception:
+            preview = {"ok": False, "status": "browser_error"}
+        result.update(preview)
+        result.update(draft_saved=True, submitted=False, publish_available=False)
+        await asyncio.to_thread(self.store.update_result, task_id, owner, session, result)
         return {"task_id": task_id, "content": status, **result}

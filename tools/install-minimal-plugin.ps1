@@ -44,7 +44,7 @@ if (-not (Test-Path -LiteralPath $taskConfig)) {
 $taskPackages = Join-Path $taskProject 'runtime/packages'
 New-Item -ItemType Directory -Path $taskPackages -Force | Out-Null
 Add-Type -AssemblyName System.IO.Compression.FileSystem
-$taskZipPath = Join-Path $taskPackages "$taskName-v0.1.0.zip"
+$taskZipPath = Join-Path $taskPackages "$taskName-v0.1.1.zip"
 $taskZipStream = [IO.File]::Open($taskZipPath, [IO.FileMode]::Create)
 $taskArchive = [IO.Compression.ZipArchive]::new($taskZipStream, [IO.Compression.ZipArchiveMode]::Create)
 try {

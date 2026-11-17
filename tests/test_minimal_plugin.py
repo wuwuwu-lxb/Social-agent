@@ -92,12 +92,33 @@ async def main():
     assert plugin.service.store.get(result["task_id"], event.get_sender_id(), "other-session") is None
     replies = [item async for item in plugin.weibo_status(event, result["task_id"])]
     assert json.loads(replies[0])["task_id"] == result["task_id"]
+    runner = plugin.service.runner
+
+    class FailedBrowser:
+        async def preview(self, status):
+            raise OSError("simulated browser startup failure")
+
+    plugin.service.runner = FailedBrowser()
+    failed = json.loads(await tool.handler(event, status="浏览器故障时仍保存这条草稿。"))
+    assert failed["draft_saved"] is True and failed["ok"] is False
+    assert failed["status"] == "browser_error" and failed["submitted"] is False
+    recent = plugin.service.store.recent(event.get_sender_id(), event.unified_msg_origin)
+    assert recent[0]["task_id"] == failed["task_id"]
+    assert plugin.service.store.recent("other-user", event.unified_msg_origin) == []
+    assert plugin.service.store.recent(event.get_sender_id(), "other-session") == []
+    listing = [item async for item in plugin.weibo_drafts(event)]
+    assert failed["task_id"] in listing[0] and failed["content"] in listing[0]
+    denied_listing = [item async for item in plugin.weibo_drafts(denied_event)]
+    assert failed["task_id"] not in denied_listing[0]
+    plugin.service.runner = runner
     print(json.dumps({
         "plugin_manager_load": "passed",
         "registered_tool_call": "passed",
         "parameter_and_owner_checks": "passed",
         "command_text_parsing": "passed",
         "task_query": "passed",
+        "draft_survives_browser_failure": "passed",
+        "draft_list_and_isolation": "passed",
         "preview": result,
         "scope": "isolated_plugin_manager_and_registry_not_live_wechat",
     }))

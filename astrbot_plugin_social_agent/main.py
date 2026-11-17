@@ -52,6 +52,8 @@ class SocialAgentPlugin(Star):
         saves a draft and checks the composer without clicking Send. Tell the user
         the task ID and preview result and explicitly say it has NOT been published.
         Actual publishing and confirmation are unavailable in this version.
+        A draft is saved before browser access. If draft_saved is true but ok is
+        false, report that the draft exists and the browser preview failed.
         Only plain text of 1-140 characters is supported; no visibility, media or
         other official CLI options are supported.
 
@@ -70,8 +72,25 @@ class SocialAgentPlugin(Star):
             )
         else:
             message = f"未发布。草稿预演未通过：{result['status']}"
+            if result.get("draft_saved"):
+                message += f"\n草稿已保存，浏览器预演失败不会丢失文案。\n文案：{result['content']}"
             if result.get("task_id"):
                 message += f"\n任务：{result['task_id']}"
+        yield event.plain_result(message)
+
+    @filter.command("weibo_drafts")
+    async def weibo_drafts(self, event: AstrMessageEvent):
+        identity = self._identity(event)
+        if identity is None or self.service is None:
+            yield event.plain_result("无权查询或插件尚未初始化。")
+            return
+        rows = await asyncio.to_thread(self.service.store.recent, *identity)
+        if not rows:
+            yield event.plain_result("当前会话还没有草稿。")
+            return
+        message = "最近 5 条草稿（均未发布）：\n" + "\n\n".join(
+            f"{row['task_id']}\n{row['content']}\n预演状态：{row['status']}" for row in rows
+        )
         yield event.plain_result(message)
 
     @filter.command("weibo_status")

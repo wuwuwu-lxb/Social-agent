@@ -1,6 +1,6 @@
 name: astrbot_plugin_social_agent
 display_name: Social Agent
 desc: Prepare a Weibo text draft and verify it with a browser dry-run. Never publishes.
-version: v0.1.0
+version: v0.1.1
 author: Social-agent
 astrbot_version: ">=4.29.4"
