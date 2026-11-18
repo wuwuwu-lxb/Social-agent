@@ -2,22 +2,36 @@ export function normalized(value) {
   return String(value).replace(/\r\n?/g, "\n").trim();
 }
 
-export function requestHasStatus(body, contentType, expected) {
+export function requestHasExactText(body, contentType, expected) {
   if (typeof body !== "string") return false;
   const type = String(contentType || "").toLowerCase();
+  const target = normalized(expected);
   if (type.includes("application/json")) {
     try {
-      if (JSON.parse(body)?.status === expected) return true;
+      const visit = value => {
+        if (typeof value === "string") return normalized(value) === target;
+        if (Array.isArray(value)) return value.some(visit);
+        if (value && typeof value === "object") return Object.values(value).some(visit);
+        return false;
+      };
+      if (visit(JSON.parse(body))) return true;
     } catch {}
   }
   if (type.includes("application/x-www-form-urlencoded")) {
     try {
-      if (new URLSearchParams(body).get("status") === expected) return true;
+      if ([...new URLSearchParams(body).values()].some(value => normalized(value) === target)) return true;
     } catch {}
   }
   if (type.includes("multipart/form-data")) {
-    const match = body.match(/name="status"(?:;[^\r\n]*)?\r?\n(?:Content-Type:[^\r\n]*\r?\n)?\r?\n([\s\S]*?)\r?\n--/i);
-    return Boolean(match && normalized(match[1]) === normalized(expected));
+    const boundary = type.match(/boundary=(?:"([^"]+)"|([^;]+))/i);
+    const delimiter = boundary?.[1] || boundary?.[2]?.trim();
+    if (!delimiter) return false;
+    return body.split(`--${delimiter}`).some(part => {
+      const separator = part.indexOf("\r\n\r\n");
+      if (separator < 0 || !/content-disposition:\s*form-data/i.test(part.slice(0, separator))) return false;
+      const value = part.slice(separator + 4).replace(/\r?\n--?\s*$/, "").replace(/\r?\n$/, "");
+      return normalized(value) === target;
+    });
   }
   return false;
 }

@@ -2,7 +2,7 @@ import { chromium } from "playwright";
 import { createWeiboAdapter } from "@webmcp-bridge/adapter-weibo";
 import { mkdir, open, unlink } from "node:fs/promises";
 import path from "node:path";
-import {prepareComposer, requestHasStatus, submitPost} from "./publish.mjs";
+import {prepareComposer, requestHasExactText, submitPost} from "./publish.mjs";
 
 let context;
 let adapter;
@@ -48,11 +48,10 @@ try {
     const url = new URL(incoming.url());
     const weiboHost = /(^|\.)weibo\.(com|cn)$/.test(url.hostname);
     if (weiboHost && !["GET", "HEAD", "OPTIONS"].includes(incoming.method())) {
-      let fields;
-      try {fields=incoming.postDataJSON();} catch {fields=null;}
-      const exactStatus = (typeof fields?.status === "string" &&
-        fields.status.replace(/\r\n?/g, "\n").trim() === request.status.replace(/\r\n?/g, "\n").trim()) ||
-        requestHasStatus(incoming.postData() || "", incoming.headers()["content-type"], request.status);
+      const exactStatus = requestHasExactText(
+        incoming.postDataBuffer()?.toString("utf8") || "",
+        incoming.headers()["content-type"], request.status,
+      );
       if (gate.allow && gate.sent===0 && incoming.method()==="POST" &&
           url.pathname==="/ajax/statuses/update" && exactStatus && url.hostname==="weibo.com") {
         gate.sent++;

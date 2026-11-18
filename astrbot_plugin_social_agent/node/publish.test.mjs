@@ -1,7 +1,7 @@
 import {test} from "node:test";
 import assert from "node:assert/strict";
 import {chromium} from "playwright";
-import {prepareComposer,requestHasStatus,submitPost} from "./publish.mjs";
+import {prepareComposer,requestHasExactText,submitPost} from "./publish.mjs";
 
 const id="1234567890123456";
 const html=`<div><textarea placeholder="有什么新鲜事想分享给大家？"></textarea>
@@ -9,14 +9,14 @@ const html=`<div><textarea placeholder="有什么新鲜事想分享给大家？"
 <div id="options" hidden><button onclick="document.querySelector('.woo-pop-ctrl').textContent='内容由AI生成';this.parentElement.hidden=true">内容由AI生成</button></div>
 <span title="公开">公开</span><button onclick="fetch('/ajax/statuses/update',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({status:document.querySelector('textarea').value})})">发送</button></div>`;
 
-test("submission request matching supports JSON and encoded form bodies",()=>{
+test("submission matching finds the exact text in JSON and encoded form fields",()=>{
   const text="准确匹配的测试文案";
-  assert.equal(requestHasStatus(JSON.stringify({status:text}),"application/json",text),true);
-  assert.equal(requestHasStatus(new URLSearchParams({status:text}).toString(),
+  assert.equal(requestHasExactText(JSON.stringify({status:text}),"application/json",text),true);
+  assert.equal(requestHasExactText(new URLSearchParams({content:text}).toString(),
     "application/x-www-form-urlencoded",text),true);
-  const multipart=`------boundary\r\nContent-Disposition: form-data; name="status"\r\n\r\n${text}\r\n------boundary--`;
-  assert.equal(requestHasStatus(multipart,"multipart/form-data; boundary=----boundary",text),true);
-  assert.equal(requestHasStatus(new URLSearchParams({status:"other"}).toString(),
+  const multipart=`------boundary\r\nContent-Disposition: form-data; name="content"\r\n\r\n${text}\r\n------boundary--`;
+  assert.equal(requestHasExactText(multipart,"multipart/form-data; boundary=----boundary",text),true);
+  assert.equal(requestHasExactText(new URLSearchParams({status:"other"}).toString(),
     "application/x-www-form-urlencoded",text),false);
 });
 
