@@ -2,6 +2,26 @@ export function normalized(value) {
   return String(value).replace(/\r\n?/g, "\n").trim();
 }
 
+export function requestHasStatus(body, contentType, expected) {
+  if (typeof body !== "string") return false;
+  const type = String(contentType || "").toLowerCase();
+  if (type.includes("application/json")) {
+    try {
+      if (JSON.parse(body)?.status === expected) return true;
+    } catch {}
+  }
+  if (type.includes("application/x-www-form-urlencoded")) {
+    try {
+      if (new URLSearchParams(body).get("status") === expected) return true;
+    } catch {}
+  }
+  if (type.includes("multipart/form-data")) {
+    const match = body.match(/name="status"(?:;[^\r\n]*)?\r?\n(?:Content-Type:[^\r\n]*\r?\n)?\r?\n([\s\S]*?)\r?\n--/i);
+    return Boolean(match && normalized(match[1]) === normalized(expected));
+  }
+  return false;
+}
+
 export async function prepareComposer(page, text) {
   const input = page.locator("textarea[placeholder*='新鲜事'],textarea[placeholder*='分享']");
   if (await input.count() !== 1) throw new Error("composer_not_unique");
@@ -49,24 +69,48 @@ export async function submitPost(context, page, text, gate) {
   const responsePromise=page.waitForResponse(r=>{
     const u=new URL(r.url());
     return /(^|\.)weibo\.com$/.test(u.hostname) && u.pathname==="/ajax/statuses/update" && r.request().method()==="POST";
-  }, {timeout:22000}).catch(()=>null);
+  }, {timeout:gate.responseTimeoutMs ?? 22000}).catch(()=>null);
   // The executor route permits at most one matching UI-generated POST.
   gate.allow=true;
   gate.clickStarted=true;
   await prepared.send.click({timeout:8000});
   const response=await responsePromise;
-  if (!response) return {ok:false,status:"unknown",submitted:null,reason:"submission_response_missing"};
+  const trace = {
+    request_observed: gate.sent > 0,
+    observed_write_requests: gate.observedWrites || 0,
+    observed_update_requests: gate.observedUpdates || 0,
+    blocked_update_requests: gate.blockedUpdate || 0,
+    blocked_mutations: gate.blocked || 0,
+    request_target: gate.lastUpdateTarget || null,
+    last_write_target: gate.lastWriteTarget || null,
+  };
+  if (!response) {
+    if (gate.sent === 0) {
+      if (!gate.blockedUpdate && gate.observedWrites) {
+        return {ok:false,status:"unknown",submitted:null,
+          reason:"unexpected_write_requests_only",...trace};
+      }
+      return {
+        ok:false,status:"failed",submitted:false,
+        reason:gate.blockedUpdate ? "submission_blocked_by_safety_gate" : "submission_request_not_observed",
+        ...trace,
+      };
+    }
+    return {ok:false,status:"unknown",submitted:null,reason:"submission_response_missing",...trace};
+  }
   let payload;
-  try {payload=await response.json();} catch {return {ok:false,status:"unknown",submitted:null,reason:"invalid_submission_response"};}
+  try {payload=await response.json();} catch {
+    return {ok:false,status:"unknown",submitted:null,reason:"invalid_submission_response",...trace};
+  }
   if (payload.ok!==1 && payload.ok!=="1") {
     return {ok:false,status:"failed",submitted:false,reason:"platform_rejected",
-      platform_error_code:String(payload.error_code || payload.errno || "unknown")};
+      platform_error_code:String(payload.error_code || payload.errno || "unknown"),...trace};
   }
   const post=payload.data || {};
   const id=typeof post.idstr==="string" ? post.idstr : typeof post.mid==="string" ? post.mid : null;
-  if (!id || !/^\d+$/.test(id)) return {ok:false,status:"unknown",submitted:true,reason:"post_id_missing"};
+  if (!id || !/^\d+$/.test(id)) return {ok:false,status:"unknown",submitted:true,reason:"post_id_missing",...trace};
   let verification;
   try {verification=await verifyPost(context,id,text);} catch {verification={verified:false,post_id:id,url:`https://weibo.com/detail/${id}`};}
   return {ok:verification.verified,status:verification.verified?"succeeded":"unknown",submitted:true,
-    ai_declaration_selected:prepared.ai_declaration_selected,visibility:prepared.visibility,...verification};
+    ai_declaration_selected:prepared.ai_declaration_selected,visibility:prepared.visibility,...verification,...trace};
 }

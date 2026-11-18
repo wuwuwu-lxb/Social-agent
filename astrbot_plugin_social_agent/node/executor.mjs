@@ -2,14 +2,17 @@ import { chromium } from "playwright";
 import { createWeiboAdapter } from "@webmcp-bridge/adapter-weibo";
 import { mkdir, open, unlink } from "node:fs/promises";
 import path from "node:path";
-import {prepareComposer, submitPost} from "./publish.mjs";
+import {prepareComposer, requestHasStatus, submitPost} from "./publish.mjs";
 
 let context;
 let adapter;
 let session;
 let lock;
 let lockPath;
-const gate = {allow:false, clickStarted:false, sent:0};
+const gate = {
+  allow:false, clickStarted:false, sent:0, observedWrites:0, observedUpdates:0,
+  blocked:0, blockedUpdate:0, lastUpdateTarget:null, lastWriteTarget:null,
+};
 let result = { ok: false, status: "internal_error", submitted: false };
 try {
   let text = "";
@@ -43,24 +46,45 @@ try {
   await context.route("**/*", async route => {
     const incoming = route.request();
     const url = new URL(incoming.url());
-    if (/(^|\.)weibo\.com$/.test(url.hostname) &&
-        /^\/ajax\/(statuses|comments|attitudes)\//.test(url.pathname) &&
-        !["GET", "HEAD", "OPTIONS"].includes(incoming.method())) {
+    const weiboHost = /(^|\.)weibo\.(com|cn)$/.test(url.hostname);
+    if (weiboHost && !["GET", "HEAD", "OPTIONS"].includes(incoming.method())) {
       let fields;
       try {fields=incoming.postDataJSON();} catch {fields=null;}
+      const exactStatus = (typeof fields?.status === "string" &&
+        fields.status.replace(/\r\n?/g, "\n").trim() === request.status.replace(/\r\n?/g, "\n").trim()) ||
+        requestHasStatus(incoming.postData() || "", incoming.headers()["content-type"], request.status);
       if (gate.allow && gate.sent===0 && incoming.method()==="POST" &&
-          url.pathname==="/ajax/statuses/update" && fields?.status===request.status) {
+          url.pathname==="/ajax/statuses/update" && exactStatus && url.hostname==="weibo.com") {
         gate.sent++;
+        gate.lastUpdateTarget = `${url.hostname}${url.pathname}`;
         await route.continue();
         return;
       }
       blocked++;
+      gate.blocked++;
+      gate.lastWriteTarget = `${url.hostname}${url.pathname}`;
+      if (url.pathname==="/ajax/statuses/update") {
+        gate.blockedUpdate++;
+        gate.lastUpdateTarget = `${url.hostname}${url.pathname}`;
+      }
       await route.abort();
     } else {
       await route.continue();
     }
   });
   const page = context.pages()[0] || await context.newPage();
+  page.on("request", incoming => {
+    const url = new URL(incoming.url());
+    const weiboHost = /(^|\.)weibo\.(com|cn)$/.test(url.hostname);
+    if (weiboHost && !["GET", "HEAD", "OPTIONS"].includes(incoming.method())) {
+      gate.observedWrites++;
+      gate.lastWriteTarget = `${url.hostname}${url.pathname}`;
+      if (url.pathname==="/ajax/statuses/update") {
+        gate.observedUpdates++;
+        gate.lastUpdateTarget = `${url.hostname}${url.pathname}`;
+      }
+    }
+  });
   adapter = createWeiboAdapter();
   session = { page };
   await adapter.start(session);
@@ -100,8 +124,19 @@ try {
   }
 } catch (error) {
   const known = new Set(["validation_error", "unsupported_operation", "busy", "auth_required", "input_too_large"]);
-  result = { ok: false, status: gate.clickStarted ? "unknown" : known.has(error.message) ? error.message : "browser_error",
-    submitted: gate.clickStarted ? null : false };
+  const requestObserved = gate.sent > 0;
+  result = { ok: false,
+    status: gate.clickStarted && requestObserved ? "unknown" :
+      gate.clickStarted ? "failed" : known.has(error.message) ? error.message : "browser_error",
+    submitted: requestObserved ? null : false,
+    reason: error.message || "browser_error",
+    request_observed: gate.sent > 0,
+    blocked_update_requests: gate.blockedUpdate,
+    blocked_mutations: gate.blocked,
+    request_target: gate.lastUpdateTarget,
+    observed_write_requests: gate.observedWrites,
+    observed_update_requests: gate.observedUpdates,
+    last_write_target: gate.lastWriteTarget };
 } finally {
   if (session && adapter) await adapter.stop(session).catch(() => {});
   if (context) await context.close().catch(() => {});
